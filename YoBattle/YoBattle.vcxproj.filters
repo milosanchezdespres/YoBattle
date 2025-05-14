@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ECS\GameLoop\GameLoop.cpp">
+      <Filter>ECS\GameLoop</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\YoBattle\YoBattle.cpp">
+      <Filter>Game\YoBattle</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="assets">
+      <UniqueIdentifier>{3f7116bc-317c-42ef-b283-abea4cb64ae7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{c1ac594e-c40e-4f9b-82d6-ed773d0ed12f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS\GameLoop">
+      <UniqueIdentifier>{be13dd11-11a7-4d67-b9de-12090c8e6bc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{fc8141da-d646-4b55-9dce-ab60912727ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\YoBattle">
+      <UniqueIdentifier>{8af6101b-d6ed-47e9-9212-ed4584bb3b92}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\spirikat.png">
+      <Filter>assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ECS\ECS.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\GameLoop\GameLoop.h">
+      <Filter>ECS\GameLoop</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\YoBattle\YoBattle.h">
+      <Filter>Game\YoBattle</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
