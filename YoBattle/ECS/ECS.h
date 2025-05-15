@@ -55,14 +55,45 @@ namespace ECS
     };
 
     template<typename T>
+    struct ComponentEntry {
+        Entity* owner;
+        T* component;
+    };
+
+    template<typename T>
     struct system
     {
-        vector<T*> components;
-
-        void upload(T* component) { components.push_back(component); }
+        vector<ComponentEntry<T>> components;
+        unordered_map<T*, Entity*> componentToEntity;
 
         virtual ~system() = default;
+
+        void upload(T* component, Entity* entity)
+        {
+            components.push_back({ entity, component });
+            componentToEntity[component] = entity;
+        }
+
+        Entity* owner(T* component) { return componentToEntity[component]; }
+
         virtual void update(float deltaTime) {}
+    };
+
+    struct Sprite : public Component
+    {
+        float x, y, scale;
+        int size, tile_index;
+        string texture;
+
+        Sprite(string _texture, float _x, float _y, float _scale, int _size, int _tile_index)
+        {
+            x = _x;
+            y = _y;
+            scale = _scale;
+            size = _size;
+            tile_index = _tile_index;
+            texture = _texture;
+        }
     };
 
     struct Axis : public Component
@@ -78,35 +109,16 @@ namespace ECS
         }
     };
 
-    struct Sprite : public Component
-    {
-        float x, y, scale;
-        int size, tile_index;
-        string texture;
-        Axis* axis;
-
-        Sprite(string _texture, float _x, float _y, float _scale, int _size, int _tile_index)
-        {
-            axis = new Axis(0);
-            x = _x;
-            y = _y;
-            scale = _scale;
-            size = _size;
-            tile_index = _tile_index;
-            texture = _texture;
-        }
-    };
-
     struct SpriteSystem : public system<Sprite>
     {
         SpriteSystem() { }
         
         void update(float deltaTime) override
         {
-            for (auto* sprite : components)
+            for (auto& sprite : components)
             {
-                sprite->x = sprite->x + (sprite->axis->x * sprite->axis->speed * deltaTime);
-                sprite->y = sprite->y + (sprite->axis->y * sprite->axis->speed * deltaTime);
+                sprite.component->x = sprite.component->x + (owner(sprite.component)->component<Axis>()->x * owner(sprite.component)->component<Axis>()->speed * deltaTime);
+                sprite.component->y = sprite.component->y + (owner(sprite.component)->component<Axis>()->y * owner(sprite.component)->component<Axis>()->speed * deltaTime);
             }
         }
     };

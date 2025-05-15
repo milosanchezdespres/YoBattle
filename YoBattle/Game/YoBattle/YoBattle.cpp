@@ -11,18 +11,18 @@ void YoBattle::OnInit()
 
 	//...
 	test = new Entity();
-	test->push(new Sprite("spirikat", 150, 150, 2, 56, 0));
-	test->component<Sprite>()->axis->speed = 200;
-	test->component<Sprite>()->axis->x = 1;
-	test->component<Sprite>()->axis->y = 1;
-	sprites->upload(test->component<Sprite>());
+	test->push(new Sprite("spirikat", 150, 150, 3, 56, 0));
+	test->push(new Axis(200));
+	test->component<Axis>()->x = 1;
+	test->component<Axis>()->y = 1;
+	sprites->upload(test->component<Sprite>(), test);
 
 	test2 = new Entity();
-	test2->push(new Sprite("spirikat", 150, 150, 2, 56, 0));
-	test2->component<Sprite>()->axis->speed = 200;
-	test2->component<Sprite>()->axis->x = 0;
-	test2->component<Sprite>()->axis->y = 1;
-	sprites->upload(test2->component<Sprite>());
+	test2->push(new Sprite("spirikat", 150, 150, 3, 56, 0));
+	test2->push(new Axis(200));
+	test2->component<Axis>()->x = 0;
+	test2->component<Axis>()->y = 1;
+	sprites->upload(test2->component<Sprite>(), test2);
 }
 
 void YoBattle::OnEvent()
