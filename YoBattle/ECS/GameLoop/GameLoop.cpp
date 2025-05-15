@@ -70,7 +70,7 @@ void GameLoop::blit(Sprite* sprite)
     if (sprite->texture != "")
     {
         __source__buffer = { 0, 0, (float)(sprite->size), (float)(sprite->size) };
-        __dest__buffer = { sprite->x, sprite->y, __source__buffer.width * sprite->scale, __source__buffer.height * sprite->scale };
+        __dest__buffer = { (float)((int)(sprite->x)), (float)((int)(sprite->y)), __source__buffer.width * sprite->scale, __source__buffer.height * sprite->scale};
         DrawTexturePro(texture(sprite->texture), __source__buffer, __dest__buffer, { 0, 0 }, 0.0f, WHITE);
     }
 }

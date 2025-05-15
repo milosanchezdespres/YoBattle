@@ -12,7 +12,7 @@ void YoBattle::OnInit()
 	scene->add(new SpriteSystem());
 	scene->add(new DebugSystem());
 
-	scene->push("test", new Character(scene, "spirikat", 56, 3, 150));
+	scene->push("test", new Character(scene, "spirikat", 56, 3, 300));
 	scene->entity<Character>("test")->component<Axis>()->x = 1;
 	scene->entity<Character>("test")->component<Axis>()->y = 1;
 }
