@@ -21,12 +21,6 @@ void YoBattle::OnInit()
 	scene->entity<Character>("test3")->component<Axis>()->y = 0;
 }
 
-void YoBattle::OnEvent()
-{
-	//...
-	scene->listen();
-}
-
 void YoBattle::OnUpdate()
 {
 	//...

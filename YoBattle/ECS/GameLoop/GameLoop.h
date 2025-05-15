@@ -27,7 +27,6 @@ class GameLoop
 		const Texture2D& texture(string name);
 
 		virtual void OnInit() {};
-		virtual void OnEvent() {};
 		virtual void OnUpdate() {};
 		virtual void OnDraw() {};
 		virtual void OnClose() {};

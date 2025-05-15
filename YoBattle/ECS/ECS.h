@@ -86,7 +86,6 @@ namespace ECS
 
         virtual ~BaseSystem() = default;
         virtual void update(float deltaTime) = 0;
-        virtual void listen() = 0;
     };
 
     template<typename T>
@@ -112,7 +111,6 @@ namespace ECS
         Entity* owner(T* component) { return componentToEntity[component]; }
 
         virtual void update(float deltaTime) {}
-        virtual void listen() {}
     };
 
     struct Sprite : public Component
@@ -193,7 +191,6 @@ namespace ECS
         virtual ~Scene() = default;
 
         void update(float deltaTime) { for (auto& sys : systems) { sys->update(deltaTime); } }
-        void listen() { for (auto& sys : systems) { sys->listen(); } }
 
         template <typename TGame>
         void draw(TGame* game)

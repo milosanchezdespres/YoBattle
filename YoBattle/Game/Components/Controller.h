@@ -22,7 +22,7 @@ struct ControllerSystem : public ECS::system<Controller>
 {
     ControllerSystem() {}
 
-    void listen() override
+    void update(float deltaTime) override
     {
         for (auto& entry : components)
         {
