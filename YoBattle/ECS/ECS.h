@@ -115,10 +115,10 @@ namespace ECS
         
         void update(float deltaTime) override
         {
-            for (auto& sprite : components)
+            for (auto& entry : components)
             {
-                sprite.component->x = sprite.component->x + (owner(sprite.component)->component<Axis>()->x * owner(sprite.component)->component<Axis>()->speed * deltaTime);
-                sprite.component->y = sprite.component->y + (owner(sprite.component)->component<Axis>()->y * owner(sprite.component)->component<Axis>()->speed * deltaTime);
+                entry.component->x = entry.component->x + (owner(entry.component)->component<Axis>()->x * owner(entry.component)->component<Axis>()->speed * deltaTime);
+                entry.component->y = entry.component->y + (owner(entry.component)->component<Axis>()->y * owner(entry.component)->component<Axis>()->speed * deltaTime);
             }
         }
     };

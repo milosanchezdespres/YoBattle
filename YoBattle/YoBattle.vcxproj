@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="ECS\ECS.h" />
     <ClInclude Include="ECS\GameLoop\GameLoop.h" />
+    <ClInclude Include="Game\Components\Debug.h" />
     <ClInclude Include="Game\YoBattle\YoBattle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

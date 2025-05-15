@@ -25,6 +25,9 @@
     <Filter Include="Game\YoBattle">
       <UniqueIdentifier>{8af6101b-d6ed-47e9-9212-ed4584bb3b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Components">
+      <UniqueIdentifier>{a5e0af8e-468f-4b57-848a-dc41d93ddfe5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\spirikat.png">
@@ -40,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="Game\YoBattle\YoBattle.h">
       <Filter>Game\YoBattle</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Components\Debug.h">
+      <Filter>Game\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
