@@ -15,11 +15,11 @@ struct Character : public Entity
 		Entity::OnLoad(scene, _load_parameters);
 
 		push(new Sprite(param<string>(0), 0, 0, param<float>(2), param<int>(1), param<float>(3)));
+		
 		push(new Axis(param<float>(3)));
 		component<Axis>()->x = 0;
 		component<Axis>()->y = 0;
-		push(new Debug("hello world"));
+
 		scene->sys<SpriteSystem>()->upload(this);
-		scene->sys<DebugSystem>()->upload(this);
     }
 };

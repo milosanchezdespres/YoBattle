@@ -175,8 +175,11 @@ namespace ECS
 
             entities.clear();
             entityByAlias.clear();
+
             systems.clear();
             systemByAlias.clear();
+
+            add(new SpriteSystem());
         }
 
         virtual ~Scene() = default;
