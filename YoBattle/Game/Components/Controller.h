@@ -16,6 +16,8 @@ struct Controller : public Component
         if (IsKeyDown(KEY_S)) { y = 1; }
         if (IsKeyDown(KEY_D)) { x = 1; }
     }
+
+    json JSON() const override { return json{ {"type", "Controller"} }; }
 };
 
 struct ControllerSystem : public ECS::system<Controller>
@@ -28,7 +30,9 @@ struct ControllerSystem : public ECS::system<Controller>
         {
             entry.component->x = 0;
             entry.component->y = 0;
+
             entry.component->listen();
+
             entry.owner->component<Axis>()->x = entry.component->x;
             entry.owner->component<Axis>()->y = entry.component->y;
         }

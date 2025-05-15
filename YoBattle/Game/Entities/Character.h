@@ -22,4 +22,10 @@ struct Character : public Entity
 
 		scene->sys<SpriteSystem>()->upload(this);
     }
+
+	json JSON() const override {
+		json j = Entity::JSON();
+		j["type"] = "character";
+		return j;
+	}
 };

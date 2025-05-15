@@ -2,7 +2,6 @@
 
 #include "../../ECS/GameLoop/GameLoop.h"
 #include "../../ECS/ECS.h"
-#include "../Components/Debug.h"
 
 using namespace ECS;
 

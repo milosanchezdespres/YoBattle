@@ -151,10 +151,12 @@
     <ClInclude Include="ECS\ECS.h" />
     <ClInclude Include="ECS\GameLoop\GameLoop.h" />
     <ClInclude Include="Game\Components\Controller.h" />
-    <ClInclude Include="Game\Components\Debug.h" />
     <ClInclude Include="Game\Entities\Character.h" />
     <ClInclude Include="Game\YoBattle\MasterInclude.h" />
     <ClInclude Include="Game\YoBattle\YoBattle.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\scenes\ test.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

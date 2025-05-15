@@ -1,0 +1,75 @@
+{
+    "ID": -1,
+    "alias": "test",
+    "entities": [
+        {
+            "ID": 0,
+            "alias": "test",
+            "components": [
+                {
+                    "type": "Sprite",
+                    "scale": 3.0,
+                    "size": 56,
+                    "texture": "spirikat",
+                    "tile_index": 300,
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "type": "Axis",
+                    "speed": 300.0,
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "type": "Controller"
+                }
+            ],
+            "type": "character"
+        },
+        {
+            "ID": 1,
+            "alias": "test2",
+            "components": [
+                {
+                    "type": "Sprite",
+                    "scale": 3.0,
+                    "size": 56,
+                    "texture": "spirikat",
+                    "tile_index": 300,
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "type": "Axis",
+                    "speed": 300.0,
+                    "x": 0,
+                    "y": 1
+                }
+            ],
+            "type": "character"
+        },
+        {
+            "ID": 2,
+            "alias": "test3",
+            "components": [
+                {
+                    "type": "Sprite",
+                    "scale": 3.0,
+                    "size": 56,
+                    "texture": "spirikat",
+                    "tile_index": 300,
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                {
+                    "type": "Axis",
+                    "speed": 300.0,
+                    "x": 1,
+                    "y": 0
+                }
+            ],
+            "type": "character"
+        }
+    ]
+}

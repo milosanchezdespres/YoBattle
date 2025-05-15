@@ -1,8 +1,15 @@
 #pragma once
+
 #include "raylib.h"
+
+#include "../../ECS/NlohmanJson/json.hpp"
+using json = nlohmann::json;
 
 #include <vector>
 #include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <filesystem>
 #include <any>
 #include <string>
 #include <unordered_map>
@@ -10,6 +17,8 @@
 #include <assert.h>
 #include <initializer_list>
 using namespace std;
+namespace fs = std::filesystem;
+using namespace fs;
 
 #include "GameLoop/GameLoop.h" 
 
@@ -18,6 +27,7 @@ namespace ECS
     struct Component {
         int ID;
         virtual ~Component() { }
+        virtual json JSON() const = 0;
     };
 
     struct Scene;
@@ -71,6 +81,20 @@ namespace ECS
             if (it != componentIndexByType.end())
                 return components[it->second];
             return nullptr;
+        }
+
+        virtual json JSON() const {
+            json j;
+            j["type"] = "Entity";
+            j["ID"] = ID;
+            j["alias"] = alias;
+
+            json components_json;
+            for (const auto& comp : components)
+                { components_json.push_back(comp->JSON()); }
+            j["components"] = components_json;
+
+            return j;
         }
     };
 
@@ -128,6 +152,18 @@ namespace ECS
             tile_index = _tile_index;
             texture = _texture;
         }
+
+        json JSON() const override {
+            return json{
+                {"type", "Sprite"},
+                {"x", x},
+                {"y", y},
+                {"scale", scale},
+                {"size", size},
+                {"tile_index", tile_index},
+                {"texture", texture}
+            };
+        }
     };
 
     struct Axis : public Component
@@ -140,6 +176,15 @@ namespace ECS
             x = 0;
             y = 0;
             speed = _speed;
+        }
+
+        json JSON() const override {
+            return json{
+                {"type", "Axis"},
+                {"x", x},
+                {"y", y},
+                {"speed", speed}
+            };
         }
     };
 
@@ -169,10 +214,10 @@ namespace ECS
         unordered_map<type_index, int> systemByAlias;
 
         template <typename TGame>
-        Scene(TGame* game, vector<string> textures)
+        Scene(TGame* game, string _alias, vector<string> textures)
         {
             ID = -1;
-            alias = "unnamed";
+            alias = _alias;
 
             entities.clear();
             entityByAlias.clear();
@@ -248,6 +293,91 @@ namespace ECS
                 return dynamic_cast<T*>(base);
             }
             return nullptr;
+        }
+
+        json JSON() const {
+            json j;
+            j["ID"] = ID;
+            j["alias"] = alias;
+
+            json entities_json;
+            for (const auto& ent : entities)
+            {
+                entities_json.push_back(ent->JSON());
+            }
+            j["entities"] = entities_json;
+
+            return j;
+        }
+
+        void save() const
+        {
+            json j = this->JSON();
+
+            path directory = "data/scenes";
+            if (!exists(directory)) { create_directories(directory); }
+
+            ofstream outFile("data/scenes/ " + alias + ".json");
+
+            if (outFile.is_open())
+            {
+                outFile << std::setw(4) << j << std::endl;
+                outFile.close();
+            }
+        }
+
+        void load()
+        {
+            path directory = "data/scenes/" + alias + ".json";
+            ifstream inFile(directory);
+
+            if (inFile.is_open()) {
+                json j;
+                inFile >> j;
+                inFile.close();
+
+                entities.clear();
+                systems.clear();
+
+                this->ID = j["ID"];
+                this->alias = j["alias"];
+
+                if (j.contains("entities")) {
+                    for (const auto& entityJson : j["entities"]) {
+                        Entity* entity = nullptr;
+                        std::string entityType = entityJson["type"];
+
+                        entity = new Entity();
+
+                        entity->ID = entityJson["ID"];
+                        entity->alias = entityJson["alias"];
+
+                        if (entityJson.contains("components")) {
+                            for (const auto& componentJson : entityJson["components"]) {
+                                string componentType = componentJson["type"];
+                                if (componentType == "Sprite") {
+                                    Sprite* sprite = new Sprite(
+                                        componentJson["texture"],
+                                        componentJson["x"],
+                                        componentJson["y"],
+                                        componentJson["scale"],
+                                        componentJson["size"],
+                                        componentJson["tile_index"]
+                                    );
+                                    entity->push(sprite);
+                                }
+                                else if (componentType == "Axis") {
+                                    Axis* axis = new Axis(componentJson["speed"]);
+                                    entity->push(axis);
+                                }
+                            }
+                        }
+
+                        entities.push_back(entity);
+                        entityByAlias[entity->alias] = entity->ID;
+                    }
+                }
+            }
         }
     };
 }

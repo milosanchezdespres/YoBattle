@@ -5,8 +5,9 @@ YoBattle::YoBattle() : GameLoop("YoBattle") {}
 
 void YoBattle::OnInit()
 {
-	scene = new Scene(this, { "spirikat" });
+	scene = new Scene(this, "test", { "spirikat" });
 	scene->add(new ControllerSystem());
+	//scene->load();
 
 	scene->push("test", new Character(scene, "spirikat", 56, 3, 300));
 	scene->entity<Character>("test")->push(new Controller());
@@ -19,6 +20,8 @@ void YoBattle::OnInit()
 	scene->push("test3", new Character(scene, "spirikat", 56, 3, 300));
 	scene->entity<Character>("test3")->component<Axis>()->x = 1;
 	scene->entity<Character>("test3")->component<Axis>()->y = 0;
+
+	//scene->save();
 }
 
 void YoBattle::OnUpdate()
