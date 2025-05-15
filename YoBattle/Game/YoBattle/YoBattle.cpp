@@ -7,32 +7,33 @@ void YoBattle::OnInit()
 	load_texture("spirikat");
 	//...
 
-	sprites = new SpriteSystem();
-	messages = new DebugSystem();
+	scene = new Scene();
+	scene->add(new SpriteSystem());
+	scene->add(new DebugSystem());
 
-	//...
-	test = new Entity();
-	test->push(new Sprite("spirikat", 150, 150, 3, 56, 0));
-	test->push(new Axis(200));
-	test->component<Axis>()->x = 1;
-	test->component<Axis>()->y = 1;
-	test->push(new Debug("hello world"));
-	sprites->upload(test->component<Sprite>(), test);
-	messages->upload(test->component<Debug>(), test);
+	scene->push("test", new Entity());
+	scene->push("test2", new Entity());
+	scene->push("test3", new Entity());
 
-	test2 = new Entity();
-	test2->push(new Sprite("spirikat", 150, 150, 3, 56, 0));
-	test2->push(new Axis(200));
-	test2->component<Axis>()->x = 0;
-	test2->component<Axis>()->y = 1;
-	sprites->upload(test2->component<Sprite>(), test2);
+	scene->entity("test")->push(new Sprite("spirikat", 150, 150, 3, 56, 0));
+	scene->entity("test")->push(new Axis(200));
+	scene->entity("test")->component<Axis>()->x = 1;
+	scene->entity("test")->component<Axis>()->y = 1;
+	scene->entity("test")->push(new Debug("hello world"));
+	scene->sys<SpriteSystem>()->upload(scene->entity("test"));
+	scene->sys<DebugSystem>()->upload(scene->entity("test"));
 
-	test3 = new Entity();
-	test3->push(new Sprite("spirikat", 150, 150, 3, 56, 0));
-	test3->push(new Axis(200));
-	test3->component<Axis>()->x = 1;
-	test3->component<Axis>()->y = 0;
-	sprites->upload(test3->component<Sprite>(), test3);
+	scene->entity("test2")->push(new Sprite("spirikat", 150, 150, 3, 56, 0));
+	scene->entity("test2")->push(new Axis(200));
+	scene->entity("test2")->component<Axis>()->x = 0;
+	scene->entity("test2")->component<Axis>()->y = 1;
+	scene->sys<SpriteSystem>()->upload(scene->entity("test2"));
+
+	scene->entity("test3")->push(new Sprite("spirikat", 150, 150, 3, 56, 0));
+	scene->entity("test3")->push(new Axis(200));
+	scene->entity("test3")->component<Axis>()->x = 1;
+	scene->entity("test3")->component<Axis>()->y = 0;
+	scene->sys<SpriteSystem>()->upload(scene->entity("test3"));
 }
 
 void YoBattle::OnEvent()
@@ -43,16 +44,13 @@ void YoBattle::OnEvent()
 void YoBattle::OnUpdate()
 {
 	//...
-	sprites->update(GetFrameTime());
+	scene->update(GetFrameTime());
 }
 
 void YoBattle::OnDraw()
 {
 	//...
-	blit(test->component<Sprite>());
-	blit(test2->component<Sprite>());
-	blit(test3->component<Sprite>());
-	messages->update(GetFrameTime());
+	scene->draw(this);
 }
 
 void YoBattle::OnClose()

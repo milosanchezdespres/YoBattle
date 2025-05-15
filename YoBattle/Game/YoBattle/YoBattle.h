@@ -11,12 +11,14 @@ class YoBattle : public GameLoop
 	public:
 		YoBattle();
 
-		Entity* test;
-		Entity* test2;
-		Entity* test3;
+		Scene* scene;
 
-		SpriteSystem* sprites;
-		DebugSystem* messages;
+		//Entity* test;
+		//Entity* test2;
+		//Entity* test3;
+
+		//SpriteSystem* sprites;
+		//DebugSystem* messages;
 
 	protected:
 		void OnInit();

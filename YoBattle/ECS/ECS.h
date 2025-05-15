@@ -6,7 +6,10 @@
 #include <iostream>
 #include <unordered_map>
 #include <typeindex>
+#include <assert.h>
 using namespace std;
+
+#include "GameLoop.h" 
 
 namespace ECS
 {
@@ -19,13 +22,15 @@ namespace ECS
         int ID;
         string alias;
         vector<Component*> components;
-        std::unordered_map<std::type_index, int> componentIndexByType;
+        unordered_map<type_index, int> componentIndexByType;
 
         Entity()
         {
             ID = -1;
             alias = "unnamed";
-            components = {};
+
+            components.clear();
+            componentIndexByType.clear();
         }
 
         template <typename T>
@@ -41,16 +46,20 @@ namespace ECS
         template <typename T>
         T* component()
         {
-            auto it = componentIndexByType.find(std::type_index(typeid(T)));
-            if (it != componentIndexByType.end()) {
-                return dynamic_cast<T*>(components[it->second]);
-            }
+            auto it = componentIndexByType.find(type_index(typeid(T)));
+            if (it != componentIndexByType.end()) {  return dynamic_cast<T*>(components[it->second]); }
             return nullptr;
         }
 
         template <typename T>
-        T* component(int index) {
-            return dynamic_cast<T*>(components[index]);
+        T* component(int index) { return dynamic_cast<T*>(components[index]); }
+
+        Component* componentByType(const type_index& t)
+        {
+            auto it = componentIndexByType.find(t);
+            if (it != componentIndexByType.end())
+                return components[it->second];
+            return nullptr;
         }
     };
 
@@ -60,18 +69,32 @@ namespace ECS
         T* component;
     };
 
+    struct BaseSystem
+    {
+        int ID;
+
+        virtual ~BaseSystem() = default;
+        virtual void update(float deltaTime) = 0;
+    };
+
     template<typename T>
-    struct system
+    struct system : BaseSystem
     {
         vector<ComponentEntry<T>> components;
         unordered_map<T*, Entity*> componentToEntity;
 
         virtual ~system() = default;
 
-        void upload(T* component, Entity* entity)
+        void _upload(T* component, Entity* entity)
         {
             components.push_back({ entity, component });
             componentToEntity[component] = entity;
+        }
+
+        void upload(Entity* entity)
+        {
+            T* component = entity->component<T>();
+            if (component) _upload(component, entity);
         }
 
         Entity* owner(T* component) { return componentToEntity[component]; }
@@ -117,9 +140,96 @@ namespace ECS
         {
             for (auto& entry : components)
             {
-                entry.component->x = entry.component->x + (owner(entry.component)->component<Axis>()->x * owner(entry.component)->component<Axis>()->speed * deltaTime);
-                entry.component->y = entry.component->y + (owner(entry.component)->component<Axis>()->y * owner(entry.component)->component<Axis>()->speed * deltaTime);
+                entry.component->x = entry.component->x + (entry.owner->component<Axis>()->x * entry.owner->component<Axis>()->speed * deltaTime);
+                entry.component->y = entry.component->y + (entry.owner->component<Axis>()->y * entry.owner->component<Axis>()->speed * deltaTime);
             }
+        }
+    };
+
+    struct Scene
+    {
+        int ID;
+        string alias;
+
+        vector<Entity*> entities;
+        unordered_map<string, int> entityByAlias;
+
+        vector<unique_ptr<BaseSystem>> systems;
+        unordered_map<type_index, int> systemByAlias;
+
+        Scene()
+        {
+            ID = -1;
+            alias = "unnamed";
+
+            entities.clear();
+            entityByAlias.clear();
+            systems.clear();
+            systemByAlias.clear();
+        }
+
+        virtual ~Scene() = default;
+
+        void update(float deltaTime)
+        {
+            for (auto& sys : systems) { sys->update(deltaTime); }
+        }
+
+        template <typename TGame>
+        void draw(TGame* game)
+        {
+            for (Entity* entity : entities)
+            {
+                Component* baseComp = entity->componentByType(type_index(typeid(Sprite)));
+                Sprite* sprite = dynamic_cast<Sprite*>(baseComp);
+                if (sprite) game->blit(sprite);
+            }
+        }
+
+        template <typename T>
+        void push(string alias, T* entity)
+        {
+            entities.push_back(entity);
+            entities.back()->ID = entities.size() - 1;
+            entityByAlias[alias] = entities.back()->ID;
+        }
+
+        template <typename T>
+        T* entity(string alias)
+        {
+            auto it = entityByAlias.find(alias);
+            if (it != entityByAlias.end()) { return dynamic_cast<T*>(entities[it->second]); }
+            return nullptr;
+        }
+
+        template <typename T>
+        T* entity(int index) { return dynamic_cast<T*>(entities[index]); }
+
+        Entity* entity(const string& alias)
+        {
+            auto it = entityByAlias.find(alias);
+            if (it != entityByAlias.end()) return entities[it->second];
+            return nullptr;
+        }
+
+        template <typename T>
+        void add(T* system)
+        {
+            systems.emplace_back(std::unique_ptr<BaseSystem>(system));
+            systems.back()->ID = systems.size() - 1;
+            systemByAlias[type_index(typeid(T))] = systems.size() - 1;
+        }
+
+        template <typename T>
+        T* sys()
+        {
+            auto it = systemByAlias.find(type_index(typeid(T)));
+            if (it != systemByAlias.end())
+            {
+                BaseSystem* base = systems[it->second].get();
+                return dynamic_cast<T*>(base);
+            }
+            return nullptr;
         }
     };
 }

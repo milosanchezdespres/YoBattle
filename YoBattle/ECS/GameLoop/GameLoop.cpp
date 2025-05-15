@@ -40,10 +40,10 @@ void GameLoop::Update()
             OnEvent();
         }
 
-        OnUpdate();
-
         BeginDrawing();
         ClearBackground(RAYWHITE);
+
+        OnUpdate();
 
         OnDraw();
 

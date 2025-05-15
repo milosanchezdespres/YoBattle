@@ -21,7 +21,7 @@ struct DebugSystem : public ECS::system<Debug>
     {
         for (auto& entry : components)
         {
-            DrawText(entry.component->message.c_str(), owner(entry.component)->component<Sprite>()->x, owner(entry.component)->component<Sprite>()->y, 20, DARKGRAY);
+            DrawText(entry.component->message.c_str(), entry.owner->component<Sprite>()->x, entry.owner->component<Sprite>()->y, 20, DARKGRAY);
         }
     }
 };
