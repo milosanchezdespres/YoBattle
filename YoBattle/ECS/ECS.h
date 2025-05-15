@@ -33,7 +33,7 @@ namespace ECS
         {
             components.push_back(component);
             components[components.size() - 1]->ID = components.size() - 1;
-            componentIndexByType[std::type_index(typeid(T))] = components[components.size() - 1]->ID;
+            componentIndexByType[type_index(typeid(T))] = components[components.size() - 1]->ID;
         }
 
         Component* component(int ID) { return components[ID]; }
