@@ -14,6 +14,8 @@ GameLoop::GameLoop(string title)
 
 GameLoop::~GameLoop()
 {
+    unload_all_textures();
+
     OnClose();
     CloseWindow();
 }
@@ -62,6 +64,9 @@ void GameLoop::unload_texture(string name)
     UnloadTexture(_textures[name]);
     _textures.erase(name);
 }
+
+void GameLoop::unload_all_textures()
+    { for (auto& pair : _textures) { unload_texture(pair.first); } }
 
 const Texture2D& GameLoop::texture(string name) { return _textures[name]; }
 

@@ -5,11 +5,7 @@ YoBattle::YoBattle() : GameLoop("YoBattle") {}
 
 void YoBattle::OnInit()
 {
-	load_texture("spirikat");
-	//...
-
-	scene = new Scene();
-	scene->add(new DebugSystem());
+	scene = new Scene(this, { "spirikat" });
 
 	scene->push("test", new Character(scene, "spirikat", 56, 3, 300));
 	scene->entity<Character>("test")->component<Axis>()->x = 1;
@@ -44,5 +40,4 @@ void YoBattle::OnDraw()
 void YoBattle::OnClose()
 {
 	//...
-	unload_texture("spirikat");
 }

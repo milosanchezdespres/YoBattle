@@ -168,7 +168,8 @@ namespace ECS
         vector<unique_ptr<BaseSystem>> systems;
         unordered_map<type_index, int> systemByAlias;
 
-        Scene()
+        template <typename TGame>
+        Scene(TGame* game, vector<string> textures)
         {
             ID = -1;
             alias = "unnamed";
@@ -180,6 +181,11 @@ namespace ECS
             systemByAlias.clear();
 
             add(new SpriteSystem());
+
+            for (string texture : textures)
+            {
+                game->load_texture(texture);
+            }
         }
 
         virtual ~Scene() = default;

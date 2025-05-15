@@ -17,11 +17,13 @@ class GameLoop
 
 		void Update();
 
+		void load_texture(string name, string path = "");
+		void unload_texture(string name);
+		void unload_all_textures();
+
 		void blit(Sprite* sprite);
 
 	protected:
-		void load_texture(string name, string path = "");
-		void unload_texture(string name);
 		const Texture2D& texture(string name);
 
 		virtual void OnInit() {};
