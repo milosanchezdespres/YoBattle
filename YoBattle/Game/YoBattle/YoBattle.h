@@ -11,6 +11,9 @@ class YoBattle : public GameLoop
 		YoBattle();
 
 		Entity* test;
+		Entity* test2;
+
+		SpriteSystem* sprites;
 
 	protected:
 		void OnInit();

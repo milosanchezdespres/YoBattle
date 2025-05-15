@@ -8,6 +8,8 @@ GameLoop::GameLoop(string title)
     InitWindow(screenWidth, screenHeight, "Display Image");
     //InitWindow(600, 600, title.c_str());
     //SetWindowState(FLAG_FULLSCREEN_MODE);
+
+    SetTargetFPS(60);
 }
 
 GameLoop::~GameLoop()
@@ -65,7 +67,10 @@ const Texture2D& GameLoop::texture(string name) { return _textures[name]; }
 
 void GameLoop::blit(Sprite* sprite)
 {
-    __source__buffer = { 0, 0, (float) (sprite->size), (float)(sprite->size) };
-    __dest__buffer = { sprite->x, sprite->y, __source__buffer.width * sprite->scale, __source__buffer.height * sprite->scale };
-    DrawTexturePro(texture(sprite->texture), __source__buffer, __dest__buffer, {0, 0}, 0.0f, WHITE);
+    if (sprite->texture != "")
+    {
+        __source__buffer = { 0, 0, (float)(sprite->size), (float)(sprite->size) };
+        __dest__buffer = { sprite->x, sprite->y, __source__buffer.width * sprite->scale, __source__buffer.height * sprite->scale };
+        DrawTexturePro(texture(sprite->texture), __source__buffer, __dest__buffer, { 0, 0 }, 0.0f, WHITE);
+    }
 }

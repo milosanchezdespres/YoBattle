@@ -54,19 +54,60 @@ namespace ECS
         }
     };
 
-    struct Sprite : public Component {
+    template<typename T>
+    struct system
+    {
+        vector<T*> components;
+
+        void upload(T* component) { components.push_back(component); }
+
+        virtual ~system() = default;
+        virtual void update(float deltaTime) {}
+    };
+
+    struct Axis : public Component
+    {
+        int x, y;
+        float speed;
+
+        Axis(float _speed)
+        {
+            x = 0;
+            y = 0;
+            speed = _speed;
+        }
+    };
+
+    struct Sprite : public Component
+    {
         float x, y, scale;
         int size, tile_index;
         string texture;
+        Axis* axis;
 
         Sprite(string _texture, float _x, float _y, float _scale, int _size, int _tile_index)
         {
+            axis = new Axis(0);
             x = _x;
             y = _y;
             scale = _scale;
             size = _size;
             tile_index = _tile_index;
             texture = _texture;
+        }
+    };
+
+    struct SpriteSystem : public system<Sprite>
+    {
+        SpriteSystem() { }
+        
+        void update(float deltaTime) override
+        {
+            for (auto* sprite : components)
+            {
+                sprite->x = sprite->x + (sprite->axis->x * sprite->axis->speed * deltaTime);
+                sprite->y = sprite->y + (sprite->axis->y * sprite->axis->speed * deltaTime);
+            }
         }
     };
 }
