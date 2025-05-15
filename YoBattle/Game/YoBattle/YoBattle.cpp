@@ -1,15 +1,16 @@
 #include "YoBattle.h"
-#include "../../Game/Entities/Character.h"
+#include "MasterInclude.h"
 
 YoBattle::YoBattle() : GameLoop("YoBattle") {}
 
 void YoBattle::OnInit()
 {
 	scene = new Scene(this, { "spirikat" });
+	scene->add(new ControllerSystem());
 
 	scene->push("test", new Character(scene, "spirikat", 56, 3, 300));
-	scene->entity<Character>("test")->component<Axis>()->x = 1;
-	scene->entity<Character>("test")->component<Axis>()->y = 1;
+	scene->entity<Character>("test")->push(new Controller());
+	scene->sys<ControllerSystem>()->upload(scene->entity("test"));
 
 	scene->push("test2", new Character(scene, "spirikat", 56, 3, 300));
 	scene->entity<Character>("test2")->component<Axis>()->x = 0;
@@ -23,6 +24,7 @@ void YoBattle::OnInit()
 void YoBattle::OnEvent()
 {
 	//...
+	scene->listen();
 }
 
 void YoBattle::OnUpdate()

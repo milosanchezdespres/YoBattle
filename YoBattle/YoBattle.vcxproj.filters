@@ -53,5 +53,11 @@
     <ClInclude Include="Game\Entities\Character.h">
       <Filter>Game\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Components\Controller.h">
+      <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\YoBattle\MasterInclude.h">
+      <Filter>Game\YoBattle</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

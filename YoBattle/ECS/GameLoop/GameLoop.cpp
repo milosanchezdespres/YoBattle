@@ -38,9 +38,9 @@ void GameLoop::Update()
             else {
                 SetWindowState(FLAG_FULLSCREEN_MODE);
             }
-
-            OnEvent();
         }
+
+        OnEvent();
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
