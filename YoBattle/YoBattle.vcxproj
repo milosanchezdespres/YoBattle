@@ -84,6 +84,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\raylib\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +151,7 @@
     <ClInclude Include="ECS\ECS.h" />
     <ClInclude Include="ECS\GameLoop\GameLoop.h" />
     <ClInclude Include="Game\Components\Debug.h" />
+    <ClInclude Include="Game\Entities\Character.h" />
     <ClInclude Include="Game\YoBattle\YoBattle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

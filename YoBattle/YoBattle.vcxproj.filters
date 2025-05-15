@@ -28,6 +28,9 @@
     <Filter Include="Game\Components">
       <UniqueIdentifier>{a5e0af8e-468f-4b57-848a-dc41d93ddfe5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Entities">
+      <UniqueIdentifier>{fc8c21da-4073-4150-80c3-a5c038d61d49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\spirikat.png">
@@ -46,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="Game\Components\Debug.h">
       <Filter>Game\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Entities\Character.h">
+      <Filter>Game\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

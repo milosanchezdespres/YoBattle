@@ -13,13 +13,6 @@ class YoBattle : public GameLoop
 
 		Scene* scene;
 
-		//Entity* test;
-		//Entity* test2;
-		//Entity* test3;
-
-		//SpriteSystem* sprites;
-		//DebugSystem* messages;
-
 	protected:
 		void OnInit();
 		void OnEvent();

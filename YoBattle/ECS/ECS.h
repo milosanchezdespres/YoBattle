@@ -2,28 +2,36 @@
 #include "raylib.h"
 
 #include <vector>
-#include <string>
 #include <iostream>
+#include <any>
+#include <string>
 #include <unordered_map>
 #include <typeindex>
 #include <assert.h>
+#include <initializer_list>
 using namespace std;
 
-#include "GameLoop.h" 
+#include "GameLoop/GameLoop.h" 
 
 namespace ECS
 {
     struct Component {
         int ID;
-        virtual ~Component() { ID = -1; }
+        virtual ~Component() { }
     };
+
+    struct Scene;
 
     struct Entity {
         int ID;
         string alias;
         vector<Component*> components;
         unordered_map<type_index, int> componentIndexByType;
+        vector<any> _params;
 
+        virtual void OnLoad(Scene* scene, vector<any> _load_parameters)
+            { _params = move(_load_parameters); }
+        
         Entity()
         {
             ID = -1;
@@ -32,6 +40,9 @@ namespace ECS
             components.clear();
             componentIndexByType.clear();
         }
+
+        template <typename T>
+        T param(int index) { return any_cast<T>(_params[index]); }
 
         template <typename T>
         void push(T* component)
