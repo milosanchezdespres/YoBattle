@@ -145,6 +145,15 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ECS\BaseObj.h" />
+    <ClInclude Include="ECS\ECS_includes.h" />
+    <ClInclude Include="ECS\Entity.h" />
+    <ClInclude Include="ECS\NlohmanJson.hpp" />
+    <ClInclude Include="ECS\Component.h" />
+    <ClInclude Include="ECS\Scene.h" />
+    <ClInclude Include="ECS\Utils.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
