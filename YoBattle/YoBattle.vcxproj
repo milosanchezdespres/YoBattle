@@ -147,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\NlohmanJson.hpp" />
-    <ClInclude Include="ECS\Factory.h" />
     <ClInclude Include="ECS\Utils.h" />
     <ClInclude Include="ECS\Seri.h" />
   </ItemGroup>
