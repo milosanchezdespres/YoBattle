@@ -4,6 +4,12 @@
     <Filter Include="assets">
       <UniqueIdentifier>{3f7116bc-317c-42ef-b283-abea4cb64ae7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{3651dc65-3125-45b5-973d-7efbefc8b45d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{10e903ba-2670-4808-9440-bc9787ab0163}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\spirikat.png">
@@ -12,5 +18,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ECS\Seri.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\Utils.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\NlohmanJson.hpp">
+      <Filter>ECS</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
