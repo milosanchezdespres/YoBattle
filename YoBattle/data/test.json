@@ -1,0 +1,17 @@
+{
+    "ID": 3,
+    "alias": "test",
+    "components": [
+        {
+            "ID": 82,
+            "alias": "Component"
+        },
+        {
+            "ID": 25,
+            "alias": "DebugComponent",
+            "x": 5.0,
+            "y": 27.0
+        }
+    ],
+    "type": "DebugEntity"
+}

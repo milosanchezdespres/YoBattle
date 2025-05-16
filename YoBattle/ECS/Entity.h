@@ -14,15 +14,22 @@ namespace ECS
 		Entity() : Component()
 		{
 			OnInit();
-			type = alias;
+
 			alias = "unnamed";
 		}
 
 		Entity(string _alias) : Component()
 		{
 			OnInit();
-			type = alias;
+
 			alias = _alias;
+		}
+
+		void OnInit() override
+		{
+			type = class_name(this);
+
+			OnSetup();
 		}
 
 		template <typename T, typename... Args>
@@ -57,7 +64,12 @@ namespace ECS
 		}
 
 		void OnLoad() override
-		{ for (auto& [key, value] : __json["components"].items()) { OnLoadComponent(value); } }
+		{
+			components.clear();
+			componentIndexByType.clear();
+
+			for (auto& [key, value] : __json["components"].items()) { OnLoadComponent(value); }
+		}
 
 		virtual void OnLoadComponent(json component_json)
 		{
@@ -69,5 +81,7 @@ namespace ECS
 
 			//...
 		}
+
+		virtual void OnSetup() {}
 	};
 }

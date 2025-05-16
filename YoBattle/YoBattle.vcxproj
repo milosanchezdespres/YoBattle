@@ -146,6 +146,8 @@
     <Image Include="assets\spirikat.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CustomDebugComponent\DebugComponent.h" />
+    <ClInclude Include="CustomDebugComponent\DebugEntity.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\Entity.h" />
     <ClInclude Include="ECS\NlohmanJson.hpp" />

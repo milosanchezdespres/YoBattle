@@ -28,10 +28,12 @@ namespace ECS
 			}
 		}
 
-		void load(string alias, string folders = "")
+		void load(string _alias = "", string folders = "")
 		{
-			__current_loaded_alias = alias;
+			__current_loaded_alias = _alias;
 			__current_loaded_folders = folders;
+
+			if (__current_loaded_alias == "") { __current_loaded_alias = alias; }
 
 			__json = json::parse(file_2_string(__current_loaded_folders, __current_loaded_alias, "json"));
 

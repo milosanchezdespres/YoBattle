@@ -2,8 +2,8 @@
 
 int main()
 {
-    Entity* test = new Entity();
-    test->load("test", "entities");
+    DebugEntity* test = new DebugEntity("test");
+    test->load();
 
     cout << test << endl;
 
