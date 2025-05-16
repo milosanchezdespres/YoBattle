@@ -3,7 +3,7 @@
 int main()
 {
     Entity* test = new Entity();
-    test->load("Entity");
+    test->load("test", "entities");
 
     cout << test << endl;
 

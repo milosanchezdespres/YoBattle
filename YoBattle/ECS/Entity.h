@@ -6,12 +6,24 @@ namespace ECS
 {
 	struct Entity : public Component
 	{
-		string name;
+		string type;
 
 		vector<Component*> components;
 		unordered_map<type_index, int> componentIndexByType;
 
-		Entity() : Component() { OnInit(); }
+		Entity() : Component()
+		{
+			OnInit();
+			type = alias;
+			alias = "unnamed";
+		}
+
+		Entity(string _alias) : Component()
+		{
+			OnInit();
+			type = alias;
+			alias = _alias;
+		}
 
 		template <typename T, typename... Args>
 		void attach(Args&&... args)
@@ -35,6 +47,8 @@ namespace ECS
 
 		void OnJson() override
 		{
+			__json["type"] = type;
+
 			__json2 = json::array();
 
 			for (auto* component : components) { __json2.push_back(component->JSON()); }

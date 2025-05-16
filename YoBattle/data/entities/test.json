@@ -1,10 +1,11 @@
 {
     "ID": 2,
-    "alias": "Entity",
+    "alias": "test",
     "components": [
         {
-            "ID": 25,
+            "ID": 83,
             "alias": "Component"
         }
-    ]
+    ],
+    "type": "Entity"
 }
