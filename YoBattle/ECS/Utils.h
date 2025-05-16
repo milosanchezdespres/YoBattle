@@ -13,6 +13,8 @@ using namespace fs;
 #include "NlohmanJson.hpp"
 using namespace nlohmann;
 
+#include "EntityFactory.h"
+
 namespace ECS
 {
 	ofstream* to_file(string folders, string filename, string ext)
@@ -58,11 +60,11 @@ namespace ECS
 	}
 
 	template<typename T>
-	json TO_JSON(T component) { return component.JSON(); }
+	json TO_JSON(T obj) { return obj.JSON(); }
 
 	template<typename T>
-	json TO_JSON(T* component) { return component->JSON(); }
+	json TO_JSON(T* obj) { return obj->JSON(); }
 
 	template<typename T>
-	json TO_JSON(const T* component) { return component->JSON(); }
+	json TO_JSON(const T* obj) { return obj->JSON(); }
 }

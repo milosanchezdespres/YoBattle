@@ -35,10 +35,13 @@ namespace ECS
 		template <typename T, typename... Args>
 		void attach(Args&&... args)
 		{
-			components.push_back(new T(std::forward<Args>(args)...));
-			components.back()->ID = components.size() - 1;
-			components.back()->OnInit();
-			componentIndexByType[type_index(typeid(T))] = components[components.size() - 1]->ID;
+			if (!has<T>())
+			{
+				components.push_back(new T(std::forward<Args>(args)...));
+				components.back()->ID = components.size() - 1;
+				components.back()->OnInit();
+				componentIndexByType[type_index(typeid(T))] = components[components.size() - 1]->ID;
+			}
 		}
 
 		template <typename T>
@@ -51,6 +54,10 @@ namespace ECS
 			if (it != componentIndexByType.end()) { return dynamic_cast<T*>(components[it->second]); }
 			return nullptr;
 		}
+
+		template <typename T>
+		bool has() const
+		{ return componentIndexByType.find(type_index(typeid(T))) != componentIndexByType.end(); }
 
 		void OnJson() override
 		{
@@ -73,7 +80,7 @@ namespace ECS
 
 		virtual void OnLoadComponent(json component_json)
 		{
-			if (component_json["alias"] == "Component")
+			if (component_json["alias"] == "Component" && !has<Component>())
 			{
 				attach<Component>();
 				component<Component>()->standalone_load_from_current_json(component_json);

@@ -146,12 +146,16 @@
     <Image Include="assets\spirikat.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CustomDebugComponent\DebugComponent.h" />
-    <ClInclude Include="CustomDebugComponent\DebugEntity.h" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\Entity.h" />
+    <ClInclude Include="ECS\EntityFactory.h" />
+    <ClInclude Include="ECS\Game.h" />
     <ClInclude Include="ECS\NlohmanJson.hpp" />
+    <ClInclude Include="ECS\Scene.h" />
     <ClInclude Include="ECS\Utils.h" />
+    <ClInclude Include="Game\CustomDebugComponent\DebugComponent.h" />
+    <ClInclude Include="Game\CustomDebugComponent\DebugEntity.h" />
+    <ClInclude Include="Game\CustomEntityFactory.h" />
     <ClInclude Include="includes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

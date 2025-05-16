@@ -10,7 +10,10 @@
     <Filter Include="ECS">
       <UniqueIdentifier>{0081bcbc-d68f-4c84-9e58-34784d18b356}</UniqueIdentifier>
     </Filter>
-    <Filter Include="CustomDebugComponent">
+    <Filter Include="Game">
+      <UniqueIdentifier>{09bdadcb-986a-4018-8866-00056a483263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CustomDebugComponent">
       <UniqueIdentifier>{5eb4a1cf-84a2-4145-b6d0-76c20aca3757}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -33,11 +36,23 @@
     <ClInclude Include="ECS\Utils.h">
       <Filter>ECS</Filter>
     </ClInclude>
-    <ClInclude Include="CustomDebugComponent\DebugComponent.h">
-      <Filter>CustomDebugComponent</Filter>
+    <ClInclude Include="ECS\Game.h">
+      <Filter>ECS</Filter>
     </ClInclude>
-    <ClInclude Include="CustomDebugComponent\DebugEntity.h">
-      <Filter>CustomDebugComponent</Filter>
+    <ClInclude Include="ECS\Scene.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS\EntityFactory.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CustomEntityFactory.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CustomDebugComponent\DebugComponent.h">
+      <Filter>Game\CustomDebugComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\CustomDebugComponent\DebugEntity.h">
+      <Filter>Game\CustomDebugComponent</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

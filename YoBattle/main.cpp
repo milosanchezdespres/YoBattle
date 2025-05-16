@@ -1,11 +1,12 @@
 #include "includes.h"
 
+#include "ECS/Game.h"
+
 int main()
 {
-    DebugEntity* test = new DebugEntity("test");
-    test->load();
+    Game::loop().Init(new CustomEntityFactory(), true);
 
-    cout << test << endl;
+    Game::loop().Update();
 
     return 0;
 }
