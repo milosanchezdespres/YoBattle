@@ -15,12 +15,7 @@ namespace ECS
 
 			auto* factor(json json_data)
 			{
-				if (json_data["type"] == "Seri")
-				{
-					Seri* obj = new Seri();
-					obj->load(json_data);
-					return obj;
-				}
+				if (json_data["type"] == "Seri") { return (new Seri())->load(json_data); }
 				
 				return OnExtraFactor(json_data);
 			}

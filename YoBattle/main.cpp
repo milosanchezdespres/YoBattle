@@ -34,12 +34,7 @@ class CustomFactory : public Factory
 
         Seri* OnExtraFactor(json json_data) override
         {
-            if (json_data["type"] == "CustomSeri")
-            {
-                CustomSeri* obj = new CustomSeri();
-                obj->load(json_data);
-                return obj;
-            }
+            if (json_data["type"] == "CustomSeri") { return (new CustomSeri())->load(json_data); }
 
             return __default;
         }

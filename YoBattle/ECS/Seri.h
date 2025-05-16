@@ -14,7 +14,7 @@ namespace ECS
 
 		Seri() { __OnInit(); }
 
-		void load(string path, bool use_alias = true)
+		auto load(string path, bool use_alias = true)
 		{
 			if(use_alias) { __json = file_2_json(path + "/" + alias); }
 			else { __json = file_2_json(path); }
@@ -24,9 +24,11 @@ namespace ECS
 			alias = __json["alias"];
 
 			__OnLoad();
+
+			return this;
 		}
 
-		void load(json json_data)
+		auto load(json json_data)
 		{
 			__json = json_data;
 
@@ -35,6 +37,8 @@ namespace ECS
 			alias = __json["alias"];
 
 			__OnLoad();
+
+			return this;
 		}
 
 		void save(string path, string as_alias = "")
