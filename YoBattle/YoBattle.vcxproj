@@ -145,11 +145,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ECS\NlohmanJson.hpp" />
-    <ClInclude Include="ECS\Utils.h" />
-    <ClInclude Include="ECS\Seri.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

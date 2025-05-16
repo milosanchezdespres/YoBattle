@@ -19,15 +19,4 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ECS\Seri.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\Utils.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\NlohmanJson.hpp">
-      <Filter>ECS</Filter>
-    </ClInclude>
-  </ItemGroup>
 </Project>
