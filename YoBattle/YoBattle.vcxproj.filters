@@ -29,5 +29,8 @@
     <ClInclude Include="ECS\NlohmanJson.hpp">
       <Filter>ECS</Filter>
     </ClInclude>
+    <ClInclude Include="ECS\Factory.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

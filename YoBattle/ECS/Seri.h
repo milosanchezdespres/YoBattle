@@ -26,6 +26,17 @@ namespace ECS
 			__OnLoad();
 		}
 
+		void load(json json_data)
+		{
+			__json = json_data;
+
+			ID = __json["ID"];
+			type = __json["type"];
+			alias = __json["alias"];
+
+			__OnLoad();
+		}
+
 		void save(string path, string as_alias = "")
 		{
 			if (as_alias == "") { as_alias = alias; }
