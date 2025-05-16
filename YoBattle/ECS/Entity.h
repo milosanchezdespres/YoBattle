@@ -2,41 +2,28 @@
 
 #include "Component.h"
 
-#include <vector>
-using namespace std;
-
 namespace ECS
 {
 	struct Entity : public Component
 	{
+		string name;
+
 		vector<Component*> components;
 		unordered_map<type_index, int> componentIndexByType;
 
-		Entity() : Component() { __init(); }
+		Entity() : Component() { OnInit(); }
 
-		json OnJson(json json_data) const override
+		template <typename T, typename... Args>
+		void attach(Args&&... args)
 		{
-			__json__buffer2 = json();
-
-			for (auto* component : components)
-				{ __json__buffer2.push_back(component->JSON()); }
-
-			if (__json__buffer2.empty()) { json_data["components"] = json::object();  }
-			else { json_data["components"] = __json__buffer2; }
-
-			return Component::OnJson(json_data);
-		}
-
-		template<typename T, typename... Args>
-		void add(Args&&... args)
-		{
-			components.push_back(ComponentFactory::factory().create<T>(forward<Args>(args)...));
+			components.push_back(new T(std::forward<Args>(args)...));
 			components.back()->ID = components.size() - 1;
-			components.back()->alias = typeid(T);
+			components.back()->OnInit();
 			componentIndexByType[type_index(typeid(T))] = components[components.size() - 1]->ID;
 		}
 
-		Component* component(int ID) { return components[ID]; }
+		template <typename T>
+		T* component(int index) { return dynamic_cast<T*>(components[index]); }
 
 		template <typename T>
 		T* component()
@@ -46,15 +33,27 @@ namespace ECS
 			return nullptr;
 		}
 
-		template <typename T>
-		T* component(int index) { return dynamic_cast<T*>(components[index]); }
-
-		Component* componentByType(const type_index& t)
+		void OnJson() override
 		{
-			auto it = componentIndexByType.find(t);
-			if (it != componentIndexByType.end())
-				return components[it->second];
-			return nullptr;
+			__json2 = json::array();
+
+			for (auto* component : components) { __json2.push_back(component->JSON()); }
+
+			__json["components"] = __json2;
+		}
+
+		void OnLoad() override
+		{ for (auto& [key, value] : __json["components"].items()) { OnLoadComponent(value); } }
+
+		virtual void OnLoadComponent(json component_json)
+		{
+			if (component_json["alias"] == "Component")
+			{
+				attach<Component>();
+				component<Component>()->standalone_load_from_current_json(component_json);
+			}
+
+			//...
 		}
 	};
 }

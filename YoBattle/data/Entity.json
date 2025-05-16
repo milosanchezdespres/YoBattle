@@ -1,0 +1,10 @@
+{
+    "ID": 2,
+    "alias": "Entity",
+    "components": [
+        {
+            "ID": 25,
+            "alias": "Component"
+        }
+    ]
+}

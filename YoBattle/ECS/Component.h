@@ -1,97 +1,87 @@
 #pragma once
 
-#include "NlohmanJson.hpp"
-using namespace nlohmann;
-
-#include <typeindex>
-#include <iomanip>
-#include <iostream>
-#include <fstream>
-#include <filesystem>
-using namespace std;
-namespace fs = std::filesystem;
-using namespace fs;
+#include "Utils.h"
 
 namespace ECS
 {
-	json __json__buffer;
-	json __json__buffer2;
-	string __typename__buffer;
-
 	struct Component
 	{
 		int ID;
-		type_index alias;
+		string alias;
 
-		Component() : ID(-1), alias(typeid(Component)) { __init(); }
+		string __current_loaded_alias;
+		string __current_loaded_folders;
+		json __previous_json;
+		json __json;
+		json __json2;
 
-		void save(string _path = "") const
+		Component() : ID(-1), alias("Component"), __json(nullptr) { OnInit(); }
+
+		void save(string folders = "")
 		{
-			json j = JSON();
+			ofstream* file = to_file(folders, alias, "json");
 
-			path directory = "data";
-			if (!exists(directory)) { create_directories(directory); }
-
-			string outPath = "";
-
-			if (_path == "") { outPath = "data/" + j["alias"].get<std::string>() + ".json"; }
-			else { outPath = "data/" + _path + "/" + j["alias"].get<std::string>() + ".json"; }
-
-			ofstream outFile(outPath);
-
-			if (outFile.is_open())
+			if (file->is_open())
 			{
-				outFile << std::setw(4) << j << std::endl;
-				outFile.close();
+				*file << setw(4) << JSON() << endl;
+				file->close();
 			}
 		}
 
-		json JSON() const
+		void load(string alias, string folders = "")
 		{
-			__json__buffer = json();
-			__json__buffer["ID"] = ID;
+			__current_loaded_alias = alias;
+			__current_loaded_folders = folders;
 
-			__typename__buffer = typeid(*this).name();
-			size_t pos = __typename__buffer.rfind("::");
-			if (pos != std::string::npos) { __typename__buffer = __typename__buffer.substr(pos + 2); }
-			if (__typename__buffer.find("struct ") == 0) { __typename__buffer = __typename__buffer.substr(7); }
-			__json__buffer["alias"] = __typename__buffer;
+			__json = json::parse(file_2_string(__current_loaded_folders, __current_loaded_alias, "json"));
 
-			__json__buffer = OnJson(__json__buffer);
-
-			return __json__buffer;
+			load_from_current_json();
 		}
 
-		virtual json OnJson(json json_data) const { return json_data; }
+		void _swap_json(json J)
+		{
+			__previous_json = __json;
+			__json = J;
+		}
 
-		virtual void __init() { alias = typeid(*this); }
+		void _revert_json() { __json = __previous_json; }
+
+		void load_from_current_json()
+		{
+			ID = __json["ID"];
+			alias = __json["alias"];
+
+			OnLoad();
+		}
+
+		void standalone_load_from_current_json(json J)
+		{
+			_swap_json(J);
+
+			ID = __json["ID"];
+			alias = __json["alias"];
+
+			OnLoad();
+
+			_revert_json();
+		}
+
+		json JSON() 
+		{
+			__json = json();
+			__json["ID"] = ID;
+			__json["alias"] = alias;
+
+			OnJson();
+
+			return __json;
+		}
+
+		virtual void OnInit() { alias = class_name(this); }
+		virtual void OnJson() {}
+		virtual void OnLoad() {}
 	};
 
-	template<typename T>
-	json TO_JSON(T component) { return component.JSON(); }
-
-	template<typename T>
-	json TO_JSON(T* component) { return component->JSON(); }
-
-	template<typename T>
-	json TO_JSON(const T* component) { return component->JSON(); }
-
-	class ComponentFactory
-	{
-		public:
-			ComponentFactory(const ComponentFactory&) = delete;
-			ComponentFactory& operator=(const ComponentFactory&) = delete;
-
-			static ComponentFactory& factory() {
-				static ComponentFactory instance;
-				return instance;
-			}
-
-			template <typename T, typename... Args>
-			T* create(Args&&... args) { return new T(forward<Args>(args)...); }
-
-		private:
-			ComponentFactory() { }
-			~ComponentFactory() { }
-	};
+	ostream& operator<<(ostream& os, Component& c) { return os << c.JSON().dump(4); }
+	ostream& operator<<(ostream& os, Component* c) { return os << c->JSON().dump(4); }
 }

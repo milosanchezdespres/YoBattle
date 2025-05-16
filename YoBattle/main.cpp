@@ -3,10 +3,9 @@
 int main()
 {
     Entity* test = new Entity();
-    test->add<Component>();
+    test->load("Entity");
 
-    test->save("");
-    test->component<Component>()->save("");
+    cout << test << endl;
 
     return 0;
 }

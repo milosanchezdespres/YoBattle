@@ -148,6 +148,8 @@
   <ItemGroup>
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\Entity.h" />
+    <ClInclude Include="ECS\NlohmanJson.hpp" />
+    <ClInclude Include="ECS\Utils.h" />
     <ClInclude Include="includes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
