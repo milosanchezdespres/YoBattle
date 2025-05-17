@@ -41,5 +41,8 @@
     <ClInclude Include="ECS\ECS_includes.h">
       <Filter>ECS</Filter>
     </ClInclude>
+    <ClInclude Include="ECS\System.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

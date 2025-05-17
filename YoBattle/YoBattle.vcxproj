@@ -152,6 +152,7 @@
     <ClInclude Include="ECS\NlohmanJson.hpp" />
     <ClInclude Include="ECS\Component.h" />
     <ClInclude Include="ECS\Scene.h" />
+    <ClInclude Include="ECS\System.h" />
     <ClInclude Include="ECS\Utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

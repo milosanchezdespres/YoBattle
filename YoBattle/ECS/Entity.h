@@ -18,9 +18,7 @@ namespace ECS
 			if (_alias.empty()) { _alias = "unnamed"; }
 
 			if (_alias != "unnamed" && componentsIndexByAlias.find(_alias) != componentsIndexByAlias.end())
-			{
-				return;
-			}
+			{ return; }
 
 			components.push_back(new T());
 			components.back()->ID = components.size() - 1;

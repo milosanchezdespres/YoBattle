@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Utils.h"
+#include "System.h"
 
 namespace ECS
 {
@@ -8,6 +9,9 @@ namespace ECS
 	{
 		vector<Entity*> entities;
 		unordered_map<string, int> entityByAlias;
+
+		vector<BaseSystem*> systems;
+		unordered_map<type_index, int> systemByTypeIndex;
 
 		template <typename T>
 		void add(string _alias)
@@ -30,6 +34,39 @@ namespace ECS
 			return nullptr;
 		}
 
-		Scene() : BaseObj() { }
+		template <typename T>
+		void start()
+		{
+			if (!has_system<T>())
+			{
+				systems.push_back(new T());
+				systemByTypeIndex[type_index(typeid(T))] = systems.size() - 1;
+			}
+		}
+
+		template <typename T>
+		T* sys()
+		{
+			auto it = systemByTypeIndex.find(type_index(typeid(T)));
+			if (it != systemByTypeIndex.end()) { return dynamic_cast<T*>(systems[it->second]); }
+			return nullptr;
+		}
+
+		template <typename T>
+		bool has_system() const
+		{ return systemByTypeIndex.find(type_index(typeid(T))) != systemByTypeIndex.end(); }
+
+		Scene() : BaseObj() { __OnSetup(); }
+
+		void Update(float delta)
+		{
+			for (auto it = systems.begin(); it != systems.end(); ++it)
+			{
+				auto* sys = *it;
+				sys->update(delta);
+			}
+		}
+
+		virtual void __OnSetup() {}
 	};
 }
