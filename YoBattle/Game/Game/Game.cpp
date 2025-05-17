@@ -14,6 +14,8 @@ namespace Games
 
 		go_to<Scene>();
 
+		//this will normally be inside a class that herits from scene
+		//for test purposes//
 		scene()->start<RenderSystem>();
 		scene()->sys<RenderSystem>()->game = this;
 		scene()->add<Entity>("test");
