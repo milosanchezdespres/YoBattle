@@ -7,7 +7,7 @@ RaylibHandler::RaylibHandler(string title) : SceneManager()
     int screenHeight = GetMonitorHeight(0);
 
     InitWindow(screenWidth, screenHeight, title.c_str());
-    //SetWindowState(FLAG_FULLSCREEN_MODE);
+    SetWindowState(FLAG_FULLSCREEN_MODE);
 
     SetTargetFPS(60);
 
