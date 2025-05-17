@@ -19,7 +19,7 @@ namespace Games
 		scene()->start<RenderSystem>();
 		scene()->sys<RenderSystem>()->game = this;
 		scene()->add<Entity>("test");
-		scene()->entity<Entity>("test")->attach<Sprite>("sprite1");
+		scene()->entity("test")->attach<Sprite>("sprite1");
 		scene()->component<Sprite>("test", "sprite1")->texture = "spirikat";
 		scene()->component<Sprite>("test", "sprite1")->x = 130;
 		scene()->component<Sprite>("test", "sprite1")->y = 130;

@@ -34,6 +34,8 @@ namespace ECS
 			return nullptr;
 		}
 
+		Entity* entity(string _alias) { return entity<Entity>(_alias); }
+
 		template <typename T>
 		void start()
 		{
