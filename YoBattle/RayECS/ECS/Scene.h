@@ -13,6 +13,8 @@ namespace ECS
 		vector<BaseSystem*> systems;
 		unordered_map<type_index, int> systemByTypeIndex;
 
+		Scene() : BaseObj() {}
+
 		template <typename T>
 		void add(string _alias)
 		{
@@ -58,8 +60,6 @@ namespace ECS
 		bool has_system() const
 		{ return systemByTypeIndex.find(type_index(typeid(T))) != systemByTypeIndex.end(); }
 
-		Scene() : BaseObj() { }
-
 		void Enter() { __OnEnter(); }
 		void Exit()
 		{
@@ -83,6 +83,8 @@ namespace ECS
 		T* component(string entity_alias, string component_alias)
 		{ return entity<Entity>(entity_alias)->component<T>(component_alias); }
 
+		void Events() { __OnEvents(); }
+
 		void Update(float delta)
 		{
 			__OnUpdate();
@@ -96,8 +98,12 @@ namespace ECS
 			__OnUpdate();
 		}
 
+		void Draw() { __OnDraw(); }
+
 		virtual void __OnEnter() {}
+		virtual void __OnEvents() {}
 		virtual void __OnUpdate() {}
+		virtual void __OnDraw() {}
 		virtual void __OnLastUpdate() {}
 		virtual void __OnExit() {}
 	};

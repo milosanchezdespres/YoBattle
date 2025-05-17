@@ -95,5 +95,8 @@
     <ClInclude Include="RayECS\ECS\SceneManager.h">
       <Filter>RayECS\ECS</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Game\Scenes\StartScreen.h">
+      <Filter>Game\Game\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
