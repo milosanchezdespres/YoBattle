@@ -28,10 +28,16 @@
     <Filter Include="Game\Game\Scenes">
       <UniqueIdentifier>{2f0961fb-d066-46a4-baea-436ab43aaafa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets\ui">
+      <UniqueIdentifier>{60eb9233-b477-44dd-95e8-2528414a6667}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\spirikat.png">
       <Filter>assets</Filter>
+    </Image>
+    <Image Include="assets\ui\button1.png">
+      <Filter>assets\ui</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

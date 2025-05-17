@@ -11,6 +11,7 @@ RaylibHandler::RaylibHandler(string title) : SceneManager()
 
     SetTargetFPS(60);
 
+    background = Color(WHITE);
     __position = new Vector2();
     __sourceRec = new Rectangle();
 }
@@ -27,7 +28,7 @@ void RaylibHandler::Update()
         OnEvent();
 
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(background);
 
         OnUpdate(GetFrameTime());
 
@@ -36,6 +37,10 @@ void RaylibHandler::Update()
         EndDrawing();
     }
 }
+
+int RaylibHandler::screen_width() { return GetScreenWidth(); }
+
+int RaylibHandler::screen_height() { return GetScreenHeight(); }
 
 RaylibHandler::~RaylibHandler()
 {
@@ -97,3 +102,6 @@ void RaylibHandler::blit(Sprite* sprite)
         }
     }
 }
+
+void RaylibHandler::write(string text, int font_size, float x, float y, Color color)
+    { DrawText(text.c_str(), x, y, font_size, color); }

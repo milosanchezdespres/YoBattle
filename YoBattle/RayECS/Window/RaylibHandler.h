@@ -5,6 +5,8 @@
 class RaylibHandler : public SceneManager
 {
 	public:
+		Color background;
+
 		RaylibHandler(string title);
 		~RaylibHandler();
 
@@ -14,8 +16,12 @@ class RaylibHandler : public SceneManager
 		Texture2D& texture(string alias);
 
 		void blit(Sprite* sprite);
+		void write(string text, int font_size, float x, float y, Color color = BLACK);
 
 		void Update();
+
+		int screen_width();
+		int screen_height();
 
 	protected:
 		Vector2* __position;

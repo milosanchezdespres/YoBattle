@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Image Include="assets\spirikat.png" />
+    <Image Include="assets\ui\button1.png" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game\Game\Game.cpp" />
