@@ -2,10 +2,11 @@
 
 int main()
 {
-    Entity* test = new Entity();
-    test->attach<Component>("test");
+    Scene* test = new Scene();
+    test->add<Entity>("test");
+    test->entity<Entity>("test")->attach<Component>("cddsq");
 
-    cout << test->component<Component>("test")->ID << endl;
+    cout << test->entity<Entity>("test")->component<Component>("cddsq")->alias << endl;
 
     return 0;
 }
