@@ -6,9 +6,11 @@ namespace ECS
 {
 	struct BaseSystem
 	{
+		bool standalone;
+
 		vector<Component*> components;
 
-		BaseSystem() {}
+		BaseSystem() { standalone = false; }
 
 		virtual ~BaseSystem() = default;
 
@@ -46,7 +48,7 @@ namespace ECS
 
 	struct RenderSystem : public System<Sprite>
 	{
-		RenderSystem() : System() {}
+		RenderSystem() : System() { standalone = true; }
 
 		void update(float delta) override
 		{

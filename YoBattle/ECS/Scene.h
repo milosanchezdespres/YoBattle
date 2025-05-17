@@ -75,7 +75,7 @@ namespace ECS
 			for (auto it = systems.begin(); it != systems.end(); ++it)
 			{
 				auto* sys = *it;
-				sys->update(delta);
+				if (!sys->standalone) { sys->update(delta); }
 			}
 		}
 

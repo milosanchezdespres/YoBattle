@@ -143,7 +143,9 @@
     <Image Include="assets\spirikat.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Game\Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Window\RaylibHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS\BaseObj.h" />
@@ -154,6 +156,10 @@
     <ClInclude Include="ECS\Scene.h" />
     <ClInclude Include="ECS\System.h" />
     <ClInclude Include="ECS\Utils.h" />
+    <ClInclude Include="Game\Game\Game.h" />
+    <ClInclude Include="Game\Game_includes.h" />
+    <ClInclude Include="Game\Utils.h" />
+    <ClInclude Include="Window\RaylibHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
