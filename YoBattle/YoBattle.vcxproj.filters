@@ -74,5 +74,14 @@
     <ClInclude Include="RayECS\includes.h">
       <Filter>RayECS</Filter>
     </ClInclude>
+    <ClInclude Include="RayECS\Window\Utils.h">
+      <Filter>RayECS\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\Window\RenderSystem.h">
+      <Filter>RayECS\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\Window\Sprite.h">
+      <Filter>RayECS\Window</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,8 +7,12 @@ namespace Games
 	void Game::OnInit()
 	{
 		//...
+
+		load_texture("spirikat");
+
 		test = new Scene();
 		test->start<RenderSystem>();
+		test->sys<RenderSystem>()->game = this;
 
 		test->add<Entity>("test");
 		test->entity<Entity>("test")->attach<Sprite>("sprite1");
@@ -17,7 +21,11 @@ namespace Games
 		test->upload<RenderSystem, Sprite>("test", "sprite1");
 		test->upload<RenderSystem, Sprite>("test", "sprite2");
 
-		test->component<Sprite>("test", "sprite1")->x = 30;
+		test->component<Sprite>("test", "sprite1")->texture = "spirikat";
+		test->component<Sprite>("test", "sprite1")->x = 130;
+		test->component<Sprite>("test", "sprite2")->x = 130;
+
+		test->component<Sprite>("test", "sprite2")->texture = "spirikat";
 	}
 
 	void Game::OnUpdate(float delta)

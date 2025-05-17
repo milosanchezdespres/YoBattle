@@ -1,3 +1,4 @@
+#include "RenderSystem.h"
 #include "RaylibHandler.h"
 
 RaylibHandler::RaylibHandler(string title)
@@ -37,6 +38,42 @@ void RaylibHandler::Update()
 }
 
 RaylibHandler::~RaylibHandler()
+{
+    //...
+}
+
+void RaylibHandler::load_texture(string _alias)
+{
+    if (textureByAlias.find(_alias) == textureByAlias.end())
+    {
+        string path = "assets/" + _alias + ".png";
+
+        textures.push_back(LoadTexture(path.c_str()));
+        textureByAlias[_alias] = textures.size() - 1;
+    }
+}
+
+void RaylibHandler::unload_texture(string _alias)
+{
+    auto it = textureByAlias.find(_alias);
+
+    if (it != textureByAlias.end())
+    {
+        size_t index = it->second;
+
+        UnloadTexture(textures[index]);
+
+        textures.erase(textures.begin() + index);
+        textureByAlias.erase(it);
+
+        for (auto& [key, idx] : textureByAlias) {  if (idx > index) {  --idx; } }
+    }
+}
+
+bool RaylibHandler::is_texture_loaded(string _alias)
+    { return textureByAlias.find(_alias) != textureByAlias.end(); }
+
+void RaylibHandler::blit(Sprite * sprite)
 {
     //...
 }

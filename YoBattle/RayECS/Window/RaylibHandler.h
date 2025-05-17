@@ -1,9 +1,6 @@
 #pragma once
 
-#include "raylib.h"
-
-#include <string>
-using namespace std;
+#include "Utils.h"
 
 class RaylibHandler
 {
@@ -11,9 +8,18 @@ class RaylibHandler
 		RaylibHandler(string title);
 		~RaylibHandler();
 
+		void load_texture(string _alias);
+		void unload_texture(string _alias);
+		bool is_texture_loaded(string _alias);
+
+		void blit(Sprite* sprite);
+
 		void Update();
 
 	protected:
+		vector<Texture2D> textures;
+		unordered_map<string, int> textureByAlias;
+
 		virtual void OnInit() {};
 		virtual void OnUpdate(float delta) {};
 		virtual void OnDraw() {};
