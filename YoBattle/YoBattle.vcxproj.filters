@@ -19,6 +19,15 @@
     <Filter Include="RayECS\ECS">
       <UniqueIdentifier>{3651dc65-3125-45b5-973d-7efbefc8b45d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Game\Components">
+      <UniqueIdentifier>{ccfb8177-78eb-4d60-8a84-cec3dec637cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Game\Entities">
+      <UniqueIdentifier>{cef4179b-c3d3-4ffd-93e4-63156f3735a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Game\Scenes">
+      <UniqueIdentifier>{2f0961fb-d066-46a4-baea-436ab43aaafa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\spirikat.png">
