@@ -71,5 +71,8 @@
     <ClInclude Include="RayECS\Window\RaylibHandler.h">
       <Filter>RayECS\Window</Filter>
     </ClInclude>
+    <ClInclude Include="RayECS\includes.h">
+      <Filter>RayECS</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -159,6 +159,7 @@
     <ClInclude Include="RayECS\ECS\Scene.h" />
     <ClInclude Include="RayECS\ECS\System.h" />
     <ClInclude Include="RayECS\ECS\Utils.h" />
+    <ClInclude Include="RayECS\includes.h" />
     <ClInclude Include="RayECS\Window\RaylibHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
