@@ -10,6 +10,8 @@ namespace ECS
 
 		BaseSystem() {}
 
+		virtual ~BaseSystem() = default;
+
 		virtual void update(float delta) {}
 	};
 

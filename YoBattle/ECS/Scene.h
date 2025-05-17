@@ -58,6 +58,14 @@ namespace ECS
 
 		Scene() : BaseObj() { __OnSetup(); }
 
+		template <typename T, typename M>
+		void upload(string entity_alias, string component_alias)
+		{
+			auto* comp = entity<Entity>(entity_alias)->component<M>(component_alias);
+			auto* system = sys<T>();
+			system->upload(comp);
+		}
+
 		void Update(float delta)
 		{
 			for (auto it = systems.begin(); it != systems.end(); ++it)

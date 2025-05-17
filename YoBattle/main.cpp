@@ -7,7 +7,9 @@ int main()
     test->add<Entity>("test");
 
     test->entity<Entity>("test")->attach<Sprite>("sprite1");
-    test->sys<RenderSystem>()->upload(test->entity<Entity>("test")->component<Sprite>("sprite1"));
+    test->entity<Entity>("test")->attach<Sprite>("sprite2");
+    test->upload<RenderSystem, Sprite>("test", "sprite1");
+    test->upload<RenderSystem, Sprite>("test", "sprite2");
 
     test->Update(0.0f);
     //...
