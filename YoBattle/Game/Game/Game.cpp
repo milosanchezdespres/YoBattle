@@ -10,6 +10,7 @@ namespace Games
 		//...
 
 		load_scene<Scene>();
+		//...
 
 		go_to<Scene>();
 
