@@ -92,5 +92,8 @@
     <ClInclude Include="RayECS\Window\Sprite.h">
       <Filter>RayECS\Window</Filter>
     </ClInclude>
+    <ClInclude Include="RayECS\ECS\SceneManager.h">
+      <Filter>RayECS\ECS</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

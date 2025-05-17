@@ -1,7 +1,7 @@
 #include "RenderSystem.h"
 #include "RaylibHandler.h"
 
-RaylibHandler::RaylibHandler(string title)
+RaylibHandler::RaylibHandler(string title) : SceneManager()
 {
     int screenWidth = GetMonitorWidth(0);
     int screenHeight = GetMonitorHeight(0);
@@ -10,6 +10,9 @@ RaylibHandler::RaylibHandler(string title)
     //SetWindowState(FLAG_FULLSCREEN_MODE);
 
     SetTargetFPS(60);
+
+    __position = new Vector2();
+    __sourceRec = new Rectangle();
 }
 
 void RaylibHandler::Update()
@@ -34,7 +37,8 @@ void RaylibHandler::Update()
 
 RaylibHandler::~RaylibHandler()
 {
-    //...
+    delete __position;
+    delete __sourceRec;
 }
 
 void RaylibHandler::load_texture(string _alias)
@@ -75,14 +79,19 @@ void RaylibHandler::blit(Sprite* sprite)
 {
     if (sprite->visible)
     {
-        __position = { (float)((int)(sprite->x)), (float)((int)(sprite->y)) };
+        __position->x = (int)(sprite->x);
+        __position->y = (int)(sprite->y);
 
         if (sprite->size == 0)
-            { DrawTextureEx(texture(sprite->texture), __position, sprite->rotation, sprite->scale, WHITE); }
+            { DrawTextureEx(texture(sprite->texture), *__position, sprite->rotation, sprite->scale, WHITE); }
         else
         {
-            __sourceRec = { (float)(sprite->h_tile_index * sprite->size), (float)(sprite->v_tile_index * sprite->size), (float)(sprite->scale * sprite->size), (float)(sprite->scale * sprite->size)};
-            DrawTextureRec(texture(sprite->texture), __sourceRec, __position, WHITE);
+            __sourceRec->x = (float)(sprite->h_tile_index * sprite->size);
+            __sourceRec->y = (float)(sprite->v_tile_index * sprite->size);
+            __sourceRec->width = (float)(sprite->scale * sprite->size);
+            __sourceRec->height = (float)(sprite->scale * sprite->size);
+
+            DrawTextureRec(texture(sprite->texture), *__sourceRec, *__position, WHITE);
         }
     }
 }

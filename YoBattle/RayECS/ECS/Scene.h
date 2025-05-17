@@ -56,7 +56,18 @@ namespace ECS
 		bool has_system() const
 		{ return systemByTypeIndex.find(type_index(typeid(T))) != systemByTypeIndex.end(); }
 
-		Scene() : BaseObj() { __OnSetup(); }
+		Scene() : BaseObj() { }
+
+		void Enter() { __OnEnter(); }
+		void Exit()
+		{
+			__OnExit();
+
+			entities.clear();
+			entityByAlias.clear();
+			systems.clear();
+			systemByTypeIndex.clear();
+		}
 
 		template <typename T, typename M>
 		void upload(string entity_alias, string component_alias)
@@ -79,6 +90,7 @@ namespace ECS
 			}
 		}
 
-		virtual void __OnSetup() {}
+		virtual void __OnEnter() {}
+		virtual void __OnExit() {}
 	};
 }

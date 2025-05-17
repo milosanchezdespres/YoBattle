@@ -2,7 +2,7 @@
 
 #include "Utils.h"
 
-class RaylibHandler
+class RaylibHandler : public SceneManager
 {
 	public:
 		RaylibHandler(string title);
@@ -18,14 +18,13 @@ class RaylibHandler
 		void Update();
 
 	protected:
+		Vector2* __position;
+		Rectangle* __sourceRec;
+
 		vector<Texture2D> textures;
 		unordered_map<string, int> textureByAlias;
 
 		virtual void OnInit() {};
 		virtual void OnUpdate(float delta) {};
 		virtual void OnDraw() {};
-
-	private:
-		Vector2 __position;
-		Rectangle __sourceRec;
 };

@@ -6,41 +6,32 @@ namespace Games
 
 	void Game::OnInit()
 	{
+		load_texture("spirikat");
 		//...
 
-		load_texture("spirikat");
+		load_scene<Scene>();
 
-		test = new Scene();
-		test->start<RenderSystem>();
-		test->sys<RenderSystem>()->game = this;
+		go_to<Scene>();
 
-		test->add<Entity>("test");
-		test->entity<Entity>("test")->attach<Sprite>("sprite1");
-		test->entity<Entity>("test")->attach<Sprite>("sprite2");
-
-		test->upload<RenderSystem, Sprite>("test", "sprite1");
-		test->upload<RenderSystem, Sprite>("test", "sprite2");
-
-		test->component<Sprite>("test", "sprite1")->texture = "spirikat";
-		test->component<Sprite>("test", "sprite1")->x = 130;
-		test->component<Sprite>("test", "sprite1")->y = 130;
-		test->component<Sprite>("test", "sprite1")->scale = 2;
-		test->component<Sprite>("test", "sprite1")->rotation = 37.0f;
-
-		test->component<Sprite>("test", "sprite2")->texture = "spirikat";
-		test->component<Sprite>("test", "sprite2")->scale = 2;
+		scene()->start<RenderSystem>();
+		scene()->sys<RenderSystem>()->game = this;
+		scene()->add<Entity>("test");
+		scene()->entity<Entity>("test")->attach<Sprite>("sprite1");
+		scene()->component<Sprite>("test", "sprite1")->texture = "spirikat";
+		scene()->component<Sprite>("test", "sprite1")->x = 130;
+		scene()->component<Sprite>("test", "sprite1")->y = 130;
+		scene()->component<Sprite>("test", "sprite1")->scale = 2;
+		scene()->upload<RenderSystem, Sprite>("test", "sprite1");
+		//...
 	}
 
 	void Game::OnUpdate(float delta)
 	{
-		//...
-
-		test->Update(delta);
+		scene()->Update(delta);
 	}
 
 	void Game::OnDraw()
 	{
-		//...
-		test->sys<RenderSystem>()->update(0);
+		//scene()->sys<RenderSystem>()->update(0);
 	}
 }

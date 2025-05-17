@@ -2,6 +2,7 @@
 
 #include "raylib.h"
 
+#include "../ECS/SceneManager.h"
 #include "Sprite.h"
 
 #include <vector>

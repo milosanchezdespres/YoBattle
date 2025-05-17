@@ -9,9 +9,6 @@ namespace Games
 		public:
 			Game(string title);
 
-			//...
-			Scene* test;
-
 		protected:
 			void OnInit();
 			void OnUpdate(float delta);
