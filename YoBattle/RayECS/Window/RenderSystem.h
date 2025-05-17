@@ -10,7 +10,7 @@ struct RenderSystem : public System<Sprite>
 {
 	RaylibHandler* game = nullptr;
 
-	RenderSystem() : System() { game = nullptr; }
+	RenderSystem() : System() { standalone = true; game = nullptr; }
 
 	RenderSystem(RaylibHandler* _game) : System()
 	{

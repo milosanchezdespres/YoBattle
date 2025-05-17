@@ -35,6 +35,6 @@ namespace Games
 
 	void Game::OnDraw()
 	{
-		//scene()->sys<RenderSystem>()->update(0);
+		scene()->sys<RenderSystem>()->update(0);
 	}
 }
