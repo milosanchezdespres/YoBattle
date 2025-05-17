@@ -157,8 +157,8 @@
     <ClInclude Include="ECS\System.h" />
     <ClInclude Include="ECS\Utils.h" />
     <ClInclude Include="Game\Game\Game.h" />
+    <ClInclude Include="Game\Game\Utils.h" />
     <ClInclude Include="Game\Game_includes.h" />
-    <ClInclude Include="Game\Utils.h" />
     <ClInclude Include="Window\RaylibHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

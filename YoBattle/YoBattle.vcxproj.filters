@@ -65,8 +65,8 @@
     <ClInclude Include="Game\Game_includes.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Utils.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="Game\Game\Utils.h">
+      <Filter>Game\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
