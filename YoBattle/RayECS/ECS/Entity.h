@@ -10,7 +10,7 @@ namespace ECS
 		unordered_map<type_index, vector<int>> componentsIndexByType;
 		unordered_map<string, int> componentsIndexByAlias;
 
-		Entity() : BaseObj() { }
+		Entity() : BaseObj() { OnSetup(); }
 
 		template <typename T>
 		void attach(string _alias = "")
@@ -52,5 +52,7 @@ namespace ECS
 
 			return dynamic_cast<T*>(components[globalIndex]);
 		}
+
+		virtual void OnSetup() {}
 	};
 }
