@@ -4,17 +4,20 @@
     <Filter Include="assets">
       <UniqueIdentifier>{3f7116bc-317c-42ef-b283-abea4cb64ae7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ECS">
-      <UniqueIdentifier>{3651dc65-3125-45b5-973d-7efbefc8b45d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{10e903ba-2670-4808-9440-bc9787ab0163}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Window">
-      <UniqueIdentifier>{bda861c0-3ad2-4cc5-8afc-965bec709324}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Game">
       <UniqueIdentifier>{f8b0fe55-428f-4189-bc77-3619060c5879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RayECS">
+      <UniqueIdentifier>{2075f09c-b0e7-4397-908c-961bb01d6312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RayECS\Window">
+      <UniqueIdentifier>{bda861c0-3ad2-4cc5-8afc-965bec709324}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RayECS\ECS">
+      <UniqueIdentifier>{3651dc65-3125-45b5-973d-7efbefc8b45d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -24,41 +27,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Window\RaylibHandler.cpp">
-      <Filter>Window</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Game\Game.cpp">
       <Filter>Game\Game</Filter>
     </ClCompile>
+    <ClCompile Include="RayECS\Window\RaylibHandler.cpp">
+      <Filter>RayECS\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECS\NlohmanJson.hpp">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\Component.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\BaseObj.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\Utils.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\Scene.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\Entity.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\ECS_includes.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS\System.h">
-      <Filter>ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="Window\RaylibHandler.h">
-      <Filter>Window</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Game\Game.h">
       <Filter>Game\Game</Filter>
     </ClInclude>
@@ -67,6 +43,33 @@
     </ClInclude>
     <ClInclude Include="Game\Game\Utils.h">
       <Filter>Game\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\ECS\BaseObj.h">
+      <Filter>RayECS\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\ECS\Component.h">
+      <Filter>RayECS\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\ECS\ECS_includes.h">
+      <Filter>RayECS\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\ECS\Entity.h">
+      <Filter>RayECS\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\ECS\NlohmanJson.hpp">
+      <Filter>RayECS\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\ECS\Scene.h">
+      <Filter>RayECS\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\ECS\System.h">
+      <Filter>RayECS\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\ECS\Utils.h">
+      <Filter>RayECS\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="RayECS\Window\RaylibHandler.h">
+      <Filter>RayECS\Window</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

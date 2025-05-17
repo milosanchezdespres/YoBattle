@@ -145,21 +145,21 @@
   <ItemGroup>
     <ClCompile Include="Game\Game\Game.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Window\RaylibHandler.cpp" />
+    <ClCompile Include="RayECS\Window\RaylibHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECS\BaseObj.h" />
-    <ClInclude Include="ECS\ECS_includes.h" />
-    <ClInclude Include="ECS\Entity.h" />
-    <ClInclude Include="ECS\NlohmanJson.hpp" />
-    <ClInclude Include="ECS\Component.h" />
-    <ClInclude Include="ECS\Scene.h" />
-    <ClInclude Include="ECS\System.h" />
-    <ClInclude Include="ECS\Utils.h" />
     <ClInclude Include="Game\Game\Game.h" />
     <ClInclude Include="Game\Game\Utils.h" />
     <ClInclude Include="Game\Game_includes.h" />
-    <ClInclude Include="Window\RaylibHandler.h" />
+    <ClInclude Include="RayECS\ECS\BaseObj.h" />
+    <ClInclude Include="RayECS\ECS\Component.h" />
+    <ClInclude Include="RayECS\ECS\ECS_includes.h" />
+    <ClInclude Include="RayECS\ECS\Entity.h" />
+    <ClInclude Include="RayECS\ECS\NlohmanJson.hpp" />
+    <ClInclude Include="RayECS\ECS\Scene.h" />
+    <ClInclude Include="RayECS\ECS\System.h" />
+    <ClInclude Include="RayECS\ECS\Utils.h" />
+    <ClInclude Include="RayECS\Window\RaylibHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

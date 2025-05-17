@@ -1,4 +1,4 @@
 #pragma once
 
-#include "../../ECS/ECS_includes.h"
-#include "../../Window/RaylibHandler.h"
+#include "../../RayECS/ECS/ECS_includes.h"
+#include "../../RayECS/Window/RaylibHandler.h"
