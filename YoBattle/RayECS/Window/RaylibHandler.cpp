@@ -19,12 +19,7 @@ void RaylibHandler::Update()
     while (!WindowShouldClose())
     {
         if (IsKeyPressed(KEY_ESCAPE)) { delete this; }
-
-        if (IsKeyPressed(KEY_F11))
-        {
-            if (IsWindowState(FLAG_FULLSCREEN_MODE)) { ClearWindowState(FLAG_FULLSCREEN_MODE); }
-            else { SetWindowState(FLAG_FULLSCREEN_MODE); }
-        }
+        if (IsKeyPressed(KEY_F11)) { ToggleFullscreen(); }
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -73,7 +68,15 @@ void RaylibHandler::unload_texture(string _alias)
 bool RaylibHandler::is_texture_loaded(string _alias)
     { return textureByAlias.find(_alias) != textureByAlias.end(); }
 
-void RaylibHandler::blit(Sprite * sprite)
+Texture2D& RaylibHandler::texture(string alias)
+    { return textures[textureByAlias.at(alias)]; }
+
+void RaylibHandler::blit(Sprite* sprite)
 {
-    //...
+    if (sprite->visible)
+    {
+        if (sprite->size == 0)
+            { DrawTexture(texture(sprite->texture), (int)(sprite->x), (int)(sprite->y), WHITE); }
+        //...
+    }
 }

@@ -23,7 +23,7 @@ namespace Games
 
 		test->component<Sprite>("test", "sprite1")->texture = "spirikat";
 		test->component<Sprite>("test", "sprite1")->x = 130;
-		test->component<Sprite>("test", "sprite2")->x = 130;
+		test->component<Sprite>("test", "sprite1")->y = 130;
 
 		test->component<Sprite>("test", "sprite2")->texture = "spirikat";
 	}

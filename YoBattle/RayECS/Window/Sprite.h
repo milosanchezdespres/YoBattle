@@ -15,7 +15,7 @@ struct Sprite : public Component
 		y = 0;
 
 		tile_index = 0;
-		size = 8;
+		size = 0;
 
 		texture = "";
 
