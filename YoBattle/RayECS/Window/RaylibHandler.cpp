@@ -75,8 +75,14 @@ void RaylibHandler::blit(Sprite* sprite)
 {
     if (sprite->visible)
     {
+        __position = { (float)((int)(sprite->x)), (float)((int)(sprite->y)) };
+
         if (sprite->size == 0)
-            { DrawTexture(texture(sprite->texture), (int)(sprite->x), (int)(sprite->y), WHITE); }
-        //...
+            { DrawTextureEx(texture(sprite->texture), __position, sprite->rotation, sprite->scale, WHITE); }
+        else
+        {
+            __sourceRec = { (float)(sprite->h_tile_index * sprite->size), (float)(sprite->v_tile_index * sprite->size), (float)(sprite->scale * sprite->size), (float)(sprite->scale * sprite->size)};
+            DrawTextureRec(texture(sprite->texture), __sourceRec, __position, WHITE);
+        }
     }
 }

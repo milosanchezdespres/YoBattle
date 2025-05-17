@@ -4,8 +4,8 @@
 
 struct Sprite : public Component
 {
-	float x, y;
-	int size, tile_index;
+	float x, y, rotation;
+	int size, scale, h_tile_index, v_tile_index;
 	string texture;
 	bool visible;
 
@@ -14,8 +14,12 @@ struct Sprite : public Component
 		x = 0;
 		y = 0;
 
-		tile_index = 0;
+		rotation = 0;
+
+		h_tile_index = 0;
+		v_tile_index = 0;
 		size = 0;
+		scale = 1;
 
 		texture = "";
 

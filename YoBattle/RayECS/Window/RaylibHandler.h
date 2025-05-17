@@ -24,4 +24,8 @@ class RaylibHandler
 		virtual void OnInit() {};
 		virtual void OnUpdate(float delta) {};
 		virtual void OnDraw() {};
+
+	private:
+		Vector2 __position;
+		Rectangle __sourceRec;
 };
