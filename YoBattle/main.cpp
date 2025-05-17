@@ -11,6 +11,10 @@ int main()
     test->upload<RenderSystem, Sprite>("test", "sprite1");
     test->upload<RenderSystem, Sprite>("test", "sprite2");
 
+    test->component<Sprite>("test", "sprite1")->x = 30;
+
+    cout << test->component<Sprite>("test", "sprite1")->x << endl;
+
     test->Update(0.0f);
     //...
 

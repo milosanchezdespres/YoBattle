@@ -25,9 +25,23 @@ namespace ECS
 
 	struct Sprite : public Component
 	{
-		//...
+		float x, y;
+		int size, tile_index;
+		string texture;
+		bool visible;
 
-		Sprite() : Component() {}
+		Sprite() : Component()
+		{
+			x = 0;
+			y = 0;
+
+			tile_index = 0;
+			size = 8;
+
+			texture = "";
+
+			visible = true;
+		}
 	};
 
 	struct RenderSystem : public System<Sprite>
@@ -36,7 +50,6 @@ namespace ECS
 
 		void update(float delta) override
 		{
-			//...
 			for (auto it = components.begin(); it != components.end(); ++it)
 			{
 				Component* c = *it;

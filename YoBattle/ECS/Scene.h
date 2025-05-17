@@ -66,6 +66,10 @@ namespace ECS
 			system->upload(comp);
 		}
 
+		template <typename T>
+		T* component(string entity_alias, string component_alias)
+		{ return entity<Entity>(entity_alias)->component<T>(component_alias); }
+
 		void Update(float delta)
 		{
 			for (auto it = systems.begin(); it != systems.end(); ++it)
