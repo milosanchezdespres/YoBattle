@@ -85,14 +85,20 @@ namespace ECS
 
 		void Update(float delta)
 		{
+			__OnUpdate();
+
 			for (auto it = systems.begin(); it != systems.end(); ++it)
 			{
 				auto* sys = *it;
 				if (!sys->standalone) { sys->update(delta); }
 			}
+
+			__OnUpdate();
 		}
 
 		virtual void __OnEnter() {}
+		virtual void __OnUpdate() {}
+		virtual void __OnLastUpdate() {}
 		virtual void __OnExit() {}
 	};
 }

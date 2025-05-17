@@ -25,6 +25,7 @@ class RaylibHandler : public SceneManager
 		unordered_map<string, int> textureByAlias;
 
 		virtual void OnInit() {};
+		virtual void OnEvent() {};
 		virtual void OnUpdate(float delta) {};
 		virtual void OnDraw() {};
 };

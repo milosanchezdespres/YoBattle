@@ -28,6 +28,11 @@ namespace Games
 		//...
 	}
 
+	void Game::OnEvent()
+	{
+		//...
+	}
+
 	void Game::OnUpdate(float delta)
 	{
 		scene()->Update(delta);

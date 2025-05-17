@@ -24,6 +24,8 @@ void RaylibHandler::Update()
         if (IsKeyPressed(KEY_ESCAPE)) { delete this; }
         if (IsKeyPressed(KEY_F11)) { ToggleFullscreen(); }
 
+        OnEvent();
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
 

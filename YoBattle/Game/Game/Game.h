@@ -11,6 +11,7 @@ namespace Games
 
 		protected:
 			void OnInit();
+			void OnEvent();
 			void OnUpdate(float delta);
 			void OnDraw();
 	};
