@@ -31,6 +31,9 @@
     <Filter Include="assets\ui">
       <UniqueIdentifier>{60eb9233-b477-44dd-95e8-2528414a6667}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Game\Systems">
+      <UniqueIdentifier>{b60bed95-1c58-43cb-a1d3-a1921a22cb06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\spirikat.png">
@@ -102,6 +105,9 @@
       <Filter>RayECS\ECS</Filter>
     </ClInclude>
     <ClInclude Include="Game\Game\Scenes\StartScreen.h">
+      <Filter>Game\Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Game\Scenes\StartChoice.h">
       <Filter>Game\Game\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

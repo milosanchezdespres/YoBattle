@@ -11,6 +11,10 @@ namespace Games
 
 		load_scene<StartScreen>();
 		scene<StartScreen>()->game = this;
+
+		load_scene<StartChoice>();
+		scene<StartChoice>()->game = this;
+
 		//...
 
 		go_to<StartScreen>();

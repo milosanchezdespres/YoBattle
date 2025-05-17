@@ -1,21 +1,20 @@
 #pragma once
 
 #include "../Utils.h"
-#include "Scenes/StartChoice.h"
 
 namespace Games
 {
-	struct StartScreen : public Scene
+	struct StartChoice : public Scene
 	{
 		int screen_width, screen_height;
 
 		RaylibHandler* game = nullptr;
 
-		StartScreen() : Scene() {}
+		StartChoice() : Scene() {}
 
 		void __OnEnter()
 		{
-			game->background = BLACK;
+			game->background = WHITE;
 
 			screen_width = game->screen_width();
 			screen_height = game->screen_height();
@@ -27,12 +26,7 @@ namespace Games
 
 		void __OnEvents()
 		{
-			if (IsKeyPressed(KEY_SPACE) ||IsKeyPressed(KEY_ENTER) || (IsGamepadAvailable(0) && IsGamepadButtonPressed(0, GAMEPAD_BUTTON_MIDDLE_RIGHT)))
-			{
-				game->go_to<StartChoice>();
-				//sound...
-				//animate it...
-			}
+			//...
 		}
 
 		void __OnUpdate()
@@ -48,8 +42,6 @@ namespace Games
 		void __OnDraw()
 		{
 			sys<RenderSystem>()->update(0);
-
-			game->write("press start", 32, (screen_width / 2) - 100, (screen_height / 2) + 148, WHITE);
 		}
 
 		void __OnExit()

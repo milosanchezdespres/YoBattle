@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Game\Game.h" />
+    <ClInclude Include="Game\Game\Scenes\StartChoice.h" />
     <ClInclude Include="Game\Game\Scenes\StartScreen.h" />
     <ClInclude Include="Game\Game\Utils.h" />
     <ClInclude Include="Game\Game_includes.h" />
