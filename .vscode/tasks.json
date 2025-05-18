@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build YoBattle",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "main.cpp",
+        "-o",
+        "YoBattle",
+        "-lraylib", "-lGL", "-lm", "-lpthread", "-ldl", "-lrt", "-lX11"
+      ],
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run YoBattle",
+      "type": "shell",
+      "command": "${workspaceFolder}/YoBattle",
+      "dependsOn": "Build YoBattle",
+      "problemMatcher": []
+    }
+  ]
+}
