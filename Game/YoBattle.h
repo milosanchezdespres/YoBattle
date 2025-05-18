@@ -1,6 +1,9 @@
 #pragma once
 
 #include "../WINDOW/WINDOW.h"
+using namespace RAYWIN;
+
+#include "ECS/includes.h"
 
 namespace YOBATTLE
 {
@@ -12,6 +15,8 @@ namespace YOBATTLE
         protected:
             void OnStart() override
             {
+                go_to<StartScreen>();
+                
                 //...
             }
 

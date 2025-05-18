@@ -1,15 +1,18 @@
 #pragma once
 
+#include "../ECS/ECS.h"
+using namespace ECS;
+
 #include "raylib.h"
 
 namespace RAYWIN
 {
-    class GameLogic
+    class GameLogic : public SceneManager
     {
         public:
 		    Color background = BLUE;
 
-            GameLogic() {}
+            GameLogic() : SceneManager() {}
             ~GameLogic() {}
 
             void start() { OnStart(); }
