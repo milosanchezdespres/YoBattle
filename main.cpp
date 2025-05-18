@@ -16,7 +16,7 @@ struct TestScene : public Scene
 
     void OnUpdate(float delta)
     {
-        //...
+        for(auto* component : get<Entity>("test_entity1")->all()) { print(to_string(component->ID) + " :: " + component->alias); }
     }
 };
 
