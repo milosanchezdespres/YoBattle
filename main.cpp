@@ -4,6 +4,7 @@ int main()
 {
     Scene* test = new Scene();
     test->init(1, "my_scene");
+    test->Enter();
 
     test->add<Entity>("TestEntity1");
 
@@ -13,10 +14,14 @@ int main()
     test->attach<Component>("TestEntity1", "TestComponent4");
     test->attach<Component>("TestEntity1", "TestComponent5");
 
+    test->entity("TestEntity1")->remove("TestComponent3");
+
     for (auto* obj : *test->entity("TestEntity1"))
     {
         print(to_string(obj->ID) + " :: " + obj->alias);
     }
+
+    test->Exit();
 
     return 0;
 }

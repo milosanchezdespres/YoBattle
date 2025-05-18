@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_map>
 #include <typeindex>
+#include <algorithm>
 using namespace std;
 
 namespace BaseECS
@@ -57,6 +58,72 @@ namespace BaseECS
                 }
                 
                 return results;
+            }
+
+            void remove(size_t id)
+            {
+                if (id >= objects.size())
+                    return;
+
+                delete objects[id];
+
+                for(auto it = object_by_alias.begin(); it != object_by_alias.end(); )
+                {
+                    if(it->second == id)
+                        it = object_by_alias.erase(it);
+                    else
+                        ++it;
+                }
+
+                for(auto& [type, vec] : objects_by_type)
+                {
+                    vec.erase(std::remove(vec.begin(), vec.end(), static_cast<int>(id)), vec.end());
+                }
+
+                objects.erase(objects.begin() + id);
+
+                for(auto& [alias, index] : object_by_alias)
+                {
+                    if(index > id)
+                        --index;
+                }
+                for(auto& [type, vec] : objects_by_type)
+                {
+                    for(auto& idx : vec)
+                    {
+                        if(idx > id)
+                            --idx;
+                    }
+                }
+            }
+
+            void remove(const string& alias)
+            {
+                auto it = object_by_alias.find(alias);
+                if(it != object_by_alias.end()) { remove(it->second); }
+            }
+
+            template<typename T>
+            void remove()
+            {
+                auto typeIt = objects_by_type.find(type_index(typeid(T)));
+                if(typeIt == objects_by_type.end())
+                    return;
+
+                auto& ids = typeIt->second;
+                std::sort(ids.begin(), ids.end(), std::greater<int>());
+
+                for(auto id : ids)
+                {
+                    remove(id);
+                }
+            }
+
+            void clear()
+            {
+                objects.clear();
+                objects_by_type.clear();
+                object_by_alias.clear();
             }
 
             iterator begin() { return objects.begin(); }
