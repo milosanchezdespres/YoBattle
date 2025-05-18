@@ -1,30 +1,24 @@
-#include "ECS/includes.h"
-//#include "Game/TestSystem.h"
+#include "ECS/ECS.h"
 
 int main()
 {
-    Scene* test = new Scene();
-    test->init(1, "my_scene");
-    //test->start<TestSystem>();
+    Entity* test = new Entity();
+    test->init(0, "test_entity", nullptr);
 
-    test->add<Entity>("TestEntity1");
+    test->add<Component>("test_component1");
+    test->add<Component>("test_component2");
+    test->add<Component>("test_component3");
+    test->add<Component>("test_component4");
+    test->add<Component>("test_component5");
+    test->add<Component>("test_component6");
+    test->add<Component>("test_component7");
 
-    test->attach<Component>("TestEntity1", "TestComponent1");
-    test->attach<Component>("TestEntity1", "TestComponent2");
-    test->attach<Component>("TestEntity1", "TestComponent3");
-    test->attach<Component>("TestEntity1", "TestComponent4");
-    test->attach<Component>("TestEntity1", "TestComponent5");
+    test->remove("test_component5");
 
-    test->entity("TestEntity1")->remove("TestComponent3");
-
-    for (auto* obj : *test->entity("TestEntity1"))
+    for(auto* component : *test)
     {
-        print(to_string(obj->ID) + " :: " + obj->alias);
+        print(to_string(component->ID) + " :: " + component->alias);
     }
-
-    test->Update();
-
-    test->Exit();
 
     return 0;
 }
