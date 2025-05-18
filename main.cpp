@@ -1,24 +1,31 @@
 #include "ECS/ECS.h"
 
+struct TestScene : public Scene
+{
+    TestScene() : Scene() {}
+
+    void OnEnter() override
+    {
+        add<Entity>("test_entity1");
+        get<Entity>("test_entity1")->add<Component>("test_component1");
+        get<Entity>("test_entity1")->add<Component>("test_component2");
+        get<Entity>("test_entity1")->add<Component>("test_component3");
+        get<Entity>("test_entity1")->add<Component>("test_component4");
+        get<Entity>("test_entity1")->remove("test_component3");
+    }
+
+    void OnUpdate(float delta)
+    {
+        //...
+    }
+};
+
 int main()
 {
-    Entity* test = new Entity();
-    test->init(0, "test_entity", nullptr);
+    SceneManager* test = new SceneManager();
+    test->go_to<TestScene>();
 
-    test->add<Component>("test_component1");
-    test->add<Component>("test_component2");
-    test->add<Component>("test_component3");
-    test->add<Component>("test_component4");
-    test->add<Component>("test_component5");
-    test->add<Component>("test_component6");
-    test->add<Component>("test_component7");
-
-    test->remove("test_component5");
-
-    for(auto* component : *test)
-    {
-        print(to_string(component->ID) + " :: " + component->alias);
-    }
+    test->update(0);
 
     return 0;
 }

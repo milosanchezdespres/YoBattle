@@ -12,6 +12,7 @@ struct Container : public BaseObject
     static_assert(is_base_of_v<BaseObject, T>, "T must derive from BaseObject");
     public:
         Container() : BaseObject() {}
+        ~Container() { clear(); }
         
         using iterator = typename vector<T*>::iterator;
         using const_iterator = typename vector<T*>::const_iterator;
@@ -30,6 +31,13 @@ struct Container : public BaseObject
 
         bool has(string _alias) { return object_by_alias.find(_alias) != object_by_alias.end(); }
 
+        template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
+        bool has() const
+        {
+            auto it = objects_by_type.find(type_index(typeid(M)));
+            return (it != objects_by_type.end() && !it->second.empty());
+        }
+
         T* get(string _alias)
         {
             auto aliasIt = object_by_alias.find(_alias);
@@ -43,6 +51,8 @@ struct Container : public BaseObject
 
         template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
         M* get(const string& _alias) { return dynamic_cast<M*>(get(_alias)); }
+
+        vector<T*> all() const { return objects; }
 
         template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
         vector<M*> all() const

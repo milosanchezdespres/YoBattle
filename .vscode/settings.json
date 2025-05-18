@@ -45,6 +45,9 @@
         "typeindex": "cpp",
         "map": "cpp",
         "iostream": "cpp",
-        "istream": "cpp"
+        "istream": "cpp",
+        "ranges": "cpp",
+        "span": "cpp",
+        "variant": "cpp"
     }
 }

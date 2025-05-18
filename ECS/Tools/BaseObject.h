@@ -20,5 +20,9 @@ struct BaseObject
         ID = _ID;
         alias = _alias;
         parent = _parent;
+
+        OnInit();
     }
+
+    virtual void OnInit() {}
 };
