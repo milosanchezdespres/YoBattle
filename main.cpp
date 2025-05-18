@@ -2,15 +2,18 @@
 
 int main()
 {
-    Entity* test = new Entity();
-    test->init(1, "TestEntity");
-    test->attach<Component>("TestComponent1");
-    test->attach<Component>("TestComponent2");
-    test->attach<Component>("TestComponent3");
-    test->attach<Component>("TestComponent4");
-    test->attach<Component>("TestComponent5");
+    Scene* test = new Scene();
+    test->init(1, "my_scene");
 
-    for (auto* obj : *test)
+    test->add<Entity>("TestEntity1");
+
+    test->attach<Component>("TestEntity1", "TestComponent1");
+    test->attach<Component>("TestEntity1", "TestComponent2");
+    test->attach<Component>("TestEntity1", "TestComponent3");
+    test->attach<Component>("TestEntity1", "TestComponent4");
+    test->attach<Component>("TestEntity1", "TestComponent5");
+
+    for (auto* obj : *test->entity("TestEntity1"))
     {
         print(to_string(obj->ID) + " :: " + obj->alias);
     }

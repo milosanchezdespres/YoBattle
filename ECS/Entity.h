@@ -13,7 +13,7 @@ namespace ECS
         Entity() : Container() {}
 
         template <typename T>
-        void attach(string _alias = "") { add<T>(_alias); }
+        void attach(string _alias) { add<T>(_alias); }
         
         Component* component(string _alias) { return get<Component>(_alias); }
 

@@ -2,7 +2,7 @@
 //...
 
 #include "BaseObject/BaseObject.h"
-#include "Entity.h"
+#include "Scene.h"
 
 using namespace BaseECS;
 using namespace ECS;
