@@ -7,7 +7,9 @@ int main() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(BLACK);
+
         DrawText("Welcome to YoBattle!", 220, 280, 30, RAYWHITE);
+        
         EndDrawing();
     }
 
