@@ -18,7 +18,6 @@ struct TestSystem : System<TestComponent>
     {
         TestComponent* component = cast(_component);
 
-        print(component->parent->alias);
         print(to_string(component->ID) + " :: " + component->alias);
     }
 };
@@ -48,7 +47,8 @@ int main()
 
     test->update(0);
 
-    test->get("test_entity1")->remove("test_component3");
+    test->scene()->get("test_entity1")->remove("test_component3");
+    test->scene()->sys<TestSystem>()->remove(test->scene()->get("test_entity1")->get("test_component3"));
 
     test->update(0);
 

@@ -130,6 +130,48 @@ struct Container : public BaseObject
             for(auto id : ids) { remove(id); }
         }
 
+        void remove(T* object)
+        {
+            auto& objs = this->objects;
+
+            auto it = std::find(objs.begin(), objs.end(), object);
+            if(it == objs.end()) return;
+
+            size_t id = std::distance(objs.begin(), it);
+
+            delete *it;
+
+            objs.erase(it);
+
+            for(auto itAlias = object_by_alias.begin(); itAlias != object_by_alias.end(); )
+            {
+                if(itAlias->second == static_cast<int>(id))
+                    itAlias = object_by_alias.erase(itAlias);
+                else
+                    ++itAlias;
+            }
+
+            for(auto& [type, vec] : objects_by_type)
+            {
+                vec.erase(std::remove(vec.begin(), vec.end(), static_cast<int>(id)), vec.end());
+            }
+
+            for(auto& [alias, index] : object_by_alias)
+            {
+                if(index > id)
+                    --index;
+            }
+            
+            for(auto& [type, vec] : objects_by_type)
+            {
+                for(auto& idx : vec)
+                {
+                    if(idx > id)
+                        --idx;
+                }
+            }
+        }
+
         void clear()
         {
             for (auto* obj : objects) delete obj;
