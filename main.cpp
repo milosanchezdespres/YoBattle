@@ -1,10 +1,11 @@
 #include "ECS/includes.h"
+//#include "Game/TestSystem.h"
 
 int main()
 {
     Scene* test = new Scene();
     test->init(1, "my_scene");
-    test->Enter();
+    //test->start<TestSystem>();
 
     test->add<Entity>("TestEntity1");
 
@@ -20,6 +21,8 @@ int main()
     {
         print(to_string(obj->ID) + " :: " + obj->alias);
     }
+
+    test->Update();
 
     test->Exit();
 

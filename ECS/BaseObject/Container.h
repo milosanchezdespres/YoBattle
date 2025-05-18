@@ -113,10 +113,7 @@ namespace BaseECS
                 auto& ids = typeIt->second;
                 std::sort(ids.begin(), ids.end(), std::greater<int>());
 
-                for(auto id : ids)
-                {
-                    remove(id);
-                }
+                for(auto id : ids) { remove(id); }
             }
 
             void clear()
