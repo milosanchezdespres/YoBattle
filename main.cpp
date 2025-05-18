@@ -52,5 +52,9 @@ int main()
 
     test->update(0);
 
+    test->go_to<Scene>();
+
+    test->update(0);
+
     return 0;
 }

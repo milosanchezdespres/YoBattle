@@ -6,6 +6,6 @@ namespace ECS
 {
     struct Component : BaseObject
     {
-        Component() : BaseObject() {}
+        Component() : BaseObject() { }
     };
 }
