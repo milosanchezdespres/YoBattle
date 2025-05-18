@@ -24,6 +24,9 @@ namespace ECS
             scene()->Enter();
         }
 
-        void update(float delta) { scene()->Update(delta); }
+        void update(float delta)
+        {
+            for(auto* system : scene()->all_systems()) { system->update(delta); }
+        }
     };
 }

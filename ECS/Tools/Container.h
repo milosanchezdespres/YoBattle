@@ -29,6 +29,13 @@ struct Container : public BaseObject
             }
         }
 
+        void add(T* item)
+        {
+            objects.push_back(item);
+            object_by_alias[item->alias] = item->ID;
+            objects_by_type[type_index(typeid(*item))].push_back(item->ID);
+        }
+
         bool has(string _alias) { return object_by_alias.find(_alias) != object_by_alias.end(); }
 
         template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
