@@ -13,7 +13,7 @@ namespace RAYWIN
 		    Color background = BLUE;
 
             GameLogic() : SceneManager() {}
-            ~GameLogic() {}
+            ~GameLogic() { scene()->Exit(); }
 
             void start() { OnStart(); }
             void update() { OnUpdate(); }

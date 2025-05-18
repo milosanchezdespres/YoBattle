@@ -23,7 +23,16 @@ namespace ECS
 
         void Exit()
         {
+            for(auto* entity : all())
+            {
+                entity->clear();
+                delete entity;
+            }
+
+            for(auto* system : all_systems()) { delete system; }
+
             clear();
+
             OnExit();
         }
 
