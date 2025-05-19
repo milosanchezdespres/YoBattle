@@ -25,17 +25,30 @@ namespace YOBATTLE
 
             attach<SpriteRenderSystem>();
             sys<SpriteRenderSystem>()->camera = test_map_surface.camera;
-            sys<SpriteRenderSystem>()->camera->mode = 1;
+            sys<SpriteRenderSystem>()->camera->mode = 2;
             sys<SpriteRenderSystem>()->camera->zoom = 5;
 
             add<Character>("player");
             get("player")->get<Sprite>("body")->texture = "player";
-            get("player")->get<Sprite>("body")->position.x = 130;
-            get("player")->get<Sprite>("body")->position.y = 130;
             get("player")->get<Sprite>("body")->tile_index = 1;
             get("player")->get<Sprite>("body")->tile_size = 16;
 
             sys<SpriteRenderSystem>()->upload(get("player")->get<Sprite>("body"));
+
+            Game::instance().register_key("up", KEY_W, GAMEPAD_BUTTON_LEFT_FACE_UP);
+            Game::instance().register_key("down", KEY_S, GAMEPAD_BUTTON_LEFT_FACE_DOWN);
+            Game::instance().register_key("left", KEY_A, GAMEPAD_BUTTON_LEFT_FACE_LEFT);
+            Game::instance().register_key("right", KEY_D, GAMEPAD_BUTTON_LEFT_FACE_RIGHT);
+        }
+
+        void OnUpdate(float delta) override
+        {
+            sys<SpriteRenderSystem>()->camera->update(delta);
+
+            sys<SpriteRenderSystem>()->camera->update_follow(
+                get("player")->get<Sprite>("body")->position, 
+                get("player")->get<Sprite>("body")->tile_size, 
+                get("player")->get<Sprite>("body")->tile_size);
         }
  
         void OnDraw() override

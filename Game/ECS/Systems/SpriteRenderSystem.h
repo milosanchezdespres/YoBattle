@@ -26,16 +26,10 @@ namespace YOBATTLE
             __origin = Vector2();
 
             camera = nullptr;
-
-            Game::instance().register_key("up", KEY_W, GAMEPAD_BUTTON_LEFT_FACE_UP);
-            Game::instance().register_key("down", KEY_S, GAMEPAD_BUTTON_LEFT_FACE_DOWN);
-            Game::instance().register_key("left", KEY_A, GAMEPAD_BUTTON_LEFT_FACE_LEFT);
-            Game::instance().register_key("right", KEY_D, GAMEPAD_BUTTON_LEFT_FACE_RIGHT);
         }
 
         void OnUpdate(float delta, Component* _component) override
         {
-            
             Sprite* sprite = cast(_component);
 
             if(sprite->visible)
@@ -47,14 +41,6 @@ namespace YOBATTLE
 
                 if(camera != nullptr)
                 {
-                    if(camera->mode == 1)
-                    {
-                        if (Game::instance().is_down("up")) camera->y += camera->speed * delta;
-                        if (Game::instance().is_down("down")) camera->y -= camera->speed * delta;
-                        if (Game::instance().is_down("left")) camera->x += camera->speed * delta;
-                        if (Game::instance().is_down("right")) camera->x -= camera->speed * delta;
-                    }
-
                     finite_scale *= camera->zoom;
 
                     __position.x += camera->x;

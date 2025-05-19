@@ -10,7 +10,9 @@ namespace U8INT_MAP
 
         float x, y;
 
-        Entity* target;
+        Vector2 target_position;
+        int target_width;
+        int target_height;
 
         Camera()
         {
@@ -22,7 +24,33 @@ namespace U8INT_MAP
             x = 0;
             y = 0;
 
-            target = nullptr;
+            target_position = {0, 0};
+            target_width = 0;
+            target_height = 0;
+        }
+
+        void update(float delta)
+        {
+            if(mode == 1)
+            {
+                if (Game::instance().is_down("up")) y += speed * delta;
+                if (Game::instance().is_down("down")) y -= speed * delta;
+                if (Game::instance().is_down("left")) x += speed * delta;
+                if (Game::instance().is_down("right")) x -= speed * delta;
+            }
+
+            if(mode == 2)
+            {
+                x = -((target_position.x + target_width * 0.5f) * zoom - Game::instance().width * 0.5f);
+                y = -((target_position.y + target_height * 0.5f) * zoom - Game::instance().height * 0.5f);
+            }
+        }
+
+        void update_follow(Vector2 target, int width, int height)
+        {
+            target_position = target;
+            target_width = width;
+            target_height = height;
         }
         
         bool is_out_of_bound(float obj_x, float obj_y, int obj_w, int obj_h, float obj_scale)
