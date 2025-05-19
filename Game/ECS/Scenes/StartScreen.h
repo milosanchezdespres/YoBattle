@@ -22,7 +22,7 @@ namespace YOBATTLE
 
             //...
         }
-
+ 
         void OnDraw() override
         {
             sys<SpriteRenderSystem>()->update(0);
