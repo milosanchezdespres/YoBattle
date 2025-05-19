@@ -26,24 +26,38 @@ namespace YOBATTLE
 
             if(sprite->visible && Game::instance().is_texture_loaded(sprite->texture))
             {
-                __source.x = 0;
-                __source.y = 0;
-                __source.width = Game::instance().texture(sprite->texture).width;
-                __source.height = Game::instance().texture(sprite->texture).height;
-
                 if(sprite->tile_index < 0)
-                { DrawTextureEx(Game::instance().texture(sprite->texture), sprite->position, sprite->rotation, sprite->scale, WHITE); }
+                {
+                    if(sprite->width > 0 && sprite->height > 0)
+                    {
+                        __source.x = 0;
+                        __source.y = 0;
+                        __source.width = sprite->scale * sprite->width;
+                        __source.height = sprite->scale * sprite->height;
+
+                        __destination.x = sprite->position.x;
+                        __destination.y = sprite->position.y;
+                        __destination.width = sprite->width;
+                        __destination.height = sprite->height;
+
+                        DrawTexturePro(Game::instance().texture(sprite->texture), __source, __destination, __origin, sprite->rotation, WHITE);
+                    }
+                    else
+                    { DrawTextureEx(Game::instance().texture(sprite->texture), sprite->position, sprite->rotation, sprite->scale, WHITE); }
+                }
                 else
                 {
-                    __source.x = sprite->tile_index % (int)((__source.width / sprite->tile_size));
-                    __source.y = sprite->tile_index / (__source.height / sprite->tile_size);
-                    __source.width = sprite->scale * sprite->tile_size;
-                    __source.height = sprite->scale * sprite->tile_size;
+                    int tiles_per_row = Game::instance().texture(sprite->texture).width / sprite->tile_size;
+
+                    __source.x = (sprite->tile_index % tiles_per_row) * sprite->tile_size;
+                    __source.y = (sprite->tile_index / tiles_per_row) * sprite->tile_size;
+                    __source.width = sprite->tile_size;
+                    __source.height = sprite->tile_size;
 
                     __destination.x = sprite->position.x;
                     __destination.y = sprite->position.y;
-                    __destination.width = sprite->tile_size;
-                    __destination.height = sprite->tile_size;
+                    __destination.width = sprite->scale * sprite->tile_size;
+                    __destination.height = sprite->scale * sprite->tile_size;
 
                     __origin.x = __source.width / 2.0f;
                     __origin.y = __source.height / 2.0f;
