@@ -5,7 +5,7 @@
 using namespace U8INT_MAP;
 
 #include "../Systems/SpriteRenderSystem.h"
-#include "../Entities/Entity2D.h"
+#include "../Entities/Character.h"
 
 namespace YOBATTLE
 {
@@ -30,7 +30,7 @@ namespace YOBATTLE
             attach<SpriteRenderSystem>();
             sys<SpriteRenderSystem>()->camera = camera;
 
-            add<Entity2D>("player");
+            add<Character>("player");
             get("player")->get<Sprite>("body")->texture = "player";
             get("player")->get<Sprite>("body")->position.x = 130;
             get("player")->get<Sprite>("body")->position.y = 130;

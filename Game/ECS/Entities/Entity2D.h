@@ -2,6 +2,7 @@
 
 #include "../../../ECS/ECS.h"
 #include "../Components/Sprite.h"
+#include "../Components/State.h"
 
 namespace YOBATTLE
 {
