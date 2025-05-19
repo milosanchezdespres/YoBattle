@@ -32,6 +32,8 @@ namespace RAYWIN
                 SetWindowState(FLAG_FULLSCREEN_MODE);
 
                 SetTargetFPS(60);
+
+                HideCursor();
             }
 
             void update()
