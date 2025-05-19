@@ -14,6 +14,9 @@ namespace RAYWIN
             Game(const Game&) = delete;
             Game& operator=(const Game&) = delete;
 
+            string title;
+            int width, height;
+
             static Game& instance()
             {
                 static Game __instance;
@@ -25,15 +28,15 @@ namespace RAYWIN
                 logic = _logic; 
 
                 title = _title;
-                width = GetMonitorWidth(0);
-                height = GetMonitorHeight(0);
 
                 InitWindow(width, height, title.c_str());
                 SetWindowState(FLAG_FULLSCREEN_MODE);
 
                 SetTargetFPS(60);
-
                 HideCursor();
+
+                width = GetMonitorWidth(0);
+                height = GetMonitorHeight(0);
             }
 
             void update()
@@ -102,9 +105,6 @@ namespace RAYWIN
 
         private:
             GameLogic* logic = nullptr;
-
-            string title;
-            int width, height;
 
             vector<Texture2D> textures;
             unordered_map<string, int> textureByAlias;

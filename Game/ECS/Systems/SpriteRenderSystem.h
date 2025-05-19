@@ -82,22 +82,27 @@ namespace YOBATTLE
                 }
                 else
                 {
-                    int tiles_per_row = Game::instance().texture(sprite->texture).width / sprite->tile_size;
+                    if(camera == nullptr || !camera->is_out_of_bound(__position.x, __position.y, sprite->tile_size, sprite->tile_size, sprite->scale))
+                    {
+                        cout << "drawing.." << endl;
 
-                    __source.x = (sprite->tile_index % tiles_per_row) * sprite->tile_size;
-                    __source.y = (sprite->tile_index / tiles_per_row) * sprite->tile_size;
-                    __source.width = sprite->tile_size;
-                    __source.height = sprite->tile_size;
+                        int tiles_per_row = Game::instance().texture(sprite->texture).width / sprite->tile_size;
 
-                    __destination.x = __position.x;
-                    __destination.y = __position.y;
-                    __destination.width = finite_scale * sprite->tile_size;
-                    __destination.height = finite_scale * sprite->tile_size;
+                        __source.x = (sprite->tile_index % tiles_per_row) * sprite->tile_size;
+                        __source.y = (sprite->tile_index / tiles_per_row) * sprite->tile_size;
+                        __source.width = sprite->tile_size;
+                        __source.height = sprite->tile_size;
 
-                    __origin.x = __source.width / 2.0f;
-                    __origin.y = __source.height / 2.0f;
+                        __destination.x = __position.x;
+                        __destination.y = __position.y;
+                        __destination.width = finite_scale * sprite->tile_size;
+                        __destination.height = finite_scale * sprite->tile_size;
 
-                    DrawTexturePro(Game::instance().texture(sprite->texture), __source, __destination, __origin, sprite->rotation, WHITE);
+                        __origin.x = __source.width / 2.0f;
+                        __origin.y = __source.height / 2.0f;
+
+                        DrawTexturePro(Game::instance().texture(sprite->texture), __source, __destination, __origin, sprite->rotation, WHITE);
+                    }
                 }
             }
         }
