@@ -9,7 +9,7 @@
       "-std=c++20",
         "main.cpp",
         "-o",
-        "YoBattle",
+        "build/YoBattle",
         "-lraylib", "-lGL", "-lm", "-lpthread", "-ldl", "-lrt", "-lX11"
       ],
       "group": "build",
@@ -18,7 +18,7 @@
     {
       "label": "Run YoBattle",
       "type": "shell",
-      "command": "${workspaceFolder}/YoBattle",
+      "command": "${workspaceFolder}/build/YoBattle",
       "dependsOn": "Build YoBattle",
       "problemMatcher": []
     }

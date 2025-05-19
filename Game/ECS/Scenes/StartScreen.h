@@ -66,6 +66,8 @@ namespace YOBATTLE
             Game::instance().unload_texture("player");
 
             //...
+
+            UnloadRenderTexture(test_map_surface);
         }
     };
 }
