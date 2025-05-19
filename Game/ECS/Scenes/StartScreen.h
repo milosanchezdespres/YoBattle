@@ -35,6 +35,11 @@ namespace YOBATTLE
 
             sys<SpriteRenderSystem>()->upload(get("player")->get<Sprite>("body"));
 
+            sys<SpriteRenderSystem>()->camera->go_to(
+                get("player")->get<Sprite>("body")->position, 
+                get("player")->get<Sprite>("body")->tile_size, 
+                get("player")->get<Sprite>("body")->tile_size, true);
+
             Game::instance().register_key("up", KEY_W, GAMEPAD_BUTTON_LEFT_FACE_UP);
             Game::instance().register_key("down", KEY_S, GAMEPAD_BUTTON_LEFT_FACE_DOWN);
             Game::instance().register_key("left", KEY_A, GAMEPAD_BUTTON_LEFT_FACE_LEFT);
@@ -44,11 +49,6 @@ namespace YOBATTLE
         void OnUpdate(float delta) override
         {
             sys<SpriteRenderSystem>()->camera->update(delta);
-
-            sys<SpriteRenderSystem>()->camera->update_follow(
-                get("player")->get<Sprite>("body")->position, 
-                get("player")->get<Sprite>("body")->tile_size, 
-                get("player")->get<Sprite>("body")->tile_size);
         }
  
         void OnDraw() override
