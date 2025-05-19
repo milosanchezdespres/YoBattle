@@ -29,6 +29,18 @@ namespace U8INT_MAP
             target_height = 0;
         }
 
+        void go_to(Vector2 target, int width, int height, bool then_free_mode = false)
+        {
+            target_position = target;
+            target_width = width;
+            target_height = height;
+
+            x = -((target_position.x + target_width * 0.5f) * zoom - Game::instance().width * 0.5f);
+            y = -((target_position.y + target_height * 0.5f) * zoom - Game::instance().height * 0.5f);
+
+            mode = then_free_mode;
+        }
+
         void update(float delta)
         {
             if(mode == 1)
@@ -44,18 +56,6 @@ namespace U8INT_MAP
                 x = -((target_position.x + target_width * 0.5f) * zoom - Game::instance().width * 0.5f);
                 y = -((target_position.y + target_height * 0.5f) * zoom - Game::instance().height * 0.5f);
             }
-        }
-
-        void go_to(Vector2 target, int width, int height, bool then_free_mode = false)
-        {
-            target_position = target;
-            target_width = width;
-            target_height = height;
-
-            x = -((target_position.x + target_width * 0.5f) * zoom - Game::instance().width * 0.5f);
-            y = -((target_position.y + target_height * 0.5f) * zoom - Game::instance().height * 0.5f);
-
-            mode = then_free_mode;
         }
 
         void update_follow(Vector2 target, int width, int height)
