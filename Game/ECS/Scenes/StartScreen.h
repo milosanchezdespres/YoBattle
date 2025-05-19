@@ -2,6 +2,7 @@
 
 #include "../../../ECS/ECS.h"
 #include "../Systems/SpriteRenderSystem.h"
+#include "../Entities/Entity2D.h"
 
 namespace YOBATTLE
 {
@@ -11,14 +12,16 @@ namespace YOBATTLE
 
         void OnEnter() override
         {
+            Game::instance().load_texture("test");
+
             attach<SpriteRenderSystem>();
 
-            add<Entity>("test");
-            get("test")->add<Sprite>("debug_sprite");
-            get("test")->get<Sprite>("debug_sprite")->position.x = 130;
-            get("test")->get<Sprite>("debug_sprite")->position.y = 130;
+            add<Entity2D>("test");
+            get("test")->get<Sprite>("body")->texture = "test";
+            get("test")->get<Sprite>("body")->position.x = 130;
+            get("test")->get<Sprite>("body")->position.y = 130;
 
-            sys<SpriteRenderSystem>()->upload(get("test")->get<Sprite>("debug_sprite"));
+            sys<SpriteRenderSystem>()->upload(get("test")->get<Sprite>("body"));
 
             //...
         }
@@ -30,6 +33,11 @@ namespace YOBATTLE
             //...
         }
 
-        void OnExit() override { }
+        void OnExit() override
+        {
+            Game::instance().unload_texture("test");
+
+            //...
+        }
     };
 }
