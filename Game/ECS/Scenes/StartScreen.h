@@ -23,8 +23,6 @@ namespace YOBATTLE
             //...
         }
 
-        void OnUpdate(float delta) override { }
-
         void OnDraw() override
         {
             sys<SpriteRenderSystem>()->update(0);
@@ -32,9 +30,6 @@ namespace YOBATTLE
             //...
         }
 
-        void OnExit() override
-        {
-            //...
-        }
+        void OnExit() override { }
     };
 }

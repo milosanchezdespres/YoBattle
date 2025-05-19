@@ -24,6 +24,7 @@ namespace ECS
     struct System : public Container<Component>, public BaseSystem
     {
         System() : Container<Component>(), BaseSystem() {}
+        ~System() { for(auto* component : all()) { delete component; } }
 
         void update(float delta) override
         { for(auto* component : all()) { { if(__is_valid(component)) { OnUpdate(delta, component); } } } }
