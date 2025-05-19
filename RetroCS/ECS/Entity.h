@@ -9,7 +9,7 @@ namespace RetroCS
 {
     namespace ECS
     {
-        struct Entity : Container<Component>
+        struct Entity : public Container<Component>
         {
             Entity() : Container() {}
         };

@@ -3,15 +3,15 @@
 #include "../Tools/Container.h"
 using namespace RetroCS::Tools;
 
-#include "Entity.h"
+#include "Scene.h"
 
 namespace RetroCS
 {
     namespace ECS
     {
-        struct Scene : public Container<Entity>
+        struct SceneManager : public Container<Scene>
         {
-            Scene() : Container() {}
+            SceneManager() : Container<Scene>() {}
         };
     }
 }

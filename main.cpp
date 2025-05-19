@@ -1,8 +1,9 @@
-#include "RetroCS/RetroCS.h"
+#include "Game/YoBattle.h"
+using namespace YoBattleGame::GameWindow;
 
 int main()
 {
-    Game::instance().start("YoBattle");
+    Game::instance().start<YoBattle>("YoBattle");
     
     Game::instance().update();
 

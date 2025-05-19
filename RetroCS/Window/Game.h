@@ -2,6 +2,8 @@
 
 #include "../Tools/Externals.h"
 
+#include "GameLogic.h"
+
 namespace RetroCS
 {
     namespace GameWindow
@@ -21,8 +23,11 @@ namespace RetroCS
                     return __instance;
                 }
 
+                template <typename T>
                 void start(string _title)
                 {
+                    game_logic = new T();
+
                     title = _title;
 
                     InitWindow(width, height, title.c_str());
@@ -33,6 +38,8 @@ namespace RetroCS
 
                     width = GetMonitorWidth(0);
                     height = GetMonitorHeight(0);
+
+                    game_logic->enter();
                 }
 
                 void update()
@@ -42,14 +49,22 @@ namespace RetroCS
                         if (IsKeyPressed(KEY_ESCAPE)) { delete this; }
                         if (IsKeyPressed(KEY_F11)) { ToggleFullscreen(); }
 
+                        game_logic->events();
+
+                        game_logic->update(GetFrameTime());
+
                         BeginDrawing();
-                        ClearBackground(BLACK);
+                        ClearBackground(game_logic->background_color);
+
+                        game_logic->draw();
 
                         EndDrawing();
                     }
                 }
 
             private:
+                GameLogic* game_logic = nullptr;
+
                 Game() = default;
                 ~Game() = default;
         };

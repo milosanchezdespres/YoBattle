@@ -8,7 +8,7 @@ namespace RetroCS
 {
     namespace ECS
     {
-        struct Component : BaseObject
+        struct Component : public BaseObject
         {
             Component() : BaseObject() { }
         };

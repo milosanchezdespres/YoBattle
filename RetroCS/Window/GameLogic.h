@@ -1,0 +1,26 @@
+#pragma once
+
+#include "../Tools/Externals.h"
+#include "../ECS/SceneManager.h"
+
+namespace RetroCS
+{
+    namespace GameWindow
+    {
+        struct GameLogic : public SceneManager
+        {
+            Color background_color;
+
+            GameLogic()
+            {
+                background_color = BLACK;
+            }
+
+            virtual void enter() {}
+            virtual void events() {}
+            virtual void update(float delta) {}
+            virtual void draw() {}
+            virtual void exit() {}
+        };
+    }
+}
