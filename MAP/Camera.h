@@ -31,12 +31,8 @@ namespace U8INT_MAP
 
         void go_to(Vector2 target, int width, int height, bool then_free_mode = false)
         {
-            target_position = target;
-            target_width = width;
-            target_height = height;
-
-            x = -((target_position.x + target_width * 0.5f) * zoom - Game::instance().width * 0.5f);
-            y = -((target_position.y + target_height * 0.5f) * zoom - Game::instance().height * 0.5f);
+            x = -(target.x + width * 0.5f - Game::instance().width * 0.5f) - (width * zoom * 0.5f);
+            y = -(target.y + height * 0.5f - Game::instance().height * 0.5f) - (height * zoom  * 0.5f);
 
             mode = then_free_mode;
         }
@@ -53,8 +49,8 @@ namespace U8INT_MAP
 
             if(mode == 2)
             {
-                x = -((target_position.x + target_width * 0.5f) * zoom - Game::instance().width * 0.5f);
-                y = -((target_position.y + target_height * 0.5f) * zoom - Game::instance().height * 0.5f);
+                x = -(target_position.x + target_width * 0.5f - Game::instance().width * 0.5f) - (target_width * zoom  * 0.5f);;
+                y = -(target_position.y + target_height * 0.5f - Game::instance().height * 0.5f) - (target_height * zoom  * 0.5f);;
             }
         }
 
@@ -72,5 +68,8 @@ namespace U8INT_MAP
 
             return (obj_x + scaled_w < 0) || (obj_x > Game::instance().width) || (obj_y + scaled_h < 0) || (obj_y > Game::instance().height);
         }
+
+        void debug(float A, float B) { cout << to_string(A) + ", " + to_string(B) << endl; }
+        void debug(int A, int B) { cout << to_string(A) + ", " + to_string(B) << endl; }
     };
 }

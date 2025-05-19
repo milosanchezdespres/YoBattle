@@ -87,6 +87,7 @@ namespace YOBATTLE
                             __origin.x = __source.width / 2.0f;
                             __origin.y = __source.height / 2.0f;
 
+
                             DrawTexturePro(Game::instance().texture(sprite->texture), __source, __destination, __origin, sprite->rotation, WHITE);
                         }
                     }

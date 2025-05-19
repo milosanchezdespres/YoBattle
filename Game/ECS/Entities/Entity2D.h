@@ -16,5 +16,11 @@ namespace YOBATTLE
 
             //...
         }
+
+        void move(int i, int j, int TILE_SIZE, int camera_zoom)
+        {
+            get<Sprite>("body")->position.x = (float) i * ((TILE_SIZE * camera_zoom) * 2);
+            get<Sprite>("body")->position.y = (float) j * ((TILE_SIZE * camera_zoom) * 2);
+        }
     };
 }

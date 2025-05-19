@@ -25,13 +25,14 @@ namespace YOBATTLE
 
             attach<SpriteRenderSystem>();
             sys<SpriteRenderSystem>()->camera = test_map_surface.camera;
-            sys<SpriteRenderSystem>()->camera->mode = 2;
+            //sys<SpriteRenderSystem>()->camera->mode = 2;
             sys<SpriteRenderSystem>()->camera->zoom = 5;
 
             add<Character>("player");
             get("player")->get<Sprite>("body")->texture = "player";
             get("player")->get<Sprite>("body")->tile_index = 1;
             get("player")->get<Sprite>("body")->tile_size = 16;
+            get<Entity2D>("player")->move(4, 4, test_map_surface.tile_size, test_map_surface.camera->zoom);
 
             sys<SpriteRenderSystem>()->upload(get("player")->get<Sprite>("body"));
 
@@ -49,6 +50,11 @@ namespace YOBATTLE
         void OnUpdate(float delta) override
         {
             sys<SpriteRenderSystem>()->camera->update(delta);
+
+            /*sys<SpriteRenderSystem>()->camera->update_follow(
+                get("player")->get<Sprite>("body")->position, 
+                get("player")->get<Sprite>("body")->tile_size, 
+                get("player")->get<Sprite>("body")->tile_size);*/
         }
  
         void OnDraw() override
