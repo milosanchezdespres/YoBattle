@@ -31,10 +31,10 @@ namespace U8INT_MAP
 
         void go_to(Vector2 target, int width, int height, bool then_free_mode = false)
         {
-            x = -(target.x + width * 0.5f - Game::instance().width * 0.5f) - (width * zoom * 0.5f);
-            y = -(target.y + height * 0.5f - Game::instance().height * 0.5f) - (height * zoom  * 0.5f);
+            x = -(target.x + width * 0.5f - Game::instance().width * 0.5f);
+            y = -(target.y + height * 0.5f - Game::instance().height * 0.5f);
 
-            mode = then_free_mode;
+            if(then_free_mode) { mode = 1; }
         }
 
         void update(float delta)
@@ -49,16 +49,22 @@ namespace U8INT_MAP
 
             if(mode == 2)
             {
-                x = -(target_position.x + target_width * 0.5f - Game::instance().width * 0.5f) - (target_width * zoom  * 0.5f);;
-                y = -(target_position.y + target_height * 0.5f - Game::instance().height * 0.5f) - (target_height * zoom  * 0.5f);;
+                x = -(target_position.x + target_width * 0.5f - Game::instance().width * 0.5f);
+                y = -(target_position.y + target_height * 0.5f - Game::instance().height * 0.5f);
             }
         }
 
-        void update_follow(Vector2 target, int width, int height)
+        void update_follow(Vector2 &target, int width, int height)
         {
-            target_position = target;
-            target_width = width;
-            target_height = height;
+            if(mode == 2)
+            {
+                target_position = target;
+                target_width = width;
+                target_height = height;
+
+                //target.x = 0;
+                //target.y = 0;
+            }
         }
         
         bool is_out_of_bound(float obj_x, float obj_y, int obj_w, int obj_h, float obj_scale)

@@ -84,9 +84,8 @@ namespace YOBATTLE
                             __destination.width = finite_scale * sprite->tile_size;
                             __destination.height = finite_scale * sprite->tile_size;
 
-                            __origin.x = __source.width / 2.0f;
-                            __origin.y = __source.height / 2.0f;
-
+                            __origin.x = (__source.width / 2.0f) * finite_scale;
+                            __origin.y = (__source.height / 2.0f) * finite_scale;
 
                             DrawTexturePro(Game::instance().texture(sprite->texture), __source, __destination, __origin, sprite->rotation, WHITE);
                         }

@@ -13,8 +13,7 @@ namespace YOBATTLE
         {
             Entity2D::OnInit();
 
-            add<State>("idle");
-            add<State>("walk");
+            add<State>("info");
             //...
 
             //...
