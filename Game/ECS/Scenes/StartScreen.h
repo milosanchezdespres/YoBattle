@@ -12,7 +12,12 @@ namespace YOBATTLE
     struct StartScreen : public Scene
     {
         bool map_refresh;
+
         metatile test_map[2500] = {0};
+        Rectangle map_source;
+        Rectangle map_dest;
+        Vector2 map_origin;
+
         RenderTexture2D test_map_surface;
 
         U8INT_MAP::Camera* camera;
@@ -42,6 +47,10 @@ namespace YOBATTLE
             vector<metatile> new_map = map_make(50, 50);
             for (int i = 0; i < 100; ++i) { test_map[i] = new_map[i]; }
             map_refresh = true;
+
+            map_source = {0, 0, 0, 0};
+            map_dest = {0, 0, 0, 0};
+            map_origin = {0, 0};
         }
  
         void OnDraw() override
@@ -54,8 +63,17 @@ namespace YOBATTLE
                 map_refresh = false;
             }
 
-            //for test purposes, later, store a buffer for rect, position
-            DrawTexturePro(test_map_surface.texture, {0, 0, (float)test_map_surface.texture.width, -(float)test_map_surface.texture.height}, {0, 0, (float)test_map_surface.texture.width * camera->zoom, (float)test_map_surface.texture.height * camera->zoom}, {0, 0}, 0.0f, WHITE);
+            map_source.x = 0;
+            map_source.y = 0;
+            map_source.width = (float) test_map_surface.texture.width;
+            map_source.height = - (float) test_map_surface.texture.height;
+
+            map_dest.x = camera->x;
+            map_dest.y = camera->y;
+            map_dest.width = (float) test_map_surface.texture.width * camera->zoom;
+            map_dest.height = (float)test_map_surface.texture.height * camera->zoom;
+
+            DrawTexturePro(test_map_surface.texture, map_source, map_dest, map_origin, 0.0f, WHITE);
         
             sys<SpriteRenderSystem>()->update(0);
         }
