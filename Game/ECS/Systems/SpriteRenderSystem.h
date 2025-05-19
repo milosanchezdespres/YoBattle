@@ -86,8 +86,6 @@ namespace YOBATTLE
                     {
                         if(camera == nullptr || !camera->is_out_of_bound(__position.x, __position.y, sprite->tile_size, sprite->tile_size, sprite->scale))
                         {
-                            cout << "drawing.." << endl;
-
                             int tiles_per_row = Game::instance().texture(sprite->texture).width / sprite->tile_size;
 
                             __source.x = (sprite->tile_index % tiles_per_row) * sprite->tile_size;
