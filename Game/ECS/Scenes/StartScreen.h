@@ -23,10 +23,7 @@ namespace YOBATTLE
             //...
         }
 
-        void OnUpdate(float delta) override
-        {
-            //...
-        }
+        void OnUpdate(float delta) override { }
 
         void OnDraw() override
         {
