@@ -20,8 +20,18 @@ namespace YOBATTLE
             get("test")->get<Sprite>("body")->texture = "test";
             get("test")->get<Sprite>("body")->position.x = 130;
             get("test")->get<Sprite>("body")->position.y = 130;
+            get("test")->get<Sprite>("body")->tile_index = 10;
+            get("test")->get<Sprite>("body")->tile_size = 128;
+
+            add<Entity2D>("test2");
+            get("test2")->get<Sprite>("body")->texture = "test";
+            get("test2")->get<Sprite>("body")->position.x = 243;
+            get("test2")->get<Sprite>("body")->position.y = 243;
+            get("test2")->get<Sprite>("body")->tile_index = 10;
+            get("test2")->get<Sprite>("body")->tile_size = 128;
 
             sys<SpriteRenderSystem>()->upload(get("test")->get<Sprite>("body"));
+            sys<SpriteRenderSystem>()->upload(get("test2")->get<Sprite>("body"));
 
             //...
         }

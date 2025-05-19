@@ -11,10 +11,12 @@ namespace YOBATTLE
 
         string texture;
         Vector2 position;
-        Vector2 size;
+
+        int width, height, tile_size;
 
         int scale;
         float rotation;
+        int tile_index;
 
         Sprite() : Component()
         {
@@ -23,11 +25,14 @@ namespace YOBATTLE
             position.x = 0;
             position.y = 0;
 
-            size.x = 0;
-            size.y = 0;
+            width = 0;
+            height = 0;
+            tile_size = 0;
 
             scale = 1;
             rotation = 0;
+
+            tile_index = -1;
         }
     };
 }
