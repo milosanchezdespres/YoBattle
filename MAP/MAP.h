@@ -148,6 +148,14 @@ namespace U8INT_MAP
 
             DrawTexturePro(texture.texture, map_source, map_dest, map_origin, 0.0f, WHITE);
         }
+
+        void clear()
+        {
+            UnloadRenderTexture(texture);
+
+            delete map;
+            delete camera;
+        }
     };
 }
 

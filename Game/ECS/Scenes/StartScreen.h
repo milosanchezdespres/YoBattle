@@ -21,9 +21,11 @@ namespace YOBATTLE
             Game::instance().load_texture("player");
 
             test_map_surface = mapsurface();
+            test_map_surface.init(50, 50);
 
             attach<SpriteRenderSystem>();
             sys<SpriteRenderSystem>()->camera = test_map_surface.camera;
+            sys<SpriteRenderSystem>()->camera->mode = 1;
             sys<SpriteRenderSystem>()->camera->zoom = 5;
 
             add<Character>("player");
@@ -34,8 +36,6 @@ namespace YOBATTLE
             get("player")->get<Sprite>("body")->tile_size = 16;
 
             sys<SpriteRenderSystem>()->upload(get("player")->get<Sprite>("body"));
-
-            test_map_surface.init(50, 50);
         }
  
         void OnDraw() override
@@ -44,7 +44,7 @@ namespace YOBATTLE
 
             test_map_surface.draw();
         
-            sys<SpriteRenderSystem>()->update(0);
+            sys<SpriteRenderSystem>()->update(GetFrameTime());
         }
 
         void OnExit() override
@@ -52,8 +52,7 @@ namespace YOBATTLE
             Game::instance().unload_texture("tileset");
             Game::instance().unload_texture("player");
 
-            //UnloadRenderTexture(*test_map_surface->texture);
-            //delete test_map_surface;
+            test_map_surface.clear();
         }
     };
 }

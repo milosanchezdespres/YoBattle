@@ -30,6 +30,7 @@ namespace YOBATTLE
 
         void OnUpdate(float delta, Component* _component) override
         {
+            
             Sprite* sprite = cast(_component);
 
             __position.x = sprite->position.x;
@@ -39,6 +40,14 @@ namespace YOBATTLE
 
             if(camera != nullptr)
             {
+                if(camera->mode == 1)
+                {
+                    if (IsKeyDown(KEY_W)) camera->y += camera->speed * delta;
+                    if (IsKeyDown(KEY_S)) camera->y -= camera->speed * delta;
+                    if (IsKeyDown(KEY_A)) camera->x += camera->speed * delta;
+                    if (IsKeyDown(KEY_D)) camera->x -= camera->speed * delta;
+                }
+
                 finite_scale *= camera->zoom;
 
                 __position.x += camera->x;
