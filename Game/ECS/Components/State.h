@@ -17,7 +17,7 @@ namespace YOBATTLE
 
         State() : Component()
         {
-            direction = 1;
+            direction = 0;
             action = "idle";
             //...
         }

@@ -37,7 +37,7 @@ namespace YOBATTLE
             get("player")->get<Sprite>("body")->tile_size = 16;
             get("player")->get<Controller>("main")->move_speed = 450;
             get("player")->get<Controller>("main")->camera = test_map_surface.camera;
-            get<Entity2D>("player")->move(1, 1, test_map_surface.tile_size, test_map_surface.camera->zoom);
+            get<Character>("player")->move(1, 1, test_map_surface.tile_size, test_map_surface.camera->zoom);
 
             sys<SpriteRenderSystem>()->upload(get("player")->get<Sprite>("body"));
             sys<AnimationSystem>()->upload(get("player")->get<State>("info"));
