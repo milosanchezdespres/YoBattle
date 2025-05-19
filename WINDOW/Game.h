@@ -45,11 +45,14 @@ namespace RAYWIN
                     BeginDrawing();
                     ClearBackground(logic->background);
 
-                    logic->update();
+                    logic->update(GetFrameTime());
 
                     EndDrawing();
                 }
             }
+
+            template <typename T>
+            void go_to() { logic->go_to<T>(); }
 
         private:
             GameLogic* logic = nullptr;

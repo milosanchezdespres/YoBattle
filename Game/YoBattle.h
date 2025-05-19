@@ -15,14 +15,9 @@ namespace YOBATTLE
         protected:
             void OnStart() override
             {
-                go_to<StartScreen>();
-                
-                //...
-            }
+                GameLogic::OnStart();
 
-            void OnUpdate() override
-            {
-                //...
+                go_to<StartScreen>();
             }
     };
 }

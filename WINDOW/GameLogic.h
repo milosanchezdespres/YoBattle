@@ -16,10 +16,10 @@ namespace RAYWIN
             ~GameLogic() { scene()->Exit(); }
 
             void start() { OnStart(); }
-            void update() { OnUpdate(); }
+            void update(float delta) override { SceneManager::update(delta); OnDraw(); }
 
         protected:
             virtual void OnStart() {}
-            virtual void OnUpdate() {}
+            virtual void OnDraw() { scene()->Draw(); }
     };
 }

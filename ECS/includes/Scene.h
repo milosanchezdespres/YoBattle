@@ -21,6 +21,10 @@ namespace ECS
 
         void Enter() { OnEnter(); }
 
+        void Update(float delta) { OnUpdate(delta); }
+
+        void Draw() { OnDraw(); }
+
         void Exit()
         {
             for(auto* entity : all())
@@ -37,6 +41,8 @@ namespace ECS
         }
 
         virtual void OnEnter() {}
+        virtual void OnUpdate(float delta) {}
+        virtual void OnDraw() {}
         virtual void OnExit() {}
     };
 }

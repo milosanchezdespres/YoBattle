@@ -24,9 +24,11 @@ namespace ECS
             scene()->Enter();
         }
 
-        void update(float delta)
+        virtual void update(float delta)
         {
-            for(auto* system : scene()->all_systems()) { system->update(delta); }
+            for(auto* system : scene()->all_systems()) { if(!system->standalone) { system->update(delta); } }
+
+            scene()->Update(delta);
         }
     };
 }

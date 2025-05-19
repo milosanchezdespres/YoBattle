@@ -9,6 +9,8 @@ namespace ECS
 {
     struct BaseSystem : public BaseObject
     {
+        bool standalone;
+        
         BaseSystem() : BaseObject() {}
 
         virtual void update(float delta) {}
