@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Tools/includes.h"
-#include "Tools/BaseObject.h"
-#include "Tools/Container.h"
+#include "ECS/includes.h"
+#include "Window/includes.h"
 
-//...
+using namespace RetroCS;

@@ -1,15 +1,8 @@
 #pragma once
 
-#include "raylib.h"
+#include "BaseObject.h"
+#include "Container.h"
 
-#include <string>
-#include <iostream>
-
-#include <vector>
-#include <unordered_map>
-#include <typeindex>
-#include <algorithm>
-
-using namespace std;
+using namespace RetroCS::Tools;
 
 //...
