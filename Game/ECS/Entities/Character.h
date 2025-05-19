@@ -2,6 +2,7 @@
 
 #include "../Entities/Entity2D.h"
 #include "../Components/State.h"
+#include "../Components/Animator.h"
 
 namespace YOBATTLE
 {
@@ -14,6 +15,7 @@ namespace YOBATTLE
             Entity2D::OnInit();
 
             add<State>("info");
+            add<Animator>("anim");
             //...
 
             //...

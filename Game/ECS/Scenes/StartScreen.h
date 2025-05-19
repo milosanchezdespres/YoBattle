@@ -5,6 +5,7 @@
 using namespace U8INT_MAP;
 
 #include "../Systems/SpriteRenderSystem.h"
+#include "../Systems/AnimationSystem.h"
 #include "../Entities/Player.h"
 
 namespace YOBATTLE
@@ -28,6 +29,8 @@ namespace YOBATTLE
             sys<SpriteRenderSystem>()->camera->mode = 2;
             sys<SpriteRenderSystem>()->camera->zoom = 8;
 
+            attach<AnimationSystem>();
+
             add<Player>("player");
             get("player")->get<Sprite>("body")->texture = "player";
             get("player")->get<Sprite>("body")->tile_index = 1;
@@ -37,6 +40,7 @@ namespace YOBATTLE
             get<Entity2D>("player")->move(1, 1, test_map_surface.tile_size, test_map_surface.camera->zoom);
 
             sys<SpriteRenderSystem>()->upload(get("player")->get<Sprite>("body"));
+            sys<AnimationSystem>()->upload(get("player")->get<State>("info"));
 
             sys<SpriteRenderSystem>()->camera->go_to(
                 get("player")->get<Sprite>("body")->position, 

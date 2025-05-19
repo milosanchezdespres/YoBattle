@@ -13,10 +13,12 @@ namespace YOBATTLE
     struct State : public Component
     {
         uint8_t direction;
+        string action;
 
         State() : Component()
         {
             direction = 1;
+            action = "idle";
             //...
         }
     };

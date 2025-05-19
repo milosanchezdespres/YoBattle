@@ -28,26 +28,30 @@ namespace YOBATTLE
                 if (Game::instance().is_down("up"))
                 {
                     owner->get<Sprite>("body")->position.y -= move_speed * delta;
-                    owner->get<State>("info")->direction = 0;
+                    owner->get<State>("info")->direction = 3;
+                    owner->get<State>("info")->action = "walk";
                 }
-
-                if (Game::instance().is_down("down"))
+                else if (Game::instance().is_down("down"))
                 {
                     owner->get<Sprite>("body")->position.y += move_speed * delta;
-                    owner->get<State>("info")->direction = 1;
+                    owner->get<State>("info")->direction = 0;
+                    owner->get<State>("info")->action = "walk";
                 }
-
-                if (Game::instance().is_down("left"))
+                else if (Game::instance().is_down("left"))
                 {
                     owner->get<Sprite>("body")->position.x -= move_speed * delta;
-                    owner->get<State>("info")->direction = 2;
+                    owner->get<State>("info")->direction = 6;
+                    owner->get<State>("info")->action = "walk";
                 }
 
-                if (Game::instance().is_down("right"))
+                else if (Game::instance().is_down("right"))
                 {
                     owner->get<Sprite>("body")->position.x += move_speed * delta;
-                    owner->get<State>("info")->direction = 3;
+                    owner->get<State>("info")->direction = 9;
+                    owner->get<State>("info")->action = "walk";
                 }
+                else
+                { owner->get<State>("info")->action = "idle"; }
             }
         }
     };
