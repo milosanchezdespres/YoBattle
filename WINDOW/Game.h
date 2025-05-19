@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameLogic.h"
+#include "Keys.h"
 
 #include <string>
 using namespace std;
@@ -88,6 +89,14 @@ namespace RAYWIN
 
                 template <typename T>
                 void go_to() { logic->go_to<T>(); }
+        
+        void register_key(string alias, KeyboardKey key, GamepadButton gamepad = GAMEPAD_BUTTON_UNKNOWN)
+        {
+            keys[alias] = new BTN();
+            keys[alias]->init(key, gamepad);
+        }
+
+        bool is_down(string alias) { return keys[alias]->is_down(); }
 
         private:
             GameLogic* logic = nullptr;
@@ -97,6 +106,8 @@ namespace RAYWIN
 
             vector<Texture2D> textures;
             unordered_map<string, int> textureByAlias;
+
+            unordered_map<string, BTN*> keys;
 
             Game() = default;
             ~Game() = default;
