@@ -10,8 +10,8 @@ namespace U8INT_MAP
 
         Camera()
         {
-            x = 0;
-            y = 0;
+            x = 200;
+            y = 200;
 
             zoom = 1;
 
