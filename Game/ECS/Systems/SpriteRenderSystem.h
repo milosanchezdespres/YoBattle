@@ -1,6 +1,9 @@
 #pragma once
 
 #include "../../../ECS/ECS.h"
+#include "../../../MAP/Camera.h"
+using namespace U8INT_MAP;
+
 #include "../Components/Sprite.h"
 
 namespace YOBATTLE
@@ -10,6 +13,9 @@ namespace YOBATTLE
 		Vector2 __position, __origin;
 		Rectangle __source, __destination;
 
+        U8INT_MAP::Camera* camera;
+        int finite_scale;
+
         SpriteRenderSystem() : System()
         {
             standalone = true;
@@ -18,11 +24,16 @@ namespace YOBATTLE
             __source = Rectangle();
             __destination = Rectangle();
             __origin = Vector2();
+
+            camera = nullptr;
         }
 
         void OnUpdate(float delta, Component* _component) override
         {
             Sprite* sprite = cast(_component);
+
+            finite_scale = sprite->scale;
+            if(camera != nullptr) { finite_scale *= camera->zoom; }
 
             if(sprite->visible && Game::instance().is_texture_loaded(sprite->texture))
             {
@@ -32,8 +43,8 @@ namespace YOBATTLE
                     {
                         __source.x = 0;
                         __source.y = 0;
-                        __source.width = sprite->scale * sprite->width;
-                        __source.height = sprite->scale * sprite->height;
+                        __source.width = finite_scale * sprite->width;
+                        __source.height = finite_scale * sprite->height;
 
                         __destination.x = sprite->position.x;
                         __destination.y = sprite->position.y;
@@ -43,7 +54,7 @@ namespace YOBATTLE
                         DrawTexturePro(Game::instance().texture(sprite->texture), __source, __destination, __origin, sprite->rotation, WHITE);
                     }
                     else
-                    { DrawTextureEx(Game::instance().texture(sprite->texture), sprite->position, sprite->rotation, sprite->scale, WHITE); }
+                    { DrawTextureEx(Game::instance().texture(sprite->texture), sprite->position, sprite->rotation, finite_scale, WHITE); }
                 }
                 else
                 {
@@ -56,8 +67,8 @@ namespace YOBATTLE
 
                     __destination.x = sprite->position.x;
                     __destination.y = sprite->position.y;
-                    __destination.width = sprite->scale * sprite->tile_size;
-                    __destination.height = sprite->scale * sprite->tile_size;
+                    __destination.width = finite_scale * sprite->tile_size;
+                    __destination.height = finite_scale * sprite->tile_size;
 
                     __origin.x = __source.width / 2.0f;
                     __origin.y = __source.height / 2.0f;

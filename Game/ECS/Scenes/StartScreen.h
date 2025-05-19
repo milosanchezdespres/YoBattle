@@ -15,6 +15,8 @@ namespace YOBATTLE
         metatile test_map[2500] = {0};
         RenderTexture2D test_map_surface;
 
+        U8INT_MAP::Camera* camera;
+
         StartScreen() : Scene() {}
 
         void OnEnter() override
@@ -22,7 +24,11 @@ namespace YOBATTLE
             Game::instance().load_texture("tileset");
             Game::instance().load_texture("player");
 
+            camera = new U8INT_MAP::Camera();
+            camera->zoom = 5;
+
             attach<SpriteRenderSystem>();
+            sys<SpriteRenderSystem>()->camera = camera;
 
             add<Entity2D>("player");
             get("player")->get<Sprite>("body")->texture = "player";
@@ -30,7 +36,6 @@ namespace YOBATTLE
             get("player")->get<Sprite>("body")->position.y = 130;
             get("player")->get<Sprite>("body")->tile_index = 1;
             get("player")->get<Sprite>("body")->tile_size = 16;
-            get("player")->get<Sprite>("body")->scale = 5;
 
             sys<SpriteRenderSystem>()->upload(get("player")->get<Sprite>("body"));
 
@@ -50,7 +55,7 @@ namespace YOBATTLE
             }
 
             //for test purposes, later, store a buffer for rect, position
-            DrawTexturePro(test_map_surface.texture, {0, 0, (float)test_map_surface.texture.width, -(float)test_map_surface.texture.height}, {0, 0, (float)test_map_surface.texture.width * 5, (float)test_map_surface.texture.height * 5}, {0, 0}, 0.0f, WHITE);
+            DrawTexturePro(test_map_surface.texture, {0, 0, (float)test_map_surface.texture.width, -(float)test_map_surface.texture.height}, {0, 0, (float)test_map_surface.texture.width * camera->zoom, (float)test_map_surface.texture.height * camera->zoom}, {0, 0}, 0.0f, WHITE);
         
             sys<SpriteRenderSystem>()->update(0);
         }
