@@ -52,3 +52,5 @@ namespace YoBattleGame
         };
     }
 }
+
+using namespace YoBattleGame::GameWindow;
