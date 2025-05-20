@@ -46,7 +46,11 @@ namespace RetroCS
             virtual void events() { for(auto* sys : systems) { sys->events(); } }
             virtual void update(float delta) { for(auto* sys : systems) { sys->update(delta); } }
             virtual void draw() { for(auto* sys : systems) { sys->draw(); } }
-            virtual void exit() {}
+            virtual void exit()
+            {
+                for(auto* sys : systems) { delete sys; }
+                systems.clear();
+            }
         };
     }
 }

@@ -19,6 +19,8 @@ namespace YoBattleGame
 
             void enter() override
             {
+                Scene::enter();
+
                 Game::instance().load_texture("tileset");
                 Game::instance().load_texture("player");
 
@@ -53,6 +55,8 @@ namespace YoBattleGame
                 Game::instance().unload_texture("player");
 
                 MAP::unbind(map);
+
+                Scene::exit();
             }
             
         };
