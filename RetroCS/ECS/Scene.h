@@ -29,11 +29,15 @@ namespace RetroCS
             }
 
             template <typename T, typename M>
-            void upload_to(const EntityComponentPair<M>& pair)
+            void upload_to(Entity* entity, string component_alias)
             {
+                M* component = entity->template get<M>(component_alias);
+                auto* _pair = new EntityComponentPair<M>(entity, component);
+
                 BaseSystem* base_system = systems[system_by_type[type_index(typeid(T))]];
                 System<M>* system = dynamic_cast<System<M>*>(base_system);
-               system->upload(pair);
+
+                system->upload(*_pair);
             }
 
             Scene() : Container() {}
