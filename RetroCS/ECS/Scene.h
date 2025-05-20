@@ -13,9 +13,28 @@ namespace RetroCS
         struct Scene : public Container<Entity>
         {
             vector<BaseSystem*> systems;
+            unordered_map<type_index, int> system_by_type;
 
             template <typename T>
-            void attach() { systems.push_back(new T()); }
+            void add_component(string entity_alias, string component_alias) { get(entity_alias)->template add<T>(component_alias); }
+
+            template <typename T, typename M>
+            M* component(string entity_alias, string component_alias) { return get<T>(entity_alias)->template get<M>(component_alias); }
+
+            template <typename T>
+            void attach()
+            {
+                systems.push_back(new T());
+                system_by_type[type_index(typeid(T))] = systems.size() - 1;
+            }
+
+            template <typename T, typename M>
+            void upload_to(const EntityComponentPair<M>& pair)
+            {
+                BaseSystem* base_system = systems[system_by_type[type_index(typeid(T))]];
+                System<M>* system = dynamic_cast<System<M>*>(base_system);
+               system->upload(pair);
+            }
 
             Scene() : Container() {}
 

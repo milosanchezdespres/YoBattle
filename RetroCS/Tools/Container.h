@@ -18,9 +18,9 @@ namespace RetroCS
                 using const_iterator = typename vector<T*>::const_iterator;
 
                 template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
-                void add(string _alias = "")
+                void add(string _alias)
                 {
-                    if(_alias == "" || !has(_alias))
+                    if(!has(_alias))
                     {
                         objects.push_back(new M());
                         objects[objects.size() - 1]->init(objects.size() - 1, _alias, this);

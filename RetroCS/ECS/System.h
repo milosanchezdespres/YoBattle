@@ -7,20 +7,21 @@ namespace RetroCS
 {
     namespace ECS
     {
-        template <typename T>
-        struct EntityComponentPair
-        {
-            T* data;
+        template<typename M>
+        struct EntityComponentPair {
             Entity* owner;
+            M* data;
+
+            EntityComponentPair(Entity* o, M* d) : owner(o), data(d) {}
         };
 
         struct BaseSystem
         {
             BaseSystem() {}
 
-            virtual void events();
-            virtual void update(float delta);
-            virtual void draw();
+            virtual void events() {}
+            virtual void update(float delta) {}
+            virtual void draw() {}
         };
 
         template <typename T>
@@ -30,7 +31,7 @@ namespace RetroCS
 
             System() : BaseSystem () {}
 
-            void upload(EntityComponentPair<T> pair) { components.push_back(pair); }
+            void upload(const EntityComponentPair<T> pair) { components.push_back(pair); }
 
             void events() override { for (auto& component : components) { OnEvents(component.owner, dynamic_cast<T*>(component.data)); } }
 

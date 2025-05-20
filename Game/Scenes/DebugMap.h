@@ -2,6 +2,9 @@
 
 #include "../../RetroCS/RetroCS.h"
 
+#include "../Systems/SpriteRenderSystem.h"
+//...
+
 namespace YoBattleGame
 {
     namespace ECS
@@ -17,6 +20,13 @@ namespace YoBattleGame
             {
                 Game::instance().load_texture("tileset");
                 Game::instance().load_texture("player");
+
+                attach<SpriteRenderSystem>();
+                //..
+
+                add<Entity>("test_entity");
+                add_component<Sprite>("test_entity", "body");
+                upload_to<SpriteRenderSystem, Sprite>({get("test_entity"), component<Entity, Sprite>("test_entity", "body")});
 
                 map = metamap();
                 map_texture = metatexture();
