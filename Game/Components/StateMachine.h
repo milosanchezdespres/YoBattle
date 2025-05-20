@@ -11,10 +11,12 @@ namespace YoBattleGame
 
         struct State
         {
+            string name;
+
             Character* owner;
             StateMachine* __parent;
 
-            State(Character* _owner) { owner = _owner; }
+            State(string _name, Character* _owner) { name =_name; owner = _owner; }
 
             void enter() { OnEnter(); }
             void update(float delta) { OnUpdate(delta); }
@@ -37,7 +39,7 @@ namespace YoBattleGame
             StateMachine () : Component()
             {
                 state = nullptr;
-                axis = 1;
+                axis = -1;
             }
 
             template <typename T>
@@ -49,7 +51,7 @@ namespace YoBattleGame
                 state->enter();
             }
 
-            string is_doing() { return to_lower(type_index(typeid(this)).name()); }
+            string current() { return state->name; }
 
             void update(float delta)
             {

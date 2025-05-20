@@ -8,7 +8,7 @@ namespace YoBattleGame
     {
         struct PlayerIdle : public State
         {
-            PlayerIdle(Character* _owner) : State(_owner) {}
+            PlayerIdle(Character* _owner) : State("idle", _owner) {}
 
             void OnEnter() override
             {

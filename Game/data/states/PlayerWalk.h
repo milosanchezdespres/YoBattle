@@ -8,7 +8,7 @@ namespace YoBattleGame
     {
         struct PlayerWalk : public State
         {
-            PlayerWalk(Character* _owner) : State(_owner) {}
+            PlayerWalk(Character* _owner) : State("walk", _owner) {}
 
             void OnEnter() override
             {
