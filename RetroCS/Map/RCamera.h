@@ -16,7 +16,7 @@ namespace RetroCS
             {
                 zoom = 1;
 
-                speed = 15;
+                speed = 8;
                 __speed_scaling = 60;
 
                 //...
