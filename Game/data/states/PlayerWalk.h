@@ -54,46 +54,39 @@ namespace YoBattleGame
 
             void OnUpdate(float delta) override
             {
-                if(*x != target.x || *y != target.y)
-                {float move_delta = speed * (((10.0f / (Game::instance().camera()->zoom + 2.5f)) * 0.1f) + 0.9f) * delta;
-
-                        
-                    if (*x < target.x) *x = min(*x + move_delta, target.x);
-                    else if (*x > target.x) *x = max(*x - move_delta, target.x);
-
-                    if (*y < target.y) *y = min(*y + move_delta, target.y);
-                    else if (*y > target.y) *y = max(*y - move_delta, target.y);
-                }
-                else
+                if (*x != target.x || *y != target.y)
                 {
-                    int axis = -1;
-                    
-                    if(Game::instance().is_down("up")) axis = 0;
-                    else if(Game::instance().is_down("down")) axis = 1;
-                    else if(Game::instance().is_down("left")) axis = 2;
-                    else if(Game::instance().is_down("right")) axis = 3;
+                    float move_delta = speed * (((10.0f / (Game::instance().camera()->zoom + 2.5f)) * 0.1f) + 0.9f) * delta;
 
-                    if(axis != -1)
-                    {
-                        parent()->axis = axis;
+                    if (*x < target.x) *x = std::min(*x + move_delta, target.x);
+                    else if (*x > target.x) *x = std::max(*x - move_delta, target.x);
 
-                        Vector2i current_tile = MAP::screen_to_tile(*x, *y);
-                        Vector2i potential_target = Vector2i(current_tile.i + dx[axis], current_tile.j + dy[axis]);
+                    if (*y < target.y) *y = std::min(*y + move_delta, target.y);
+                    else if (*y > target.y) *y = std::max(*y - move_delta, target.y);
 
-                        potential_target.i = std::clamp<int>(potential_target.i, 0, MAP::height - 1);
-                        potential_target.j = std::clamp<int>(potential_target.j, 0, MAP::width - 1);
-
-                        if (potential_target != current_tile)
-                        {
-                            target_tile = potential_target;
-                            target = MAP::tile_to_screen(target_tile.i, target_tile.j);
-                        }
-                        else { does<PlayerIdle>(); }
-                    }
-                    else { does<PlayerIdle>(); }
-
+                    return;
                 }
+
+                int axis = -1;
+
+                if (Game::instance().is_down("up")) axis = 0;
+                else if (Game::instance().is_down("down")) axis = 1;
+                else if (Game::instance().is_down("left")) axis = 2;
+                else if (Game::instance().is_down("right")) axis = 3;
+
+                if (axis != -1)
+                {
+                    parent()->axis = axis;
+
+                    Vector2i current_tile = MAP::screen_to_tile(*x, *y);
+                    Vector2i next_tile = { current_tile.i + dx[axis], current_tile.j + dy[axis] };
+
+                    target_tile = next_tile;
+                    target = MAP::tile_to_screen(next_tile.i, next_tile.j);
+                }
+                else { does<PlayerIdle>(); }
             }
+
 
             void OnExit() override
             {

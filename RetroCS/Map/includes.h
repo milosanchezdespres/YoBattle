@@ -25,20 +25,12 @@ namespace RetroCS
 
         struct Vector2i
         {
-            uint8_t i;
-            uint8_t j;
+            int i;
+            int j;
 
-            Vector2i()
-            {
-                i = 0;
-                j = 0;
-            }
+            Vector2i() : i(0), j(0) {}
 
-            Vector2i(uint8_t I, uint8_t J)
-            {
-                i = I;
-                j = J;
-            }
+            Vector2i(int I, int J) : i(I), j(J) {}
 
             bool operator==(const Vector2i& other) const
             {
@@ -88,11 +80,11 @@ namespace RetroCS
         inline Vector2i screen_to_tile(float x, float y)
         {
             return {
-                static_cast<int>(x / tilesize()),
-                static_cast<int>(y / tilesize())
+                static_cast<int>(std::floor(x / tilesize())),
+                static_cast<int>(std::floor(y / tilesize()))
             };
         }
-        
+                
         inline Vector2 tile_to_screen(int i, int j)
         {
             return {
