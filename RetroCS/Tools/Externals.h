@@ -3,11 +3,11 @@
 #include "raylib.h"
 
 #include <string>
-#include <iostream>
-
+#include <cstdint>
 #include <vector>
-#include <unordered_map>
 #include <typeindex>
+#include <iostream>
+#include <unordered_map>
 #include <algorithm>
 
 using namespace std;
