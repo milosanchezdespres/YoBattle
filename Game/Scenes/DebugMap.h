@@ -3,7 +3,10 @@
 #include "../../RetroCS/RetroCS.h"
 
 #include "../Systems/SpriteRenderSystem.h"
-#include "../Entities/Entity2D.h"
+#include "../Systems/ControllerSystem.h"
+#include "../Systems/StateMachineSystem.h"
+
+#include "../Entities/Player.h"
 //...
 
 namespace YoBattleGame
@@ -38,11 +41,13 @@ namespace YoBattleGame
                 Game::instance().camera()->zoom = 8;
 
                 attach<SpriteRenderSystem>();
+                attach<ControllerSystem>();
+                attach<StateMachineSystem>();
                 //..
 
-                add<Entity2D>("test_entity");
+                add<Player>("test_entity");
                 component<Entity, Sprite>("test_entity", "body")->texture_alias = "player";
-                get<Entity2D>("test_entity")->tp(2, 2);
+                get<Player>("test_entity")->tp(2, 2);
 
                 map = metamap();
                 map_texture = metatexture();
@@ -57,11 +62,6 @@ namespace YoBattleGame
                 //FOR DEBUG PURPOSE
 
                 Scene::events(delta);
-
-                if(Game::instance().is_down("up")) { Game::instance().camera()->move_up(delta); }
-                else if(Game::instance().is_down("down")) { Game::instance().camera()->move_down(delta); }
-                else if(Game::instance().is_down("left")) { Game::instance().camera()->move_left(delta); }
-                else if(Game::instance().is_down("right")) { Game::instance().camera()->move_right(delta); }
 
                 if(Game::instance().is_down("zoom-") && Game::instance().camera()->zoom > 1)
                     { Game::instance().camera()->zoom_minus(Game::instance().width, Game::instance().height); }

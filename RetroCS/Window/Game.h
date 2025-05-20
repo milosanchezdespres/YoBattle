@@ -29,6 +29,8 @@ namespace RetroCS
 
                 MAP::RCamera* camera() { return game_logic->camera; }
 
+                float delta() { return GetFrameTime(); }
+
                 template <typename T>
                 void start(string _title)
                 {
