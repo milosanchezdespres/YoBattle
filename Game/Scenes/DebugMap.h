@@ -87,6 +87,10 @@ namespace YoBattleGame
                 Game::instance().unregister_key("right");
                 //...
 
+                Game::instance().unregister_key("zoom-");
+                Game::instance().unregister_key("zoom+");
+                //...
+
                 MAP::unbind(map);
 
                 Scene::exit();
