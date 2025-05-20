@@ -43,6 +43,7 @@ namespace YoBattleGame
                 attach<SpriteRenderSystem>();
                 attach<ControllerSystem>();
                 attach<StateMachineSystem>();
+                attach<AnimationSystem>();
                 //..
 
                 add<Player>("test_entity");
