@@ -25,6 +25,12 @@ namespace YoBattleGame
                 Game::instance().load_texture("player");
                 //..
 
+                Game::instance().register_key("up", KEY_W, GAMEPAD_BUTTON_LEFT_FACE_UP);
+                Game::instance().register_key("down", KEY_S, GAMEPAD_BUTTON_LEFT_FACE_DOWN);
+                Game::instance().register_key("left", KEY_A, GAMEPAD_BUTTON_LEFT_FACE_LEFT);
+                Game::instance().register_key("right", KEY_D, GAMEPAD_BUTTON_LEFT_FACE_RIGHT);
+                //...
+
                 Game::instance().camera()->zoom = 8;
 
                 attach<SpriteRenderSystem>();
@@ -37,9 +43,21 @@ namespace YoBattleGame
                 map = metamap();
                 map_texture = metatexture();
 
-                MAP::init(map, 64, 64);
+                MAP::init(map, 100, 100);
                 MAP::bind(map, map_texture);
                 MAP::init(map_texture, "tileset");
+            }
+
+            void events(float delta) override
+            {
+                //FOR DEBUG PURPOSE
+
+                Scene::events(delta);
+
+                if(Game::instance().is_down("up")) { Game::instance().camera()->move_up(delta); }
+                else if(Game::instance().is_down("down")) { Game::instance().camera()->move_down(delta); }
+                else if(Game::instance().is_down("left")) { Game::instance().camera()->move_left(delta); }
+                else if(Game::instance().is_down("right")) { Game::instance().camera()->move_right(delta); }
             }
             
             void draw() override
@@ -54,6 +72,13 @@ namespace YoBattleGame
             {
                 Game::instance().unload_texture("tileset");
                 Game::instance().unload_texture("player");
+                //...
+
+                Game::instance().unregister_key("up");
+                Game::instance().unregister_key("down");
+                Game::instance().unregister_key("left");
+                Game::instance().unregister_key("right");
+                //...
 
                 MAP::unbind(map);
 

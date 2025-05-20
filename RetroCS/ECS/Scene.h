@@ -43,7 +43,7 @@ namespace RetroCS
             Scene() : Container() { }
 
             virtual void enter() {}
-            virtual void events() { for(auto* sys : systems) { sys->events(); } }
+            virtual void events(float delta) { for(auto* sys : systems) { sys->events(delta); } }
             virtual void update(float delta) { for(auto* sys : systems) { sys->update(delta); } }
             virtual void draw() { for(auto* sys : systems) { sys->draw(); } }
             virtual void exit()

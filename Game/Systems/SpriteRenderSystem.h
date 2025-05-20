@@ -26,8 +26,8 @@ namespace YoBattleGame
                 __source.width = component->tile->size;
                 __source.height = component->tile->size;
 
-                __destination.x = Game::instance().camera()->zoom * __position.x;
-                __destination.y = Game::instance().camera()->zoom * __position.y;
+                __destination.x = (int) (__position.x - Game::instance().camera()->x);
+                __destination.y = (int) (__position.y - Game::instance().camera()->y);
                 __destination.width = Game::instance().camera()->zoom * component->tile->size;
                 __destination.height = Game::instance().camera()->zoom * component->tile->size;
 

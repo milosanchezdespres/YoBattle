@@ -4,6 +4,7 @@
 #include "../Map/RCamera.h"
 
 #include "GameLogic.h"
+#include "Inputs.h"
 
 namespace RetroCS
 {
@@ -54,7 +55,7 @@ namespace RetroCS
                         if (IsKeyPressed(KEY_ESCAPE)) { delete this; }
                         if (IsKeyPressed(KEY_F11)) { ToggleFullscreen(); }
 
-                        game_logic->events();
+                        game_logic->events(GetFrameTime());
 
                         game_logic->update(GetFrameTime());
 
@@ -100,9 +101,21 @@ namespace RetroCS
 
                 Texture2D& texture(string alias) { return textures[textureByAlias.at(alias)]; }
 
+                void register_key(string alias, KeyboardKey key, GamepadButton gamepad = GAMEPAD_BUTTON_UNKNOWN)
+                {
+                    keys[alias] = new BTN();
+                    keys[alias]->init(key, gamepad);
+                }
+
+                void unregister_key(string alias) { keys.erase(alias); }
+
+                bool is_down(string alias) { return keys[alias]->is_down(); }
+
             private:
                 vector<Texture2D> textures;
                 unordered_map<string, int> textureByAlias;
+
+                unordered_map<string, BTN*> keys;
 
                 GameLogic* game_logic = nullptr;
 

@@ -19,7 +19,7 @@ namespace RetroCS
         {
             BaseSystem() {}
 
-            virtual void events() {}
+            virtual void events(float delta) {}
             virtual void update(float delta) {}
             virtual void draw() {}
         };
@@ -33,7 +33,7 @@ namespace RetroCS
 
             void upload(const EntityComponentPair<T> pair) { components.push_back(pair); }
 
-            void events() override { for (auto& component : components) { if(component.data->enabled) { OnEvents(component.owner, dynamic_cast<T*>(component.data)); } } }
+            void events(float delta) override { for (auto& component : components) { if(component.data->enabled) { OnEvents(component.owner, dynamic_cast<T*>(component.data)); } } }
 
             void update(float delta) override { for (auto& component : components) { if(component.data->enabled) { OnUpdate(delta, component.owner, dynamic_cast<T*>(component.data)); } } }
 

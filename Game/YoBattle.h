@@ -22,9 +22,9 @@ namespace YoBattleGame
                 go_to<DebugMap>();
             }
 
-            void events() override
+            void events(float delta) override
             {
-                GameLogic::events();
+                GameLogic::events(delta);
 
                 //...
             }

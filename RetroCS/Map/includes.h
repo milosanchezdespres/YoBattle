@@ -153,8 +153,8 @@ namespace RetroCS
             texture.__source.width = (float) texture.data.texture.width;
             texture.__source.height = - (float) texture.data.texture.height;
 
-            texture.__dest.x = 0;
-            texture.__dest.y = 0;
+            texture.__dest.x = - (int) (Game::instance().camera()->x);
+            texture.__dest.y = - (int) (Game::instance().camera()->y);
             texture.__dest.width = Game::instance().camera()->zoom * (float) texture.data.texture.width;
             texture.__dest.height = Game::instance().camera()->zoom * (float) texture.data.texture.height;
 
