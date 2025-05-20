@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Tools/Externals.h"
+#include "../Map/RCamera.h"
 
 #include "GameLogic.h"
 
@@ -24,6 +25,8 @@ namespace RetroCS
                 }
 
                 Scene* scene() { return game_logic->scene(); }
+
+                MAP::RCamera* camera() { return game_logic->camera; }
 
                 template <typename T>
                 void start(string _title)

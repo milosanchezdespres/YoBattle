@@ -12,8 +12,6 @@ namespace RetroCS
     {
         struct Scene : public Container<Entity>
         {
-            Camera* camera;
-
             vector<BaseSystem*> systems;
             unordered_map<type_index, int> system_by_type;
 
@@ -42,7 +40,7 @@ namespace RetroCS
                 system->upload(*_pair);
             }
 
-            Scene() : Container() { camera = new Camera(); }
+            Scene() : Container() { }
 
             virtual void enter() {}
             virtual void events() { for(auto* sys : systems) { sys->events(); } }

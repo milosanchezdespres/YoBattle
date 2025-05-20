@@ -7,9 +7,9 @@
 #include "../Window/Game.h"
 using namespace RetroCS::GameWindow;
 
-//do not use here - only use when rendering -----------------------------------
-#include "Camera.h"
-//do not use here - only use when rendering -----------------------------------
+//do not use in calculations - only use when drawing -----------------------------------
+#include "RCamera.h"
+//do not use in calculations - only use when drawing -----------------------------------
 
 namespace RetroCS
 {
@@ -155,8 +155,8 @@ namespace RetroCS
 
             texture.__dest.x = 0;
             texture.__dest.y = 0;
-            texture.__dest.width = (float) texture.data.texture.width;
-            texture.__dest.height = (float) texture.data.texture.height;
+            texture.__dest.width = Game::instance().camera()->zoom * (float) texture.data.texture.width;
+            texture.__dest.height = Game::instance().camera()->zoom * (float) texture.data.texture.height;
 
             DrawTexturePro(texture.data.texture, texture.__source, texture.__dest, texture.__origin, rotation, WHITE);
         }

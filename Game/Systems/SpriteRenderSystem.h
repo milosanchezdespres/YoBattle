@@ -26,10 +26,10 @@ namespace YoBattleGame
                 __source.width = component->tile->size;
                 __source.height = component->tile->size;
 
-                __destination.x = __position.x;
-                __destination.y = __position.y;
-                __destination.width = component->tile->size;
-                __destination.height = component->tile->size;
+                __destination.x = Game::instance().camera()->zoom * __position.x;
+                __destination.y = Game::instance().camera()->zoom * __position.y;
+                __destination.width = Game::instance().camera()->zoom * component->tile->size;
+                __destination.height = Game::instance().camera()->zoom * component->tile->size;
 
                 DrawTexturePro(Game::instance().texture(component->texture_alias), __source, __destination, __origin, component->r, WHITE);
             }

@@ -23,6 +23,9 @@ namespace YoBattleGame
 
                 Game::instance().load_texture("tileset");
                 Game::instance().load_texture("player");
+                //..
+
+                Game::instance().camera()->zoom = 8;
 
                 attach<SpriteRenderSystem>();
                 //..

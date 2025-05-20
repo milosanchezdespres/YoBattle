@@ -2,6 +2,7 @@
 
 #include "../Tools/Externals.h"
 #include "../ECS/SceneManager.h"
+#include "../Map/RCamera.h"
 
 namespace RetroCS
 {
@@ -10,10 +11,12 @@ namespace RetroCS
         struct GameLogic : public SceneManager
         {
             Color background_color;
+            MAP::RCamera* camera;
 
             GameLogic()
             {
                 background_color = BLACK;
+                camera = new MAP::RCamera();
             }
 
             virtual void enter() {}
