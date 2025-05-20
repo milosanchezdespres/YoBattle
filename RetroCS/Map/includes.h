@@ -7,6 +7,10 @@
 #include "../Window/Game.h"
 using namespace RetroCS::GameWindow;
 
+//do not use here - only use when rendering -----------------------------------
+#include "Camera.h"
+//do not use here - only use when rendering -----------------------------------
+
 namespace RetroCS
 {
     namespace MAP
