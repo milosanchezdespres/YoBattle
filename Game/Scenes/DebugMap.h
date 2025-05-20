@@ -47,7 +47,7 @@ namespace YoBattleGame
                 map = metamap();
                 map_texture = metatexture();
 
-                MAP::init(map, 100, 100);
+                MAP::init(map, 128, 64);
                 MAP::bind(map, map_texture);
                 MAP::init(map_texture, "tileset");
             }
@@ -63,8 +63,11 @@ namespace YoBattleGame
                 else if(Game::instance().is_down("left")) { Game::instance().camera()->move_left(delta); }
                 else if(Game::instance().is_down("right")) { Game::instance().camera()->move_right(delta); }
 
-                if(Game::instance().is_down("zoom-") && Game::instance().camera()->zoom > 1) { Game::instance().camera()->zoom--; }
-                if(Game::instance().is_down("zoom+") && Game::instance().camera()->zoom < 10) { Game::instance().camera()->zoom++; }
+                if(Game::instance().is_down("zoom-") && Game::instance().camera()->zoom > 1)
+                    { Game::instance().camera()->zoom_minus(Game::instance().width, Game::instance().height); }
+
+                if(Game::instance().is_down("zoom+") && Game::instance().camera()->zoom < 10)
+                    { Game::instance().camera()->zoom_plus(Game::instance().width, Game::instance().height); }
             }
             
             void draw() override
