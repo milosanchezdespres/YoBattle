@@ -24,6 +24,18 @@ namespace RetroCS
         {
             uint8_t i;
             uint8_t j;
+
+            Vector2i()
+            {
+                i = 0;
+                j = 0;
+            }
+
+            Vector2i(uint8_t I, uint8_t J)
+            {
+                i = I;
+                j = J;
+            }
         };
 
         struct metatile

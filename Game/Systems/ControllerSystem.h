@@ -23,30 +23,6 @@ namespace YoBattleGame
                     else if(Game::instance().is_down("left")) { Game::instance().camera()->move_left(Game::instance().delta()); }
                     else if(Game::instance().is_down("right")) { Game::instance().camera()->move_right(Game::instance().delta()); }
                 }
-                else if(component->alias == "move")
-                {
-                    if(Game::instance().is_down("up"))
-                    {
-                        owner->get<StateMachine>("states")->axis = 0;
-                        owner->get<StateMachine>("states")->does<PlayerWalk>();
-                    }
-                    else if(Game::instance().is_down("down"))
-                    {
-                        owner->get<StateMachine>("states")->axis = 1;
-                        owner->get<StateMachine>("states")->does<PlayerWalk>();
-                    }
-                    else if(Game::instance().is_down("left"))
-                    {
-                        owner->get<StateMachine>("states")->axis = 2;
-                        owner->get<StateMachine>("states")->does<PlayerWalk>();
-                    }
-                    else if(Game::instance().is_down("right"))
-                    {
-                        owner->get<StateMachine>("states")->axis = 3;
-                        owner->get<StateMachine>("states")->does<PlayerWalk>();
-                    }
-                    else { owner->get<StateMachine>("states")->does<PlayerIdle>(); }
-                }
             }
         };
     }

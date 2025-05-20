@@ -6,17 +6,16 @@ namespace YoBattleGame
 {
     namespace ECS
     {
-        struct Character;
         struct StateMachine;
 
         struct State
         {
             string name;
 
-            Character* owner;
+            Entity* _owner;
             StateMachine* __parent;
 
-            State(string _name, Character* _owner) { name =_name; owner = _owner; }
+            State(string _name, Entity* __owner) { name =_name; _owner = __owner; }
 
             void enter() { OnEnter(); }
             void update(float delta) { OnUpdate(delta); }
@@ -24,6 +23,12 @@ namespace YoBattleGame
 
             template <typename T>
             void does() { __parent->template does<T>(); }
+
+            Entity* owner() { return _owner; }
+            StateMachine* parent() { return __parent; }
+
+            template <typename T>
+            T* owner() { return dynamic_cast<T*>(_owner); }
 
             virtual void OnEnter() {}
             virtual void OnUpdate(float delta) {}
@@ -35,18 +40,20 @@ namespace YoBattleGame
             State* state;
 
             int axis;
+            float move_speed;
 
             StateMachine () : Component()
             {
                 state = nullptr;
                 axis = -1;
+                move_speed = 0;
             }
 
             template <typename T>
             void does()
             {
                 if(state != nullptr) { state->exit(); state = nullptr; }
-                state = new T(owner<Character>());
+                state = new T(owner<Entity>());
                 state->__parent = this;
                 state->enter();
             }

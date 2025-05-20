@@ -26,6 +26,9 @@ namespace YoBattleGame
                 get<Sprite>("body")->x = MAP::tile_to_screen(i, j).x;
                 get<Sprite>("body")->y = MAP::tile_to_screen(i, j).y;
             }
+            
+            uint8_t tile_i() { return MAP::screen_to_tile(get<Sprite>("body")->x, get<Sprite>("body")->y).i; }
+            uint8_t tile_j() { return MAP::screen_to_tile(get<Sprite>("body")->x, get<Sprite>("body")->y).j; }
         };
     }
 }
