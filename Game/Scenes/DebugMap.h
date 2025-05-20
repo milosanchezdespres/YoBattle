@@ -25,21 +25,13 @@ namespace YoBattleGame
                 MAP::bind(map, map_texture);
                 MAP::init(map_texture, "tileset");
             }
-
-            void events() override
-            {
-                //...
-            }
-            
-            void update(float delta) override
-            {
-                //...
-            }
             
             void draw() override
             {
                 MAP::render(map_texture);
                 MAP::draw(map_texture);
+
+                Scene::draw();
             }
             
             void exit() override
