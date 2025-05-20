@@ -13,13 +13,9 @@ namespace YoBattleGame
         struct ControllerSystem : public System<Controller>
         {
             ControllerSystem () : System<Controller>() { }
-
+ 
             void OnDraw(Entity* owner, Controller* component) override
             {
-                //...
-
-                //DEBUG PURPOSE// TO DO : STATES
-
                 if(component->alias == "camera")
                 {
                     if(Game::instance().is_down("up")) { Game::instance().camera()->move_up(Game::instance().delta()); }
