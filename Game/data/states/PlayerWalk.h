@@ -78,10 +78,20 @@ namespace YoBattleGame
                         parent()->axis = axis;
 
                         Vector2i current_tile = MAP::screen_to_tile(*x, *y);
-                        target_tile = Vector2i(current_tile.i + dx[axis], current_tile.j + dy[axis]);
-                        target = MAP::tile_to_screen(target_tile.i, target_tile.j);
+                        Vector2i potential_target = Vector2i(current_tile.i + dx[axis], current_tile.j + dy[axis]);
+
+                        potential_target.i = std::clamp<int>(potential_target.i, 0, MAP::height - 1);
+                        potential_target.j = std::clamp<int>(potential_target.j, 0, MAP::width - 1);
+
+                        if (potential_target != current_tile)
+                        {
+                            target_tile = potential_target;
+                            target = MAP::tile_to_screen(target_tile.i, target_tile.j);
+                        }
+                        else { does<PlayerIdle>(); }
                     }
                     else { does<PlayerIdle>(); }
+
                 }
             }
 

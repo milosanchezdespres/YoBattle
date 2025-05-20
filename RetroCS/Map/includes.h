@@ -18,6 +18,9 @@ namespace RetroCS
         const uint8_t& __METATILE_SIZE = 4;
         const uint8_t& ___TILE_SIZE = 8;
 
+        inline int width;
+        inline int height;
+
         inline int tilesize() { return (__METATILE_SIZE / 2) * ___TILE_SIZE; }
 
         struct Vector2i
@@ -35,6 +38,16 @@ namespace RetroCS
             {
                 i = I;
                 j = J;
+            }
+
+            bool operator==(const Vector2i& other) const
+            {
+                return i == other.i && j == other.j;
+            }
+
+            bool operator!=(const Vector2i& other) const
+            {
+                return !(*this == other);
             }
         };
 
@@ -88,9 +101,12 @@ namespace RetroCS
             };
         }
 
-        inline void init(metamap& map, int width, int height)
+        inline void init(metamap& map, int _width, int _height)
         {
-            map.width = width;
+            width = _width;
+            height = _height;
+
+            map.width = _width;
             map.height = height;
 
             vector<metatile> metatiles;

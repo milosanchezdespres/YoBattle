@@ -21,7 +21,7 @@ namespace YoBattleGame
 
             float speed;
 
-            Animations () : Component() { speed = 8; }
+            Animations () : Component() { speed = 0; }
 
             Animation* animation(string action, int direction = -1)
             {
