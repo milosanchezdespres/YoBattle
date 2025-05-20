@@ -46,9 +46,9 @@ namespace YoBattleGame
                 attach<AnimationSystem>();
                 //..
 
-                add<Player>("test_entity");
-                component<Entity, Sprite>("test_entity", "body")->texture_alias = "player";
-                get<Player>("test_entity")->tp(2, 2);
+                add<Player>("player");
+                component<Entity, Sprite>("player", "body")->texture_alias = "player";
+                get<Player>("player")->tp(2, 2);
 
                 map = metamap();
                 map_texture = metatexture();
@@ -69,6 +69,18 @@ namespace YoBattleGame
 
                 if(Game::instance().is_down("zoom+") && Game::instance().camera()->zoom < 10)
                     { Game::instance().camera()->zoom_plus(Game::instance().width, Game::instance().height); }
+            }
+
+            void update(float delta) override
+            {
+                Scene::update(delta);
+
+                Game::instance().camera()->follow(
+                    get("player")->get<Sprite>("body")->x, 
+                    get("player")->get<Sprite>("body")->y, 
+                    MAP::tilesize(),
+                    Game::instance().width,
+                    Game::instance().height);
             }
             
             void draw() override

@@ -55,9 +55,9 @@ namespace YoBattleGame
             void OnUpdate(float delta) override
             {
                 if(*x != target.x || *y != target.y)
-                {
-                    float move_delta = speed * delta;
+                {float move_delta = speed * (((10.0f / (Game::instance().camera()->zoom + 2.5f)) * 0.1f) + 0.9f) * delta;
 
+                        
                     if (*x < target.x) *x = min(*x + move_delta, target.x);
                     else if (*x > target.x) *x = max(*x - move_delta, target.x);
 

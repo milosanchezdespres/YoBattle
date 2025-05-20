@@ -3,6 +3,7 @@
 #include "raylib.h"
 
 #include <string>
+#include <cmath>
 #include <cstdint>
 #include <vector>
 #include <typeindex>
