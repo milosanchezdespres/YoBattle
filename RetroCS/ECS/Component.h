@@ -10,7 +10,9 @@ namespace RetroCS
     {
         struct Component : public BaseObject
         {
-            Component() : BaseObject() { }
+            bool enabled;
+
+            Component() : BaseObject() { enabled = true; }
         };
     }
 }

@@ -33,11 +33,11 @@ namespace RetroCS
 
             void upload(const EntityComponentPair<T> pair) { components.push_back(pair); }
 
-            void events() override { for (auto& component : components) { OnEvents(component.owner, dynamic_cast<T*>(component.data)); } }
+            void events() override { for (auto& component : components) { if(component.data->enabled) { OnEvents(component.owner, dynamic_cast<T*>(component.data)); } } }
 
-            void update(float delta) override { for (auto& component : components) { OnUpdate(delta, component.owner, dynamic_cast<T*>(component.data)); } }
+            void update(float delta) override { for (auto& component : components) { if(component.data->enabled) { OnUpdate(delta, component.owner, dynamic_cast<T*>(component.data)); } } }
 
-            void draw() override { for (auto& component : components) { OnDraw(component.owner, dynamic_cast<T*>(component.data)); } }
+            void draw() override { for (auto& component : components) { if(component.data->enabled) { OnDraw(component.owner, dynamic_cast<T*>(component.data)); } } }
 
             virtual void OnEvents(Entity* owner, T* component) {}
             virtual void OnUpdate(float delta, Entity* owner, T* component) {}
