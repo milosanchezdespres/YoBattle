@@ -15,6 +15,16 @@ namespace YoBattleGame
             {
                 add<Sprite>("body");
                 upload_to<SpriteRenderSystem, Sprite>(Game::instance().scene(), "body");
+
+                get<Sprite>("body")->tile->size = MAP::tilesize();
+
+                tp(0, 0);
+            }
+
+            virtual void tp(int i, int j)
+            {
+                get<Sprite>("body")->x = MAP::tile_to_screen(i, j).x;
+                get<Sprite>("body")->y = MAP::tile_to_screen(i, j).y;
             }
         };
     }

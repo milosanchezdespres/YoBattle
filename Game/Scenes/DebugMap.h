@@ -29,9 +29,7 @@ namespace YoBattleGame
 
                 add<Entity2D>("test_entity");
                 component<Entity, Sprite>("test_entity", "body")->texture_alias = "player";
-                component<Entity, Sprite>("test_entity", "body")->tile->size = 16;
-                component<Entity, Sprite>("test_entity", "body")->x = 150;
-                component<Entity, Sprite>("test_entity", "body")->y = 150;
+                get<Entity2D>("test_entity")->tp(2, 2);
 
                 map = metamap();
                 map_texture = metatexture();

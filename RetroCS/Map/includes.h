@@ -16,6 +16,12 @@ namespace RetroCS
 
         inline int tilesize() { return (__METATILE_SIZE / 2) * ___TILE_SIZE; }
 
+        struct Vector2i
+        {
+            uint8_t i;
+            uint8_t j;
+        };
+
         struct metatile
         {
             uint8_t top_left;
@@ -49,6 +55,22 @@ namespace RetroCS
 
             metamap* map = nullptr;
         };
+
+        inline Vector2i screen_to_tile(float x, float y)
+        {
+            return {
+                static_cast<int>(x / tilesize()),
+                static_cast<int>(y / tilesize())
+            };
+        }
+        
+        inline Vector2 tile_to_screen(int i, int j)
+        {
+            return {
+                i * tilesize(),
+                j * tilesize()
+            };
+        }
 
         inline void init(metamap& map, int width, int height)
         {
