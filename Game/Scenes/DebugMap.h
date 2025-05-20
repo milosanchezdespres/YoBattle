@@ -31,6 +31,10 @@ namespace YoBattleGame
                 Game::instance().register_key("right", KEY_D, GAMEPAD_BUTTON_LEFT_FACE_RIGHT);
                 //...
 
+                Game::instance().register_key("zoom-", KEY_KP_5);
+                Game::instance().register_key("zoom+", KEY_KP_2);
+                //...
+
                 Game::instance().camera()->zoom = 8;
 
                 attach<SpriteRenderSystem>();
@@ -58,6 +62,9 @@ namespace YoBattleGame
                 else if(Game::instance().is_down("down")) { Game::instance().camera()->move_down(delta); }
                 else if(Game::instance().is_down("left")) { Game::instance().camera()->move_left(delta); }
                 else if(Game::instance().is_down("right")) { Game::instance().camera()->move_right(delta); }
+
+                if(Game::instance().is_down("zoom-") && Game::instance().camera()->zoom > 1) { Game::instance().camera()->zoom--; }
+                if(Game::instance().is_down("zoom+") && Game::instance().camera()->zoom < 10) { Game::instance().camera()->zoom++; }
             }
             
             void draw() override
