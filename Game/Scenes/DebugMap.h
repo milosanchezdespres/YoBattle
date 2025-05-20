@@ -3,6 +3,7 @@
 #include "../../RetroCS/RetroCS.h"
 
 #include "../Systems/SpriteRenderSystem.h"
+#include "../Entities/Entity2D.h"
 //...
 
 namespace YoBattleGame
@@ -24,14 +25,11 @@ namespace YoBattleGame
                 attach<SpriteRenderSystem>();
                 //..
 
-                add<Entity>("test_entity");
-                add_component<Sprite>("test_entity", "body");
+                add<Entity2D>("test_entity");
                 component<Entity, Sprite>("test_entity", "body")->texture_alias = "player";
                 component<Entity, Sprite>("test_entity", "body")->tile->size = 16;
                 component<Entity, Sprite>("test_entity", "body")->x = 150;
                 component<Entity, Sprite>("test_entity", "body")->y = 150;
-
-                upload_to<SpriteRenderSystem, Sprite>(get("test_entity"), "body");
 
                 map = metamap();
                 map_texture = metatexture();

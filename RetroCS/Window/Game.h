@@ -23,6 +23,8 @@ namespace RetroCS
                     return __instance;
                 }
 
+                Scene* scene() { return game_logic->scene(); }
+
                 template <typename T>
                 void start(string _title)
                 {
