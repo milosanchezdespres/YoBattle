@@ -21,7 +21,7 @@ namespace RetroCS
 
                 //...
             }
-
+ 
             void move_up(float delta) { y -= (speed * __speed_scaling) * delta; }
             void move_down(float delta) { y += (speed * __speed_scaling) * delta; }
             void move_left(float delta) { x -= (speed * __speed_scaling) * delta; }
