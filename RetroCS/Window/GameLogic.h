@@ -17,10 +17,10 @@ namespace RetroCS
             }
 
             virtual void enter() {}
-            virtual void events() {}
-            virtual void update(float delta) {}
-            virtual void draw() {}
-            virtual void exit() {}
+            virtual void events() { scene()->events(); }
+            virtual void update(float delta) { scene()->update(delta); }
+            virtual void draw() { scene()->draw(); }
+            virtual void exit() { scene()->exit(); }
         };
     }
 }

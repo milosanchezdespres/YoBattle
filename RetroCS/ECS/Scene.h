@@ -12,6 +12,12 @@ namespace RetroCS
         struct Scene : public Container<Entity>
         {
             Scene() : Container() {}
+
+            virtual void enter() {}
+            virtual void events() {}
+            virtual void update(float delta) {}
+            virtual void draw() {}
+            virtual void exit() {}
         };
     }
 }
