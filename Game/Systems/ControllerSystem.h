@@ -23,6 +23,10 @@ namespace YoBattleGame
                     else if(Game::instance().is_down("left")) { Game::instance().camera()->move_left(Game::instance().delta()); }
                     else if(Game::instance().is_down("right")) { Game::instance().camera()->move_right(Game::instance().delta()); }
                 }
+                else if(component->alias == "ui")
+                {
+                    //...
+                }
             }
         };
     }
