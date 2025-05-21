@@ -82,6 +82,7 @@ namespace YoBattleGame
                 player->tp(spawn.i, spawn.j);
 
                 add<StartMenu>("start_menu");
+                get<StartMenu>("start_menu")->init();
 
                 map = metamap();
                 map_texture = metatexture();
@@ -143,6 +144,10 @@ namespace YoBattleGame
                 Game::instance().unregister_key("down");
                 Game::instance().unregister_key("left");
                 Game::instance().unregister_key("right");
+                //...
+
+                Game::instance().unregister_key("start");
+                Game::instance().unregister_key("confirm");
                 //...
 
                 Game::instance().unregister_key("zoom-");
