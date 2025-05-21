@@ -28,6 +28,9 @@ namespace YoBattleGame
             vector<UIChoice*> choices;
             int previous_selected_choice;
             int selected_choice;
+            bool choice_confirmed;
+
+            bool freeze_events;
 
             int font_size;
             Color font_color;
@@ -36,6 +39,8 @@ namespace YoBattleGame
             int choice_padding_v = 10;
 
             bool refuse_external_disabling;
+            bool multiple_confirmations;
+            bool reset_selection_cursor_on_disabling;
 
             BaseUI () : Entity()
             {
@@ -46,8 +51,7 @@ namespace YoBattleGame
                 font_size = 20;
                 font_color = WHITE;
 
-                selected_choice = 0;
-
+                freeze_events = false;
                 refuse_external_disabling = false;
 
                 disable();
@@ -92,10 +96,14 @@ namespace YoBattleGame
 
             UIChoice* choice(int index) { return choices[index]; }
 
+            bool is_open(BaseUI* ui) { return ui != nullptr && ui->is_enabled(); }
+            bool can_be_disabled(BaseUI* ui) { return ui != nullptr && ui->is_enabled(); }
+            bool can_be_disabled_externally(BaseUI* ui) { return ui != nullptr && ui->is_enabled() && !ui->refuse_external_disabling; }
+
             virtual void __draw_choice(UIChoice* _choice) {}
             void display_choices() { for(UIChoice* choice : choices) { if(is_enabled()){ __draw_choice(choice); } } }
 
-            void extra_events(float delta) override { OnEvents(delta); }
+            void extra_events(float delta) override { if(!freeze_events) { OnEvents(delta); } }
             void extra_draw() override { display_choices(); }
 
             virtual void OnEvents(float delta) {}

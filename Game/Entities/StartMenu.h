@@ -32,12 +32,12 @@ namespace YoBattleGame
             {
                 BaseVerticalMenu::OnDisable();
 
-                if(bag_ui != nullptr && !bag_ui->refuse_external_disabling) bag_ui->disable();
+                if(can_be_disabled_externally(bag_ui)) bag_ui->disable();
             }
 
             void OnPressConfirm() override
             {
-                if(bag_ui != nullptr && bag_ui->is_enabled() && !is_current_choice("bag")) { bag_ui->disable(); }
+                if(can_be_disabled(bag_ui) && !is_current_choice("bag")) { bag_ui->disable(); }
 
                 //...
             }

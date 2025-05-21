@@ -11,9 +11,6 @@ namespace YoBattleGame
     {
         struct BaseVerticalMenu : public BaseUI
         {
-            bool choice_confirmed;
-            bool multiple_confirmations;
-
             BaseVerticalMenu () : BaseUI()
             {
                 get<Image>("background")->texture_alias = "uibox1";
@@ -37,7 +34,14 @@ namespace YoBattleGame
                 OnDisable();//FIX
             }
 
-            void OnInit() override {  choice_confirmed = false; multiple_confirmations = false; OnChoiceAdd(); }
+            void OnInit() override
+            { 
+                choice_confirmed = false;
+                multiple_confirmations = false;
+                reset_selection_cursor_on_disabling = true;
+
+                OnChoiceAdd();
+            }
 
             template<typename T, typename Ret, typename... Args>
             void add_choice(const std::string& label, Ret (T::*method)(Args...), Args&&... args)
@@ -58,9 +62,13 @@ namespace YoBattleGame
             {
                 get<Image>("cursor")->enabled = false;
 
-                selected_choice = 0; 
+                if(reset_selection_cursor_on_disabling)
+                {
+                    selected_choice = 0; 
+                    if(choices.size() > 0) get<Image>("cursor")->y = choice_padding_v + (choice(selected_choice)->index * 100);
+                }
+                
                 previous_selected_choice = -1;
-                if(choices.size() > 0) get<Image>("cursor")->y = choice_padding_v + (choice(selected_choice)->index * 100);
 
                 release_confirm_button();
             }

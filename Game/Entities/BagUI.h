@@ -39,11 +39,15 @@ namespace YoBattleGame
 
             void OnEnable() override
             {
-                if(start_menu != nullptr && start_menu->is_enabled())
+                if(start_menu != nullptr)
                 {
                     refuse_external_disabling = true;
 
+                    start_menu->reset_selection_cursor_on_disabling = false;
+
                     start_menu->disable();
+
+                    start_menu->reset_selection_cursor_on_disabling = true;
 
                     refuse_external_disabling = false;
                 }
