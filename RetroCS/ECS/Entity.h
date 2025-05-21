@@ -19,6 +19,7 @@ namespace RetroCS
             void upload_to(Scene* scene, string component_alias) { scene->template upload_to<T, M>(this, component_alias); }
 
             virtual void extra_draw() {}
+            virtual void extra_events(float delta) {}
         };
     }
 }

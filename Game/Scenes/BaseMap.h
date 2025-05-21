@@ -48,6 +48,7 @@ namespace YoBattleGame
                 //..
 
                 Game::instance().load_texture("uibox1");
+                Game::instance().load_texture("uicursor1");
                 //..
 
                 HUB::init<bool>("input_required", false);

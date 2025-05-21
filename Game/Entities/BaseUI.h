@@ -16,7 +16,6 @@ namespace YoBattleGame
             int index;
             string label;
 
-            uint8_t value;
             function<void()> action;
 
             template<typename Callback, typename... Args>
@@ -28,6 +27,7 @@ namespace YoBattleGame
         struct BaseUI : public Entity
         {
             vector<UIChoice*> choices;
+            int selected_choice;
 
             int font_size;
             Color font_color;
@@ -44,6 +44,8 @@ namespace YoBattleGame
                 font_size = 20;
                 font_color = WHITE;
 
+                selected_choice = 0;
+
                 disable();
             }
 
@@ -56,10 +58,12 @@ namespace YoBattleGame
                 get<Image>("background")->y = y;
             }
 
-            virtual void enable() { get<Image>("background")->enabled = true; }
-            virtual void disable() { get<Image>("background")->enabled = false; }
+            void enable() { get<Image>("background")->enabled = true; OnEnable(); }
+            void disable() { get<Image>("background")->enabled = false; OnDisable(); }
             virtual bool is_enabled() { return get<Image>("background")->enabled; }
             virtual bool is_disabled() { return !get<Image>("background")->enabled; }
+            virtual void OnEnable() {}
+            virtual void OnDisable() {}
 
             template<typename T, typename Ret, typename... Args>
             void add_choice(string label, Ret (T::*method)(Args...), T* obj, Args&&... args)
@@ -84,15 +88,13 @@ namespace YoBattleGame
 
             UIChoice* choice(int index) { return choices[index]; }
 
-            virtual void __display_choice(UIChoice* choice) {}
-            void display_choices() { for(UIChoice* choice : choices) { __display_choice(choice); } }
+            virtual void __draw_choice(UIChoice* _choice) {}
+            void display_choices() { for(UIChoice* choice : choices) { if(is_enabled()){ __draw_choice(choice); } } }
 
-            void extra_draw() override
-            {
-                display_choices();
+            void extra_events(float delta) override { OnEvents(delta); }
+            void extra_draw() override { display_choices(); }
 
-                //...
-            }
+            virtual void OnEvents(float delta) {}
         };
     }
 }
