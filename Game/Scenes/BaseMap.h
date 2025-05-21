@@ -17,24 +17,27 @@ namespace YoBattleGame
         struct BaseMap : public Scene
         {
             bool display_map;
+            bool camera_follow;
+            bool enable_start_menu;;
+
             metamap map;
             metatexture map_texture;
 
             Player* player;
             Vector2i spawn;
 
-            bool camera_follow;
             string camera_target_alias;
 
             BaseMap() : Scene()
             {
-                display_map = true;
-
                 player = nullptr;
                 spawn = {0, 0};
 
-                camera_follow = true;
                 camera_target_alias = "player";
+
+                display_map = true;
+                camera_follow = true;
+                enable_start_menu = true;
             }
 
             void enter() override
@@ -96,17 +99,20 @@ namespace YoBattleGame
             {
                 Scene::events(delta);
 
-                if(Game::instance().is_pressed("start"))
+                if(enable_start_menu)
                 {
-                    if(player->get<StateMachine>("states")->current() == "idle" && get<StartMenu>("start_menu")->is_disabled())
+                    if(Game::instance().is_pressed("start"))
                     {
-                        get<StartMenu>("start_menu")->enable();
-                        HUB::set("input_required", true);
-                    }
-                    else
-                    {
-                        get<StartMenu>("start_menu")->disable();
-                        HUB::set("input_required", false);
+                        if(player->get<StateMachine>("states")->current() == "idle" && get<StartMenu>("start_menu")->is_disabled())
+                        {
+                            get<StartMenu>("start_menu")->enable();
+                            HUB::set("input_required", true);
+                        }
+                        else
+                        {
+                            get<StartMenu>("start_menu")->disable();
+                            HUB::set("input_required", false);
+                        }
                     }
                 }
             }
