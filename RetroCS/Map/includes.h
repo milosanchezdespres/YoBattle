@@ -110,10 +110,14 @@ namespace RetroCS
             for (int i = 0; i < width * height; ++i) { map.metatiles[i] = metatiles[i]; }
         }
 
-        inline void bind(metamap& map, metatexture& texture)
+        inline metamap* map;
+
+        inline void bind(metamap& _map, metatexture& texture)
         {
-            map.texture = &texture;
-            texture.map = &map;
+            _map.texture = &texture;
+            texture.map = &_map;
+
+            map = &_map;
         }
 
         inline void init(metatexture& texture, string texture_alias)
@@ -181,12 +185,14 @@ namespace RetroCS
             DrawTexturePro(texture.data.texture, texture.__source, texture.__dest, texture.__origin, rotation, WHITE);
         }
 
-        inline void unbind(metamap& map)
+        inline void unbind(metamap& _map)
         {
-            UnloadRenderTexture(map.texture->data);
+            UnloadRenderTexture(_map.texture->data);
 
-            map.texture->map = nullptr;
-            map.texture = nullptr;
+            _map.texture->map = nullptr;
+            _map.texture = nullptr;
+
+            map = nullptr;
         }
 
         inline void unbind(metatexture& texture)
@@ -195,6 +201,8 @@ namespace RetroCS
 
             texture.map->texture = nullptr;
             texture.map = nullptr;
+
+            map = nullptr;
         }
     }
 }
