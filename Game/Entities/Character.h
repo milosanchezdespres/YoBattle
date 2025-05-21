@@ -24,11 +24,11 @@ namespace YoBattleGame
                 upload_to<StateMachineSystem, StateMachine>(Game::instance().scene(), "states");
 
                 get<StateMachine>("states")->axis = 1;
-                get<StateMachine>("states")->move_speed = 80;
+                get<StateMachine>("states")->move_speed = 85;
 
                 add<Animations>("anim");
                 upload_to<AnimationSystem, Animations>(Game::instance().scene(), "anim");
-                get<Animations>("anim")->speed = 7;
+                get<Animations>("anim")->speed = 8.5;
 
                 get<Animations>("anim")->add_animation("idle", 0);
                 get<Animations>("anim")->add_frame(4, "idle", 0);
