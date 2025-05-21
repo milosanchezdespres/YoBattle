@@ -94,7 +94,7 @@ namespace YoBattleGame
 
                 if(Game::instance().is_pressed("start"))
                 {
-                    if(get<StartMenu>("start_menu")->is_disabled())
+                    if(player->get<StateMachine>("states")->current() == "idle" && get<StartMenu>("start_menu")->is_disabled())
                     {
                         get<StartMenu>("start_menu")->enable();
                         HUB::set("input_required", true);

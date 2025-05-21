@@ -14,7 +14,8 @@ namespace YoBattleGame
 
             void OnEnter() override
             {
-                //...
+                owner()->get<Sprite>("body")->tile->index = 
+                    owner()->get<Animations>("anim")->animation("idle", owner()->get<StateMachine>("states")->axis)->frames[0];
             }
 
             void OnUpdate(float delta) override
