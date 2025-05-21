@@ -40,7 +40,7 @@ namespace YoBattleGame
                 BaseMap::events(delta);
 
                 //FOR DEBUG PURPOSE
-
+                
                 if(Game::instance().is_down("zoom-") && Game::instance().camera()->zoom > 1)
                     { Game::instance().camera()->zoom_minus(Game::instance().width, Game::instance().height); }
 
