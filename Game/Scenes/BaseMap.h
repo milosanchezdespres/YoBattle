@@ -22,10 +22,16 @@ namespace YoBattleGame
             Player* player;
             Vector2i spawn;
 
+            bool camera_follow;
+            string camera_target_alias;
+
             BaseMap() : Scene()
             {
                 player = nullptr;
                 spawn = {0, 0};
+
+                camera_follow = true;
+                camera_target_alias = "player";
             }
 
             void enter() override
@@ -78,12 +84,15 @@ namespace YoBattleGame
             {
                 Scene::update(delta);
 
-                Game::instance().camera()->follow(
-                    get("player")->get<Sprite>("body")->x, 
-                    get("player")->get<Sprite>("body")->y, 
-                    MAP::tilesize(),
-                    Game::instance().width,
-                    Game::instance().height);
+                if(camera_follow)
+                {
+                    Game::instance().camera()->follow(
+                        get(camera_target_alias)->get<Sprite>("body")->x, 
+                        get(camera_target_alias)->get<Sprite>("body")->y, 
+                        MAP::tilesize(),
+                        Game::instance().width,
+                        Game::instance().height);
+                }
             }
             
             void draw() override
@@ -114,7 +123,6 @@ namespace YoBattleGame
 
                 Scene::exit();
             }
-            
         };
     }
 }
