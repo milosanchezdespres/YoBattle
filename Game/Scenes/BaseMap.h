@@ -16,6 +16,7 @@ namespace YoBattleGame
     {
         struct BaseMap : public Scene
         {
+            bool display_map;
             metamap map;
             metatexture map_texture;
 
@@ -27,6 +28,8 @@ namespace YoBattleGame
 
             BaseMap() : Scene()
             {
+                display_map = true;
+
                 player = nullptr;
                 spawn = {0, 0};
 
@@ -39,13 +42,21 @@ namespace YoBattleGame
                 Scene::enter();
 
                 Game::instance().load_texture("tileset");
+                //..
+
                 Game::instance().load_texture("player");
+                //..
+
+                Game::instance().load_texture("uibox1");
                 //..
 
                 Game::instance().register_key("up", KEY_W, GAMEPAD_BUTTON_LEFT_FACE_UP);
                 Game::instance().register_key("down", KEY_S, GAMEPAD_BUTTON_LEFT_FACE_DOWN);
                 Game::instance().register_key("left", KEY_A, GAMEPAD_BUTTON_LEFT_FACE_LEFT);
                 Game::instance().register_key("right", KEY_D, GAMEPAD_BUTTON_LEFT_FACE_RIGHT);
+                //...
+
+                Game::instance().register_key("start", KEY_P, GAMEPAD_BUTTON_MIDDLE_RIGHT);
                 //...
 
                 Game::instance().register_key("zoom-", KEY_KP_5);
@@ -55,6 +66,7 @@ namespace YoBattleGame
                 Game::instance().camera()->zoom = 7;
 
                 attach<SpriteRenderSystem>();
+                attach<ImageRenderSystem>();
                 attach<ControllerSystem>();
                 attach<StateMachineSystem>();
                 attach<AnimationSystem>();
@@ -62,8 +74,9 @@ namespace YoBattleGame
 
                 add<Player>("player");
                 player = get<Player>("player");
-                component<Entity, Sprite>("player", "body")->texture_alias = "player";
                 player->tp(spawn.i, spawn.j);
+
+                add<UIBOX1>("start_menu");
 
                 map = metamap();
                 map_texture = metatexture();
@@ -77,7 +90,11 @@ namespace YoBattleGame
             {
                 Scene::events(delta);
 
-                //...
+                if(Game::instance().is_pressed("start"))
+                {
+                    if(get<UIBOX1>("start_menu")->is_disabled()){ get<UIBOX1>("start_menu")->enable(); }
+                    else { get<UIBOX1>("start_menu")->disable(); }
+                }
             }
 
             void update(float delta) override
@@ -98,7 +115,7 @@ namespace YoBattleGame
             void draw() override
             {
                 MAP::render(map_texture);
-                MAP::draw(map_texture);
+                if(display_map) MAP::draw(map_texture);
 
                 Scene::draw();
             }

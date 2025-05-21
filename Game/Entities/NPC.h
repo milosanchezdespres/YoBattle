@@ -15,6 +15,9 @@ namespace YoBattleGame
         {
             NPC () : Character()
             {
+                get<Sprite>("body")->texture_alias = "player";
+                //default sprite
+
                 //...
                 get<StateMachine>("states")->does<NPCIdle>();
             }

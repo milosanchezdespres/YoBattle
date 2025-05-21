@@ -2,6 +2,8 @@
 
 #include "../../RetroCS/RetroCS.h"
 
+#include "../Entities/UIBOX1.h"
+
 #include "BaseMap.h"
 
 namespace YoBattleGame
@@ -19,19 +21,15 @@ namespace YoBattleGame
                 BaseMap::enter();
 
                 add<NPC>("test_pnj");
-                component<Entity, Sprite>("test_pnj", "body")->texture_alias = "player";
                 get<NPC>("test_pnj")->tp(10, 10);
 
                 add<NPC>("test_pnj2");
-                component<Entity, Sprite>("test_pnj2", "body")->texture_alias = "player";
                 get<NPC>("test_pnj2")->tp(15, 15);
 
                 add<NPC>("test_pnj3");
-                component<Entity, Sprite>("test_pnj3", "body")->texture_alias = "player";
                 get<NPC>("test_pnj3")->tp(0, 0);
 
                 add<NPC>("test_pnj4");
-                component<Entity, Sprite>("test_pnj4", "body")->texture_alias = "player";
                 get<NPC>("test_pnj4")->tp(7, 3);
             }
 

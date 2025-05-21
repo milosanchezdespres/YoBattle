@@ -112,6 +112,7 @@ namespace RetroCS
                 void unregister_key(string alias) { keys.erase(alias); }
 
                 bool is_down(string alias) { return keys[alias]->is_down(); }
+                bool is_pressed(string alias) { return keys[alias]->is_pressed(); }
 
             private:
                 vector<Texture2D> textures;
