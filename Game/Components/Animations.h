@@ -17,6 +17,9 @@ namespace YoBattleGame
 
         struct Animations : public Component
         {
+            Animation* previous;
+            Animation* current;
+
             unordered_map<string, Animation*> animations;
 
             float speed;
@@ -25,6 +28,9 @@ namespace YoBattleGame
 
             Animation* animation(string action, int direction = -1)
             {
+                previous = nullptr;
+                current = nullptr;
+                
                 string finite_name = action;
                 if(direction > -1) { finite_name += "_" + to_string(direction); }
 

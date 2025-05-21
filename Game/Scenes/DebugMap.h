@@ -7,6 +7,7 @@
 #include "../Systems/StateMachineSystem.h"
 
 #include "../Entities/Player.h"
+#include "../Entities/NPC.h"
 //...
 
 namespace YoBattleGame
@@ -49,6 +50,10 @@ namespace YoBattleGame
                 add<Player>("player");
                 component<Entity, Sprite>("player", "body")->texture_alias = "player";
                 get<Player>("player")->tp(2, 2);
+
+                add<NPC>("test_pnj");
+                component<Entity, Sprite>("test_pnj", "body")->texture_alias = "player";
+                get<NPC>("test_pnj")->tp(10, 10);
 
                 map = metamap();
                 map_texture = metatexture();

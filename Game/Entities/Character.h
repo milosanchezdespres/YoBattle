@@ -20,14 +20,11 @@ namespace YoBattleGame
         {
             Character () : Entity2D()
             {
-                add<Controller>("ui");
-                upload_to<ControllerSystem, Controller>(Game::instance().scene(), "ui");
-
                 add<StateMachine>("states");
                 upload_to<StateMachineSystem, StateMachine>(Game::instance().scene(), "states");
 
                 get<StateMachine>("states")->axis = 1;
-                get<StateMachine>("states")->move_speed = 70;
+                get<StateMachine>("states")->move_speed = 80;
 
                 add<Animations>("anim");
                 upload_to<AnimationSystem, Animations>(Game::instance().scene(), "anim");

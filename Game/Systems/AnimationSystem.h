@@ -9,39 +9,36 @@ namespace YoBattleGame
     {
         struct AnimationSystem : public System<Animations>
         {
-            Animation* previous_animation;
-            Animation* animation;
-
-            AnimationSystem () : System<Animations>() { previous_animation = nullptr; animation = nullptr; }
+            AnimationSystem () : System<Animations>() { }
 
             void OnDraw(Entity* owner, Animations* component) override
             {
-                previous_animation = animation;
-                animation = component->animation(owner->get<StateMachine>("states")->current(), owner->get<StateMachine>("states")->axis);
+                component->previous = component->current;
+                component->current = component->animation(owner->get<StateMachine>("states")->current(), owner->get<StateMachine>("states")->axis);
 
-                if(animation != nullptr)
+                if(component->current != nullptr)
                 {
-                    if(previous_animation != animation && previous_animation != nullptr)
+                    if(component->previous != component->current && component->previous != nullptr)
                     {
-                        previous_animation->timer = 0;
-                        previous_animation->index = 0;
-                        animation->timer = 0;
-                        animation->index = 0;
+                        component->previous->timer = 0;
+                        component->previous->index = 0;
+                        component->current->timer = 0;
+                        component->current->index = 0;
                     }
 
-                    animation->timer += Game::instance().delta();
+                    component->current->timer += Game::instance().delta();
                     float frame_time = component->speed / 60;
 
-                    if(animation->timer >= frame_time)
+                    if(component->current->timer >= frame_time)
                     {
-                        animation->timer = 0;
-                        animation->index++;
+                        component->current->timer = 0;
+                        component->current->index++;
 
-                        if(animation->index >= animation->frames.size()) { animation->index = 0; }
+                        if(component->current->index >= component->current->frames.size()) { component->current->index = 0; }
                     }
 
-                    if(animation->index < animation->frames.size())
-                    { owner->get<Sprite>("body")->tile->index = animation->frames[animation->index]; }
+                    if(component->current->index < component->current->frames.size())
+                    { owner->get<Sprite>("body")->tile->index = component->current->frames[component->current->index]; }
                 }
             }
         };

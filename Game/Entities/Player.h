@@ -15,7 +15,9 @@ namespace YoBattleGame
         {
             Player () : Character()
             {
-                //...
+                add<Controller>("ui");
+                upload_to<ControllerSystem, Controller>(Game::instance().scene(), "ui");
+                
                 get<StateMachine>("states")->does<PlayerIdle>();
             }
         };

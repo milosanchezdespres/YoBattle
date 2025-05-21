@@ -12,9 +12,7 @@ namespace YoBattleGame
             StateMachineSystem () : System<StateMachine>() { }
 
             void OnDraw(Entity* owner, StateMachine* component) override
-            {
-                component->update(Game::instance().delta());
-            }
+                { if(component->is_valid()) { component->update(Game::instance().delta()); } }
         };
     }
 }
