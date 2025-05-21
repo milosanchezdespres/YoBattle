@@ -10,6 +10,7 @@
 
 #include "../Entities/StartMenu.h"
 #include "../Entities/BagUI.h"
+#include "../Entities/BagMenu.h"
 //...
 
 namespace YoBattleGame
@@ -91,6 +92,9 @@ namespace YoBattleGame
                 add<BagUI>("bag_ui");
                 get<BagUI>("bag_ui")->init();
 
+                add<BagMenu>("bag_menu");
+                get<BagMenu>("bag_menu")->init();
+
                 //...
 
                 add<StartMenu>("start_menu");
@@ -98,6 +102,7 @@ namespace YoBattleGame
 
                 get<StartMenu>("start_menu")->bag_ui = get<BaseUI>("bag_ui");
                 get<BagUI>("bag_ui")->start_menu = get<StartMenu>("start_menu");
+                get<BagUI>("bag_ui")->bag_menu = get<BagMenu>("bag_menu");
 
                 map = metamap();
                 map_texture = metatexture();

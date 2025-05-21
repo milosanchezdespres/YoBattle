@@ -12,6 +12,7 @@ namespace YoBattleGame
         struct BagUI : public BaseUI
         {
             BaseUI* start_menu;
+            BaseUI* bag_menu;
 
             BagUI () : BaseUI()
             {
@@ -36,7 +37,7 @@ namespace YoBattleGame
 
             void OnEnable() override
             {
-                if(start_menu != nullptr)
+                if(start_menu != nullptr && bag_menu != nullptr)
                 {
                     refuse_external_disabling = true;
 
@@ -47,7 +48,15 @@ namespace YoBattleGame
                     start_menu->reset_selection_cursor_on_disabling = true;
 
                     refuse_external_disabling = false;
+
+                    bag_menu->enable();
                 }
+            }
+
+            void OnDisable() override
+            {
+                if(bag_menu != nullptr)
+                { bag_menu->disable(); }
             }
         };
     }
