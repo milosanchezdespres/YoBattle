@@ -27,13 +27,10 @@ namespace YoBattleGame
 
             void OnEvents(float delta) override
             {
-                if(Game::instance().is_pressed("cancel"))
+                if(Game::instance().is_pressed("cancel") && start_menu != nullptr)
                 {
-                    if(start_menu != nullptr)
-                    {
-                        start_menu->enable();
-                        disable();
-                    }
+                    start_menu->enable();
+                    disable();
                 }
             }
 

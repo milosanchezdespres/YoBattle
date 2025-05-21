@@ -37,7 +37,6 @@ namespace YoBattleGame
             void OnInit() override
             { 
                 choice_confirmed = false;
-                multiple_confirmations = false;
                 reset_selection_cursor_on_disabling = true;
 
                 OnChoiceAdd();
@@ -91,28 +90,21 @@ namespace YoBattleGame
                         if(selected_choice > choices.size() - 1) selected_choice = 0;
                     }
 
-                    if(Game::instance().is_pressed("confirm"))
-                    {
-                        if(previous_selected_choice > -1 && !is_current_choice(choice(previous_selected_choice)->label))
-                        { release_confirm_button(); }
+                    if(choice_confirmed && previous_selected_choice > -1 && !is_current_choice(choice(previous_selected_choice)->label))
+                    { release_confirm_button(); }
 
+                    if(!choice_confirmed && (execute_on_select || Game::instance().is_pressed("confirm")))
+                    {
                         OnPressConfirm();
 
-                        if(can_confirm())
-                        {
-                            choice(selected_choice)->execute();
+                        choice(selected_choice)->execute();
 
-                            OnConfirm();
+                        OnConfirm();
 
-                            confirm_choice();
-                        }
+                        choice_confirmed = true;
                     }
                 }
             }
-
-            bool can_confirm() { return multiple_confirmations || !choice_confirmed; }
-
-            void confirm_choice() { choice_confirmed = true; }
 
             void release_confirm_button() { choice_confirmed = false; }
 

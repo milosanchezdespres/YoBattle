@@ -39,7 +39,7 @@ namespace YoBattleGame
             int choice_padding_v = 10;
 
             bool refuse_external_disabling;
-            bool multiple_confirmations;
+            bool execute_on_select;
             bool reset_selection_cursor_on_disabling;
 
             BaseUI () : Entity()
@@ -53,6 +53,7 @@ namespace YoBattleGame
 
                 freeze_events = false;
                 refuse_external_disabling = false;
+                execute_on_select = false;
 
                 disable();
             }
