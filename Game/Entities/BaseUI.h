@@ -70,7 +70,7 @@ namespace YoBattleGame
             {
                 auto choice = new UIChoice();
 
-                auto args_tuple = std::make_tuple(std::forward<Args>(args)...);
+                auto args_tuple = std::make_tuple(std::forward<std::decay_t<Args>>(args)...);
 
                 choice->set([obj, method, args_tuple = std::move(args_tuple)]() mutable
                 {

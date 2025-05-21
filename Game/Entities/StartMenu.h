@@ -68,6 +68,8 @@ namespace YoBattleGame
                     selected_choice++;
                     if(selected_choice > choices.size() - 1) selected_choice = 0;
                 }
+
+                if(Game::instance().is_pressed("confirm")) { choice(selected_choice)->execute(); }
             }
 
             void __draw_choice(UIChoice* _choice) override
