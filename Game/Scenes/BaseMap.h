@@ -67,8 +67,8 @@ namespace YoBattleGame
                 //...
 
                 Game::instance().register_key("start", KEY_P, GAMEPAD_BUTTON_MIDDLE_RIGHT);
-                Game::instance().register_key("confirm", KEY_M, GAMEPAD_BUTTON_RIGHT_FACE_DOWN);
-                Game::instance().register_key("cancel", KEY_L, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT);
+                Game::instance().register_key("confirm", KEY_L, GAMEPAD_BUTTON_RIGHT_FACE_DOWN);
+                Game::instance().register_key("cancel", KEY_O, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT);
                 //...
 
                 Game::instance().register_key("zoom-", KEY_KP_5);
