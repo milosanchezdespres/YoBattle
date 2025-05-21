@@ -20,10 +20,6 @@ namespace YoBattleGame
             {
                 get<Sprite>("body")->texture_alias = "player";
 
-                add<Controller>("ui");
-                upload_to<ControllerSystem, Controller>(Game::instance().scene(), "ui");
-
-
                 add<RobotTeam>("team1");
                 //...
                 

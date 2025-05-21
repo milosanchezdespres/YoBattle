@@ -3,7 +3,6 @@
 #include "../../RetroCS/RetroCS.h"
 
 #include "../Systems/SpriteRenderSystem.h"
-#include "../Systems/ControllerSystem.h"
 #include "../Systems/StateMachineSystem.h"
 
 #include "../Entities/Player.h"
@@ -70,7 +69,6 @@ namespace YoBattleGame
 
                 attach<SpriteRenderSystem>();
                 attach<ImageRenderSystem>();
-                attach<ControllerSystem>();
                 attach<StateMachineSystem>();
                 attach<AnimationSystem>();
                 //..

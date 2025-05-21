@@ -2,12 +2,12 @@
 
 #include "../../Components/StateMachine.h"
 
+#include "PlayerWalk.h"
+
 namespace YoBattleGame
 {
     namespace ECS
     {
-        struct PlayerWalk;
-        
         struct PlayerIdle : public State
         {
             PlayerIdle(Entity* _owner) : State("idle", _owner) {}

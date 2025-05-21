@@ -4,11 +4,9 @@
 
 #include "../Entities/Entity2D.h"
 
-#include "../Systems/ControllerSystem.h"
 #include "../Systems/StateMachineSystem.h"
 #include "../Systems/AnimationSystem.h"
 
-#include "../Components/Controller.h"
 #include "../Components/StateMachine.h"
 #include "../Components/Animations.h"
 

@@ -9,6 +9,8 @@ namespace YoBattleGame
     {
         struct Character;
 
+        struct PlayerIdle;
+
         struct PlayerWalk : public State
         {
             Vector2i target_tile;
