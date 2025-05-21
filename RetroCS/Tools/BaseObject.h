@@ -14,6 +14,8 @@ namespace RetroCS
             string alias;
             BaseObject* __parent;
 
+            json __json_buffer;
+
             BaseObject() { init(); }
             virtual ~BaseObject() {} 
 
@@ -23,6 +25,25 @@ namespace RetroCS
                 alias = _alias;
                 __parent = parent;
             }
+
+            json to_json()
+            {
+                __json_buffer = {};
+
+                OnJsonWrite();
+
+                return __json_buffer;
+            }
+
+            void from_json(json _data)
+            {
+                __json_buffer = _data;
+
+                OnJsonRead();
+            }
+
+            virtual void OnJsonWrite() {}
+            virtual void OnJsonRead() {}
 
             BaseObject* owner() { return __parent; }
 
