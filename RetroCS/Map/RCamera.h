@@ -81,6 +81,8 @@ namespace RetroCS
                 }
             }
 
+            bool out_of_screen(float _x, float _y, int tile_size, int screen_width, int screen_height)
+                { return !(_x >= -(zoom * tile_size) && _x <= screen_width && _y >= -(zoom * tile_size) && _y <= screen_height); }
         };
     }
 }

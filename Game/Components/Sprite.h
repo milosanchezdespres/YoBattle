@@ -26,6 +26,7 @@ namespace YoBattleGame
 
                 x = 0;
                 y = 0;
+                r = 0;
 
                 tile = new Tile();
                 tile->size = 8;

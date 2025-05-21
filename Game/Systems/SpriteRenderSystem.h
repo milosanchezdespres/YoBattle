@@ -31,7 +31,8 @@ namespace YoBattleGame
                 __destination.width = Game::instance().camera()->zoom * component->tile->size;
                 __destination.height = Game::instance().camera()->zoom * component->tile->size;
 
-                DrawTexturePro(Game::instance().texture(component->texture_alias), __source, __destination, __origin, component->r, WHITE);
+                if(!Game::instance().camera()->out_of_screen(__destination.x, __destination.y, component->tile->size, Game::instance().width, Game::instance().height))
+                    { DrawTexturePro(Game::instance().texture(component->texture_alias), __source, __destination, __origin, component->r, WHITE); }
             }
         };
     }
