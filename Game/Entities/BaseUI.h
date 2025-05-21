@@ -11,17 +11,16 @@ namespace YoBattleGame
 {
     namespace ECS
     {
-        struct UIChoice
-        {
+        struct UIChoice {
             int index;
-            string label;
+            std::string label;
+            std::function<void()> action;
 
-            function<void()> action;
+            void set(std::function<void()> cb) { action = std::move(cb); }
 
-            template<typename Callback, typename... Args>
-            void set(Callback&& cb, Args&&... args) { action = std::bind(forward<Callback>(cb), forward<Args>(args)...); }
-
-            void execute() { action(); }
+            void execute() {
+                if (action) action();
+            }
         };
 
         struct BaseUI : public Entity
@@ -66,24 +65,21 @@ namespace YoBattleGame
             virtual void OnDisable() {}
 
             template<typename T, typename Ret, typename... Args>
-            void add_choice(string label, Ret (T::*method)(Args...), T* obj, Args&&... args)
+            void add_choice(std::string label, Ret (T::*method)(Args...), T* obj, Args&&... args)
             {
                 auto choice = new UIChoice();
 
-                auto args_tuple = std::make_tuple(std::forward<Args>(args)...);
+            auto args_tuple = std::make_tuple(std::decay_t<Args>(args)...);
 
-                choice->set([obj, method, args_tuple = std::move(args_tuple)]() mutable
-                {
-                    std::apply([obj, method](Args&&... unpacked_args)
-                    {
-                        (obj->*method)(std::forward<Args>(unpacked_args)...);
-                    }, std::move(args_tuple));
+                choice->set([obj, method, args_tuple = std::move(args_tuple)]() mutable {
+                    std::apply([obj, method](auto&&... unpacked_args) {
+                        (obj->*method)(std::forward<decltype(unpacked_args)>(unpacked_args)...);
+                    }, args_tuple);
                 });
 
+                choice->index = static_cast<int>(choices.size());
+                choice->label = std::move(label);
                 choices.push_back(choice);
-
-                choices[choices.size() - 1]->index = choices.size() - 1;
-                choices[choices.size() - 1]->label = label;
             }
 
             UIChoice* choice(int index) { return choices[index]; }
