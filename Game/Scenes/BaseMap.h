@@ -7,6 +7,7 @@
 
 #include "../Entities/Player.h"
 #include "../Entities/NPC.h"
+#include "../Entities/StartMenu.h"
 //...
 
 namespace YoBattleGame
@@ -77,7 +78,7 @@ namespace YoBattleGame
                 player = get<Player>("player");
                 player->tp(spawn.i, spawn.j);
 
-                add<UIBOX1>("start_menu");
+                add<StartMenu>("start_menu");
 
                 map = metamap();
                 map_texture = metatexture();
@@ -93,14 +94,14 @@ namespace YoBattleGame
 
                 if(Game::instance().is_pressed("start"))
                 {
-                    if(get<UIBOX1>("start_menu")->is_disabled())
+                    if(get<StartMenu>("start_menu")->is_disabled())
                     {
-                        get<UIBOX1>("start_menu")->enable();
+                        get<StartMenu>("start_menu")->enable();
                         HUB::set("input_required", true);
                     }
                     else
                     {
-                        get<UIBOX1>("start_menu")->disable();
+                        get<StartMenu>("start_menu")->disable();
                         HUB::set("input_required", false);
                     }
                 }

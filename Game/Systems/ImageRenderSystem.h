@@ -17,7 +17,7 @@ namespace YoBattleGame
             void OnDraw(Entity* owner, Image* component) override
             {
                 __position.x = component->x + (component->scale_h * 3);
-                __position.y = component->y + (component->scale_v * 1.8f);
+                __position.y = component->y + (component->scale_v * 1.9f);
 
                 DrawTexturePro(
                     Game::instance().texture(component->texture_alias),

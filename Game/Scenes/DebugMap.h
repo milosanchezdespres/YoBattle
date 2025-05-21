@@ -2,8 +2,6 @@
 
 #include "../../RetroCS/RetroCS.h"
 
-#include "../Entities/UIBOX1.h"
-
 #include "BaseMap.h"
 
 namespace YoBattleGame
