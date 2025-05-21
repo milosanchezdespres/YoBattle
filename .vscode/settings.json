@@ -57,6 +57,7 @@
         "ratio": "cpp",
         "iomanip": "cpp",
         "sstream": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "fstream": "cpp"
     }
 }
