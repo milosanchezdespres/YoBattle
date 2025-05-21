@@ -50,6 +50,9 @@ namespace YoBattleGame
                 Game::instance().load_texture("uibox1");
                 //..
 
+                HUB::init<bool>("input_required", false);
+                //...
+
                 Game::instance().register_key("up", KEY_W, GAMEPAD_BUTTON_LEFT_FACE_UP);
                 Game::instance().register_key("down", KEY_S, GAMEPAD_BUTTON_LEFT_FACE_DOWN);
                 Game::instance().register_key("left", KEY_A, GAMEPAD_BUTTON_LEFT_FACE_LEFT);
@@ -92,8 +95,16 @@ namespace YoBattleGame
 
                 if(Game::instance().is_pressed("start"))
                 {
-                    if(get<UIBOX1>("start_menu")->is_disabled()){ get<UIBOX1>("start_menu")->enable(); }
-                    else { get<UIBOX1>("start_menu")->disable(); }
+                    if(get<UIBOX1>("start_menu")->is_disabled())
+                    {
+                        get<UIBOX1>("start_menu")->enable();
+                        HUB::set("input_required", true);
+                    }
+                    else
+                    {
+                        get<UIBOX1>("start_menu")->disable();
+                        HUB::set("input_required", false);
+                    }
                 }
             }
 

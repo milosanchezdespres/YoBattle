@@ -60,7 +60,11 @@ namespace YoBattleGame
 
             string current() { return state->name; }
 
-            void update(float delta) { state->update(delta); }
+            void update(float delta)
+            {
+                if(!HUB::get<bool>("input_required"))
+                    state->update(delta);
+            }
 
             bool is_valid() { return state != nullptr; }
         };
