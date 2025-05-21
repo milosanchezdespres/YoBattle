@@ -39,7 +39,7 @@ namespace YoBattleGame
                 Game::instance().register_key("zoom+", KEY_KP_2);
                 //...
 
-                Game::instance().camera()->zoom = 6;
+                Game::instance().camera()->zoom = 7;
 
                 attach<SpriteRenderSystem>();
                 attach<ControllerSystem>();

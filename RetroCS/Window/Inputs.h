@@ -10,7 +10,6 @@ namespace RetroCS
         {
             KeyboardKey key;
             GamepadButton gamepad;
-            bool gamepad_enabled;
 
             BTN() {}
 
@@ -18,10 +17,18 @@ namespace RetroCS
             {
                 key = _key;
                 gamepad = _gamepad;
-                gamepad_enabled = _gamepad != GAMEPAD_BUTTON_UNKNOWN;
             }
 
-            bool is_down() { return IsKeyDown(key) || (gamepad_enabled && IsGamepadAvailable(0) && IsGamepadButtonDown(0, gamepad)); }
+            bool is_down()
+            {
+                if (gamepad != GAMEPAD_BUTTON_UNKNOWN && IsGamepadAvailable(0))
+                {
+                    if (IsGamepadButtonDown(0, gamepad))
+                        return true;
+                }
+
+                return IsKeyDown(key);
+            }
         };
     }
 }
