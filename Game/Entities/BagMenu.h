@@ -32,9 +32,9 @@ namespace YoBattleGame
             {
                 add_choice("items", &BagMenu::test, string("items"));
                 add_choice("medals", &BagMenu::test, string("medals"));  
-                add_choice("chips.", &BagMenu::test, string("chips"));
-                add_choice("rams.", &BagMenu::test, string("rams"));
-                add_choice("batteries.", &BagMenu::test, string("batteries"));
+                add_choice("chips", &BagMenu::test, string("chips"));
+                add_choice("rams", &BagMenu::test, string("rams"));
+                add_choice("batteries", &BagMenu::test, string("batteries"));
                 add_choice("key items", &BagMenu::test, string("key items"));
             }
         };
