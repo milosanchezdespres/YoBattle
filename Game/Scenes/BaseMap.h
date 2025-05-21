@@ -114,6 +114,7 @@ namespace YoBattleGame
                 if(enable_start_menu)
                 {
                     bool start_menu_can_open = !get<BagUI>("bag_ui")->is_enabled();//.....
+                    bool start_menu_can_close = get<BagUI>("bag_ui")->is_disabled();//....
 
                     if(start_menu_can_open && Game::instance().is_pressed("start"))
                     {
@@ -127,6 +128,12 @@ namespace YoBattleGame
                             get<StartMenu>("start_menu")->disable();
                             HUB::set("input_required", false);
                         }
+                    }
+
+                    if(start_menu_can_close && Game::instance().is_pressed("cancel"))
+                    {
+                        get<StartMenu>("start_menu")->disable();
+                        HUB::set("input_required", false);
                     }
                 }
             }
