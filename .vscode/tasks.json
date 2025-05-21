@@ -6,20 +6,36 @@
       "type": "shell",
       "command": "g++",
       "args": [
-      "-std=c++20",
+        "-std=c++20",
         "main.cpp",
         "-o",
         "build/YoBattle",
-        "-lraylib", "-lGL", "-lm", "-lpthread", "-ldl", "-lrt", "-lX11"
+        "-lraylib",
+        "-lGL",
+        "-lm",
+        "-lpthread",
+        "-ldl",
+        "-lrt",
+        "-lX11"
       ],
       "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Copy Game assets and data",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-c",
+        "if find Game/assets -type f ! -name '*.h' | read; then mkdir -p build/Game; rsync -av --exclude='*.h' Game/assets/ build/Game/assets/; fi; if find Game/data -type f ! -name '*.h' | read; then mkdir -p build/Game; rsync -av --exclude='*.h' Game/data/ build/Game/data/; fi"
+      ],
       "problemMatcher": []
     },
     {
       "label": "Run YoBattle",
       "type": "shell",
       "command": "${workspaceFolder}/build/YoBattle",
-      "dependsOn": "Build YoBattle",
+      "dependsOn": ["Build YoBattle", "Copy Game assets and data"],
       "problemMatcher": []
     }
   ]

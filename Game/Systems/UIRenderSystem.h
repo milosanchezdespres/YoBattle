@@ -17,8 +17,11 @@ namespace YoBattleGame
 
             void OnDraw(Entity* owner, Image* component) override
             {
-                owner->extra_events(Game::instance().delta());
-                owner->extra_draw();
+                if(component->enabled)
+                {
+                    owner->extra_events(Game::instance().delta());
+                    owner->extra_draw();
+                }
             }
         };
     }

@@ -7,7 +7,9 @@
 
 #include "../Entities/Player.h"
 #include "../Entities/NPC.h"
+
 #include "../Entities/StartMenu.h"
+#include "../Entities/BagUI.h"
 //...
 
 namespace YoBattleGame
@@ -52,6 +54,7 @@ namespace YoBattleGame
 
                 Game::instance().load_texture("uibox1");
                 Game::instance().load_texture("uicursor1");
+                Game::instance().load_texture("whitebackground1");
                 //..
 
                 HUB::init<bool>("input_required", false);
@@ -65,6 +68,7 @@ namespace YoBattleGame
 
                 Game::instance().register_key("start", KEY_P, GAMEPAD_BUTTON_MIDDLE_RIGHT);
                 Game::instance().register_key("confirm", KEY_M, GAMEPAD_BUTTON_RIGHT_FACE_DOWN);
+                Game::instance().register_key("cancel", KEY_L, GAMEPAD_BUTTON_RIGHT_FACE_RIGHT);
                 //...
 
                 Game::instance().register_key("zoom-", KEY_KP_5);
@@ -84,8 +88,16 @@ namespace YoBattleGame
                 player = get<Player>("player");
                 player->tp(spawn.i, spawn.j);
 
+                add<BagUI>("bag_ui");
+                get<BagUI>("bag_ui")->init();
+
+                //...
+
                 add<StartMenu>("start_menu");
                 get<StartMenu>("start_menu")->init();
+
+                get<StartMenu>("start_menu")->bag_ui = get<BaseUI>("bag_ui");
+                get<BagUI>("bag_ui")->start_menu = get<StartMenu>("start_menu");
 
                 map = metamap();
                 map_texture = metatexture();
@@ -101,7 +113,9 @@ namespace YoBattleGame
 
                 if(enable_start_menu)
                 {
-                    if(Game::instance().is_pressed("start"))
+                    bool start_menu_can_open = !get<BagUI>("bag_ui")->is_enabled();//.....
+
+                    if(start_menu_can_open && Game::instance().is_pressed("start"))
                     {
                         if(player->get<StateMachine>("states")->current() == "idle" && get<StartMenu>("start_menu")->is_disabled())
                         {
@@ -146,6 +160,11 @@ namespace YoBattleGame
                 Game::instance().unload_texture("player");
                 //...
 
+                Game::instance().unload_texture("uibox1");
+                Game::instance().unload_texture("uicursor1");
+                Game::instance().unload_texture("whitebackground1");
+                //...
+
                 Game::instance().unregister_key("up");
                 Game::instance().unregister_key("down");
                 Game::instance().unregister_key("left");
@@ -154,6 +173,7 @@ namespace YoBattleGame
 
                 Game::instance().unregister_key("start");
                 Game::instance().unregister_key("confirm");
+                Game::instance().unregister_key("cancel");
                 //...
 
                 Game::instance().unregister_key("zoom-");

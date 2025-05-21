@@ -11,15 +11,18 @@ namespace YoBattleGame
     {
         struct BaseVerticalMenu : public BaseUI
         {
+            bool choice_confirmed;
+            bool multiple_confirmations;
+
             BaseVerticalMenu () : BaseUI()
             {
-                add<Image>("cursor");
-                get<Image>("cursor")->texture_alias = "uicursor1";
-                upload_to<ImageRenderSystem, Image>(Game::instance().scene(), "cursor");
-
                 get<Image>("background")->texture_alias = "uibox1";
                 get<Image>("background")->scale_h = 10;
                 fill_screen_height();
+
+                add<Image>("cursor");
+                get<Image>("cursor")->texture_alias = "uicursor1";
+                upload_to<ImageRenderSystem, Image>(Game::instance().scene(), "cursor");
 
                 get<Image>("cursor")->scale_h = get<Image>("background")->scale_h / 2;
                 get<Image>("cursor")->scale_v = get<Image>("cursor")->scale_h;
@@ -34,15 +37,21 @@ namespace YoBattleGame
                 OnDisable();//FIX
             }
 
-            void OnInit() override {  OnChoiceAdd(); }
+            void OnInit() override {  choice_confirmed = false; multiple_confirmations = false; OnChoiceAdd(); }
 
             template<typename T, typename Ret, typename... Args>
             void add_choice(const std::string& label, Ret (T::*method)(Args...), Args&&... args)
             { addChoice(label, method, static_cast<T*>(this), std::forward<Args>(args)...); }
 
+            bool is_current_choice(string label) { return choice(selected_choice)->label == label; }
+
+            bool is_previous_choice(string label) { return previous_selected_choice > -1 && choice(previous_selected_choice)->label == label; }
+
             void OnEnable() override
             {
                 get<Image>("cursor")->enabled = true;
+                previous_selected_choice = -1;
+                release_confirm_button();
             }
 
             void OnDisable() override
@@ -50,7 +59,10 @@ namespace YoBattleGame
                 get<Image>("cursor")->enabled = false;
 
                 selected_choice = 0; 
+                previous_selected_choice = -1;
                 if(choices.size() > 0) get<Image>("cursor")->y = choice_padding_v + (choice(selected_choice)->index * 100);
+
+                release_confirm_button();
             }
 
             void OnEvents(float delta) override
@@ -59,19 +71,42 @@ namespace YoBattleGame
                 {
                     if(Game::instance().is_pressed("up"))
                     {
+                        previous_selected_choice = selected_choice;
                         selected_choice--;
                         if(selected_choice < 0) selected_choice = choices.size() - 1;
                     }
 
                     if(Game::instance().is_pressed("down"))
                     {
+                        previous_selected_choice = selected_choice;
                         selected_choice++;
                         if(selected_choice > choices.size() - 1) selected_choice = 0;
                     }
 
-                    if(Game::instance().is_pressed("confirm")) { choice(selected_choice)->execute(); }
+                    if(Game::instance().is_pressed("confirm"))
+                    {
+                        if(previous_selected_choice > -1 && !is_current_choice(choice(previous_selected_choice)->label))
+                        { release_confirm_button(); }
+
+                        OnPressConfirm();
+
+                        if(can_confirm())
+                        {
+                            choice(selected_choice)->execute();
+
+                            OnConfirm();
+
+                            confirm_choice();
+                        }
+                    }
                 }
             }
+
+            bool can_confirm() { return multiple_confirmations || !choice_confirmed; }
+
+            void confirm_choice() { choice_confirmed = true; }
+
+            void release_confirm_button() { choice_confirmed = false; }
 
             void __draw_choice(UIChoice* _choice) override
             {
@@ -85,6 +120,9 @@ namespace YoBattleGame
                     font_color
                 );
             }
+
+            virtual void OnPressConfirm() {}
+            virtual void OnConfirm() {}
         };
     }
 }

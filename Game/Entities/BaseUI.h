@@ -26,6 +26,7 @@ namespace YoBattleGame
         struct BaseUI : public Entity
         {
             vector<UIChoice*> choices;
+            int previous_selected_choice;
             int selected_choice;
 
             int font_size;
@@ -34,7 +35,7 @@ namespace YoBattleGame
             int choice_padding_h = 10;
             int choice_padding_v = 10;
 
-            bool initialized;
+            bool refuse_external_disabling;
 
             BaseUI () : Entity()
             {
@@ -47,16 +48,16 @@ namespace YoBattleGame
 
                 selected_choice = 0;
 
-                disable();
+                refuse_external_disabling = false;
 
-                initialized = false;
+                disable();
             }
 
             void init() { OnInit(); }
             virtual void OnInit() {}
 
-            virtual void fill_screen_width() { get<Image>("background")->scale_h = Game::instance().width / (float) Game::instance().texture("uibox1").width; }
-            virtual void fill_screen_height() { get<Image>("background")->scale_v = Game::instance().height / (float) Game::instance().texture("uibox1").height; }
+            virtual void fill_screen_width() { get<Image>("background")->scale_h = Game::instance().width / (float) Game::instance().texture(get<Image>("background")->texture_alias).width; }
+            virtual void fill_screen_height() { get<Image>("background")->scale_v = Game::instance().height / (float) Game::instance().texture(get<Image>("background")->texture_alias).height; }
 
             virtual void place(float x, float y)
             {
