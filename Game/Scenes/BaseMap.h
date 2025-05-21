@@ -72,6 +72,7 @@ namespace YoBattleGame
                 attach<ImageRenderSystem>();
                 attach<StateMachineSystem>();
                 attach<AnimationSystem>();
+                attach<UIRenderSystem>();
                 //..
 
                 add<Player>("player");

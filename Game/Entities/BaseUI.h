@@ -3,6 +3,7 @@
 #include "../../RetroCS/RetroCS.h"
 
 #include "../Systems/ImageRenderSystem.h"
+#include "../Systems/UIRenderSystem.h"
 
 //...
 
@@ -10,12 +11,38 @@ namespace YoBattleGame
 {
     namespace ECS
     {
+        struct UIChoice
+        {
+            int index;
+            string label;
+
+            uint8_t value;
+            function<void()> action;
+
+            template<typename Callback, typename... Args>
+            void set(Callback&& cb, Args&&... args) { action = std::bind(forward<Callback>(cb), forward<Args>(args)...); }
+
+            void execute() { action(); }
+        };
+
         struct BaseUI : public Entity
         {
+            vector<UIChoice*> choices;
+
+            int font_size;
+            Color font_color;
+
+            int choice_padding_h = 10;
+            int choice_padding_v = 10;
+
             BaseUI () : Entity()
             {
                 add<Image>("background");
                 upload_to<ImageRenderSystem, Image>(Game::instance().scene(), "background");
+                upload_to<UIRenderSystem, Image>(Game::instance().scene(), "background");
+
+                font_size = 20;
+                font_color = WHITE;
 
                 disable();
             }
@@ -33,6 +60,39 @@ namespace YoBattleGame
             virtual void disable() { get<Image>("background")->enabled = false; }
             virtual bool is_enabled() { return get<Image>("background")->enabled; }
             virtual bool is_disabled() { return !get<Image>("background")->enabled; }
+
+            template<typename T, typename Ret, typename... Args>
+            void add_choice(string label, Ret (T::*method)(Args...), T* obj, Args&&... args)
+            {
+                auto choice = new UIChoice();
+
+                auto args_tuple = std::make_tuple(std::forward<Args>(args)...);
+
+                choice->set([obj, method, args_tuple = std::move(args_tuple)]() mutable
+                {
+                    std::apply([obj, method](Args&&... unpacked_args)
+                    {
+                        (obj->*method)(std::forward<Args>(unpacked_args)...);
+                    }, std::move(args_tuple));
+                });
+
+                choices.push_back(choice);
+
+                choices[choices.size() - 1]->index = choices.size() - 1;
+                choices[choices.size() - 1]->label = label;
+            }
+
+            UIChoice* choice(int index) { return choices[index]; }
+
+            virtual void __display_choice(UIChoice* choice) {}
+            void display_choices() { for(UIChoice* choice : choices) { __display_choice(choice); } }
+
+            void extra_draw() override
+            {
+                display_choices();
+
+                //...
+            }
         };
     }
 }

@@ -58,6 +58,7 @@
         "iomanip": "cpp",
         "sstream": "cpp",
         "valarray": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "filesystem": "cpp"
     }
 }

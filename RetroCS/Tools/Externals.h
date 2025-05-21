@@ -16,5 +16,8 @@
 #include <sstream>
 #include <filesystem>
 
+#include <functional>
+#include <utility>
+
 using namespace std;
 namespace fs = filesystem;
