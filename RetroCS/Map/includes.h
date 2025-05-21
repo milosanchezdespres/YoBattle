@@ -154,13 +154,16 @@ namespace RetroCS
                     {
                         metatile& meta = texture.map->metatiles[y * texture.map->width + x];
 
-                        int px = x * tilesize();
-                        int py = y * tilesize();
+                        if(meta.collision_type < 255)
+                        {
+                            int px = x * tilesize();
+                            int py = y * tilesize();
 
-                        DrawTextureRec(Game::instance().texture(texture.alias), __tile_rect_make(texture.alias, meta.top_left), { (float)(px),     (float)(py)     }, WHITE);
-                        DrawTextureRec(Game::instance().texture(texture.alias), __tile_rect_make(texture.alias, meta.top_right), { (float)(px + 8), (float)(py)     }, WHITE);
-                        DrawTextureRec(Game::instance().texture(texture.alias), __tile_rect_make(texture.alias, meta.bottom_left), { (float)(px),     (float)(py + 8) }, WHITE);
-                        DrawTextureRec(Game::instance().texture(texture.alias), __tile_rect_make(texture.alias, meta.bottom_right), { (float)(px + 8), (float)(py + 8) }, WHITE);
+                            DrawTextureRec(Game::instance().texture(texture.alias), __tile_rect_make(texture.alias, meta.top_left), { (float)(px),     (float)(py)     }, WHITE);
+                            DrawTextureRec(Game::instance().texture(texture.alias), __tile_rect_make(texture.alias, meta.top_right), { (float)(px + 8), (float)(py)     }, WHITE);
+                            DrawTextureRec(Game::instance().texture(texture.alias), __tile_rect_make(texture.alias, meta.bottom_left), { (float)(px),     (float)(py + 8) }, WHITE);
+                            DrawTextureRec(Game::instance().texture(texture.alias), __tile_rect_make(texture.alias, meta.bottom_right), { (float)(px + 8), (float)(py + 8) }, WHITE);
+                        }
                     }
                 }
 

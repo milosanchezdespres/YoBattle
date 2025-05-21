@@ -70,9 +70,9 @@ namespace YoBattleGame
                 int axis = -1;
 
                 if (Game::instance().is_down("up")) axis = 0;
-                else if (Game::instance().is_down("down")) axis = 1;
-                else if (Game::instance().is_down("left")) axis = 2;
-                else if (Game::instance().is_down("right")) axis = 3;
+                if (Game::instance().is_down("down")) axis = 1;
+                if (Game::instance().is_down("left")) axis = 2;
+                if (Game::instance().is_down("right")) axis = 3;
 
                 if (axis != -1)
                 {
