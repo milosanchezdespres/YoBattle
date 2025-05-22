@@ -17,6 +17,7 @@ namespace YoKard
                 window().background_color = BLUE;
 
                 game()->load<texture>("player");
+                //...
 
                 add<Player>();
             }
