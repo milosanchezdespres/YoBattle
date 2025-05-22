@@ -22,10 +22,7 @@ namespace YoKard
                 add<Player>();
             }
 
-            void OnExit() override
-            {
-                //...
-            }
+            void OnExit() override { }
         };
     }
 }
