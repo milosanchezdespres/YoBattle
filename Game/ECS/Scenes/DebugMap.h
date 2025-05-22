@@ -12,8 +12,8 @@ namespace YoKard
 
             void OnEnter() override
             {
-                GameWindow::instance().data->load<texture>("player");
-                
+                game()->load<texture>("player");
+
                 //...
             }
 
