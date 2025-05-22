@@ -118,7 +118,7 @@ namespace RetroCS
             unordered_map<string, int> item_by_name;
 
             Container() : BaseObject() {}
-            ~Container() { clean(); }
+            ~Container() { clear(); }
 
             template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
             void add(string name = "")
@@ -229,7 +229,7 @@ namespace RetroCS
                 remove(name);
             }
 
-            void clean()
+            virtual void clear()
             {
                 for (T* obj : items) { if (obj) delete obj; }
 

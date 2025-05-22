@@ -6,26 +6,28 @@ namespace RetroCS
 {
     namespace ECS
     {
+        inline Scene* scene;
+
         struct SceneManager
         {
-            Scene* current;
-
-            SceneManager() { current = nullptr; }
+            SceneManager() { scene = nullptr; }
 
             template <typename M, typename = enable_if_t<is_base_of_v<Scene, M>>>
             void go_to()
             {
-                if(has_scene()) current->exit();
+                if(has_scene()) scene->exit();
 
-                current = new M();
-                current->set_as(0, Alias::to_string(type_index(typeid(M))));
+                scene = new M();
+                scene->set_as(0, Alias::to_string(type_index(typeid(M))));
 
-                current->enter();
+                scene->enter();
             }
 
-            Scene* scene() { return current; }
+            void update() { scene->render(); }
 
-            bool has_scene() { return current != nullptr; }
+            void render() { scene->render(); }
+
+            bool has_scene() { return scene != nullptr; }
         };
     }
 }

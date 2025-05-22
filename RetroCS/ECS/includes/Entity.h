@@ -9,6 +9,8 @@ namespace RetroCS
         struct Entity : public Container<Component>
         {
             Entity() : Container<Component>() {}
+
+            virtual void render() {}
         };
     }
 }
