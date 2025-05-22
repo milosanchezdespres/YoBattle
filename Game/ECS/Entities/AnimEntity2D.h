@@ -13,9 +13,9 @@ namespace YoKard
         {
             AnimEntity2D() : Entity2D() {}
 
-            void init() override
+            void OnInit() override
             {
-                Entity2D::init();
+                Entity2D::OnInit();
 
                 add<Animator>();
             }

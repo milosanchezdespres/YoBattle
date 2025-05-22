@@ -12,9 +12,9 @@ namespace YoKard
         {
             Player() : Character() {}
 
-            void init() override
+            void OnInit() override
             {
-                Character::init();
+                Character::OnInit();
                 
                 get<Image>()->texture = "player";
 

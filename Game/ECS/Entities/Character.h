@@ -12,9 +12,9 @@ namespace YoKard
         {
             Character() : AnimEntity2D() {}
 
-            void init() override
+            void OnInit() override
             {
-                AnimEntity2D::init();
+                AnimEntity2D::OnInit();
 
                 //...
             }

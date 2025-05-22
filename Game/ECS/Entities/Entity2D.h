@@ -13,7 +13,7 @@ namespace YoKard
         {
             Entity2D() : Entity() {}
 
-            void init() override
+            void OnInit() override
             {
                 add_tile("", "");
 

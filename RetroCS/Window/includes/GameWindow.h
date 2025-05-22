@@ -82,5 +82,7 @@ namespace RetroCS
         inline GameWindow& window() { return GameWindow::instance(); }
 
         inline GameData* game() { return GameWindow::instance().data; }
+
+        inline float delta() { return GetFrameTime(); }
     }
 }

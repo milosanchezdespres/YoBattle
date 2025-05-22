@@ -8,10 +8,23 @@ namespace RetroCS
     {
         struct Entity : public Container<Component>
         {
-            Entity() : Container<Component>() {}
+            bool initialized;
 
-            virtual void init() {}
+            Entity() : Container<Component>() { initialized = false; }
+
+            void init()
+            {
+                if(!initialized)
+                {
+                    OnInit();
+                    initialized = true;
+                }
+            }
+
             virtual void render() {}
+
+            void OnAdd(string name) override { get(name)->init(); }
+            virtual void OnInit() {}
         };
     }
 }

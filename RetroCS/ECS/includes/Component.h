@@ -8,7 +8,20 @@ namespace RetroCS
     {
         struct Component : public BaseObject
         {
-            Component() : BaseObject() {}
+            bool initialized;
+
+            Component() : BaseObject() { initialized = false; }
+            
+            void init()
+            {
+                if(!initialized)
+                {
+                    OnInit();
+                    initialized = true;
+                }
+            }
+
+            virtual void OnInit() {}
         };
     }
 }

@@ -24,7 +24,7 @@ namespace RetroCS
         {
             vector<T*> registered_components;
 
-            void upload(Component* component) override { registered_components.push_back(component); }
+            void upload(Component* component) override { registered_components.push_back(dynamic_cast<T*>(component)); }
 
             void update() override { if(__on) for(T* component : registered_components) { OnUpdate(component); } }
 
