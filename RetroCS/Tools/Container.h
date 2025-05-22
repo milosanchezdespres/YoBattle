@@ -111,7 +111,7 @@ namespace RetroCS
             unordered_map<string, int> item_by_name;
 
             Container() : BaseObject() {}
-            ~Container() {}
+            ~Container() { clean(); }
 
             template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
             void add(string name = "")
@@ -220,6 +220,16 @@ namespace RetroCS
             {
                 if (name == "") name = Alias::to_string(type_index(typeid(M)));
                 remove(name);
+            }
+
+            void clean()
+            {
+                for (T* obj : items) { if (obj) delete obj; }
+
+                items.clear();
+                item_by_alias.clear();
+                item_by_name.clear();
+                alias_names.clear();
             }
 
             auto begin() { return items.begin(); }

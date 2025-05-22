@@ -43,9 +43,20 @@ int main()
 
     debug("=========================================");
 
+    test->remove("ooooooo");
     test->remove<Test>();
 
     for (auto* item : *test) { if (item) debug(item->str_id() + " : " + item->name()); }
+
+    test->clean();
+
+    debug("=========================================");
+
+    for (auto* item : *test) { if (item) debug(item->str_id() + " : " + item->name()); }
+
+    debug("=========================================");
+
+    delete test;
 
     return 0;
 }
