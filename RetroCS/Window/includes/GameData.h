@@ -10,16 +10,23 @@ namespace RetroCS
         {
             int id = -1;
             string name = "no_name";
+            char path_buffer[512];
 
             BaseResource() {}
+            virtual ~BaseResource() = default;
 
             virtual void load(string _name, string _folders = "") {}
             virtual void unload() {}
 
-            const char* __get_path(string ext, string _name, string _folders = "")
+            const char* __get_path(const string& ext, const string& _name, const string& _folders = "")
             {
-                if (_folders != "") { _folders += "/"; }
-                return ("Game/assets/" + _folders + _name + "." + ext).c_str();
+                string folder = _folders.empty() ? "" : _folders + "/";
+                string full_path = "Game/assets/" + folder + _name + "." + ext;
+
+                strncpy(path_buffer, full_path.c_str(), sizeof(path_buffer) - 1);
+                
+                path_buffer[sizeof(path_buffer) - 1] = '\0';
+                return path_buffer;
             }
         };
 
@@ -28,7 +35,8 @@ namespace RetroCS
         {
             T* data = nullptr;
 
-            Resource() : BaseResource() {}
+            Resource() : BaseResource(), data(nullptr) {}
+            ~Resource() {}
         };
 
         struct texture : public Resource<Texture2D>
@@ -36,14 +44,34 @@ namespace RetroCS
             texture() : Resource<Texture2D>() { }
 
             texture(string _name, string _folders = "") { load(_name, _folders); }
-
+                        
             void load(string _name, string _folders = "") override
             {
-                data = new Texture(LoadTexture(__get_path("png", _name, _folders)));
+                const char* path = __get_path("png", _name, _folders);
+
+                data = new Texture2D(LoadTexture(path));
                 name = _name;
             }
 
-            void unload() override { UnloadTexture(*data); }
+
+            void unload() override
+            {
+                if (data != nullptr)
+                {
+                    UnloadTexture(*data);
+                    data = nullptr;
+                }
+            }
+
+            ~texture() override
+            {
+                if (data != nullptr)
+                {
+                    UnloadTexture(*data);
+                    delete data;
+                    data = nullptr;
+                }
+            }
         };
 
         //...
@@ -59,21 +87,37 @@ namespace RetroCS
             unordered_map<string, int> resources_by_names;
 
             template <typename T, typename = enable_if_t<is_base_of_v<BaseResource, T>>>
-            void load(string _name, string _folders = "")
-            {
-                auto it = resources_by_names.find(_name);
-
-                if (it != resources_by_names.end())
-                {
-                    resources.push_back(new T());
-                    resources_by_names[_name] = resources.size() - 1;
-                    resources[resources.size() - 1]->id = resources.size() - 1;
-                    resources[resources.size() - 1]->load(_name, _folders);
+            void load(string _name, string _folders = "") {
+                if (resources_by_names.find(_name) != resources_by_names.end()) {
+                    std::cout << "Resource already loaded: " << _name << std::endl;
+                    return;
                 }
+
+                T* res = new T();
+                res->id = static_cast<int>(resources.size());
+                res->load(_name, _folders);
+
+                resources.push_back(res);
+                resources_by_names[_name] = res->id;
             }
 
             template <typename T, typename = enable_if_t<is_base_of_v<BaseResource, T>>>
-            T* get(string _name) { return resources[resources_by_names[_name]]; }
+            T* get(const string& _name)
+            {
+                auto it = resources_by_names.find(_name);
+                if (it == resources_by_names.end()) {
+                    std::cout << "Resource not found: " << _name << std::endl;
+                    return nullptr;
+                }
+
+                int index = it->second;
+                if (index < 0 || index >= resources.size()) {
+                    std::cout << "Invalid resource index: " << index << std::endl;
+                    return nullptr;
+                }
+
+                return static_cast<T*>(resources[index]);
+            }
 
             GameData(string _title, int _width, int _height)
             {
@@ -83,7 +127,15 @@ namespace RetroCS
             }
 
             GameData() {}
-            ~GameData() { for(auto* resource : resources) { resource->unload(); } }
+            ~GameData()
+            {
+                for (auto* resource : resources)
+                {
+                    resource->unload();
+                    delete resource;
+                }
+                resources.clear();
+            }
         };
     }
 }

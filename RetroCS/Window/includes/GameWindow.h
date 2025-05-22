@@ -27,9 +27,6 @@ namespace RetroCS
                 {
                     data = new GameData(_title, _width, _height);
 
-                    scene_manager = new SceneManager();
-                    scene_manager->go_to(new T());
-
                     if(_width == 0 || _height == 0)
                     {
                         data->width = GetMonitorWidth(0);
@@ -45,6 +42,9 @@ namespace RetroCS
 
                     _width = GetMonitorWidth(0);
                     _height = GetMonitorHeight(0);
+
+                    scene_manager = new SceneManager();
+                    scene_manager->go_to(new T());
                 }
 
                 void update()
@@ -69,9 +69,12 @@ namespace RetroCS
                 GameWindow() = default;
                 ~GameWindow()
                 {
+                    delete scene_manager;
                     delete data;
                     data = nullptr;
                 }
         };
+
+        inline GameData* game() { return GameWindow::instance().data; }
     }
 }

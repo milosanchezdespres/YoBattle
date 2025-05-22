@@ -14,6 +14,8 @@ namespace YoKard
             {
                 game()->load<texture>("player");
 
+                debug(game()->get<texture>("player")->data->width);
+
                 //...
             }
 
