@@ -2,13 +2,16 @@
 
 int main()
 {
-    Scene* test = new Scene();
-    test->set_as(0, "test1");
+    SceneManager* test = new SceneManager();
+    test->go_to<Scene>();
 
-    test->add<Entity>("entity1");
-    test->get("entity1")->add<Component>("component1");
+    debug(test->scene()->name());
 
-    cout << test->get("entity1")->get("component1")->owner<Entity>()->name() << endl;
+    test->scene()->add<Entity>("test_entity");
+    test->scene()->get("test_entity")->add<Component>("debug_component");
+
+    debug(test->scene()->get("test_entity")->name());
+    debug(test->scene()->get("test_entity")->get("debug_component")->name());
 
     return 0;
 }
