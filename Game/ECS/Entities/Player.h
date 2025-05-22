@@ -18,6 +18,13 @@ namespace YoKard
                 
                 get<Image>()->texture = "player";
 
+                add_animation("test");
+                add_frame("test", 2, 0.5f);
+                add_frame("test", 3, 0.5f);
+                add_frame("test", 6, 0.5f);
+                //...
+                
+                play("test");                
                 //...
             }
         };

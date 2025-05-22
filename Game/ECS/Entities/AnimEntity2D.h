@@ -20,7 +20,7 @@ namespace YoKard
                 add<Animator>();
             }
 
-            void add_animation(string animation_name, string _texture)
+            void add_animation(string animation_name, string _texture = "")
             {
                 if(_texture == "") _texture = get<Image>()->texture;
                 get<Animator>()->add_animation(animation_name, _texture);
