@@ -1,19 +1,10 @@
-#include "RetroCS/RetroCS.h"
+#include "Game/EntryPoint.h"
 
 int main()
 {
-    SceneManager* test = new SceneManager();
-    test->go_to<Scene>();
+    GameWindow::instance().start<DebugMap>("Yokards");
 
-    debug(scene->name());
-
-    scene->add<Entity>("test_entity");
-    scene->get("test_entity")->add<Component>("debug_component");
-
-    debug(scene->get("test_entity")->name());
-    debug(scene->get("test_entity")->get("debug_component")->name());
-
-    test->render();
+    GameWindow::instance().update();
 
     return 0;
 }

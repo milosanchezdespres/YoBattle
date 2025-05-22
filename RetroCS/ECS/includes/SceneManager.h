@@ -23,6 +23,13 @@ namespace RetroCS
                 scene->enter();
             }
 
+            void go_to(Scene* _scene)
+            {
+                scene = _scene;
+                scene->set_as(0, Alias::to_string(type_index(typeid(Scene))));
+                scene->enter();
+            }
+
             void update() { scene->render(); }
 
             void render() { scene->render(); }
