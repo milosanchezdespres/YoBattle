@@ -15,6 +15,7 @@ namespace RetroCS
             void resume() { __on = true; }
             void pause() { __on = false; }
 
+            virtual void upload(Component* component) {}
             virtual void update() {}
         };
         
@@ -22,6 +23,8 @@ namespace RetroCS
         struct System : public BaseSystem
         {
             vector<T*> registered_components;
+
+            void upload(Component* component) override { registered_components.push_back(component); }
 
             void update() override { if(__on) for(T* component : registered_components) { OnUpdate(component); } }
 
