@@ -17,6 +17,11 @@ namespace YoKard
             {
                 window().background_color = BLUE;
 
+                display_fps = true;
+                fps_display_x = 40;
+                fps_display_y = 40;
+                fps_display_size = 40;
+
                 game()->load<texture>("player");
                 //...
 
@@ -29,7 +34,7 @@ namespace YoKard
                 //get<Player>()->get<Image>()->y = 0;
 
                 int playersPerRow = 12;
-                int totalPlayers = 150;
+                int totalPlayers = 4500;
                 int spacingX = 164;
                 int spacingY = 200; // Adjust vertical spacing as needed
                 int startY = 0;

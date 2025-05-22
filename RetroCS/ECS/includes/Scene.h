@@ -9,10 +9,21 @@ namespace RetroCS
     {
         struct Scene : public Container<Entity>
         {
+            bool display_fps;
+            Color fps_color;
+            int fps_display_size, fps_display_x, fps_display_y;
+
             vector<BaseSystem*> systems;
             unordered_map<string, int> systems_by_name;
 
-            Scene() : Container<Entity>() {}
+            Scene() : Container<Entity>()
+            {
+                display_fps = false;
+                fps_color = WHITE;
+                fps_display_size = 20;
+                fps_display_x = 10;
+                fps_display_y = 10;
+            }
 
             template <typename T, typename = enable_if_t<is_base_of_v<BaseSystem, T>>>
             void attach()
@@ -40,7 +51,14 @@ namespace RetroCS
 
             void enter() { OnEnter(); }
             void update() { for(auto* system : systems) { if (system) system->update(); } }
-            void render() { for(auto* entity : *this) { if (entity) entity->render(); } }
+
+            void render()
+            {
+                for(auto* entity : *this) { if (entity) entity->render(); }
+
+                if(display_fps) DrawText(TextFormat("FPS: %d", GetFPS()), fps_display_x, fps_display_y, fps_display_size, fps_color);
+            }
+
             void exit() { OnExit(); }
 
             void OnAdd(string name) override { get(name)->init(); }
