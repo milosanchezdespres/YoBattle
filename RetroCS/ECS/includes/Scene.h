@@ -25,6 +25,8 @@ namespace RetroCS
             void render() { for(auto* entity : *this) { if (entity) entity->render(); } }
             void exit() { OnExit(); }
 
+            void OnAdd(string name) override { get(name)->init(); }
+
             virtual void OnEnter() {}
             virtual void OnExit() {}
 

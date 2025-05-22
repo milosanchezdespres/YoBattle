@@ -33,7 +33,10 @@ namespace RetroCS
                 if (name == "") name = str_type;
             }
 
-            bool operator==(const Alias& other) const { return id == other.id; }
+            bool operator==(const Alias& other) const
+            {
+                return name == other.name && type == other.type;
+            }
 
             static inline string to_string(type_index type)
             {
@@ -94,14 +97,17 @@ namespace RetroCS
     }
 }
 
-    namespace std
+namespace std
+{
+    template <>
+    struct hash<RetroCS::Tools::Alias>
     {
-        template <>
-        struct hash<RetroCS::Tools::Alias>
+        size_t operator()(const RetroCS::Tools::Alias& alias) const
         {
-            size_t operator()(const RetroCS::Tools::Alias& alias) const { return hash<int>()(alias.id); }
-        };
-    }
+            return hash<string>()(alias.name) ^ hash<type_index>()(alias.type);
+        }
+    };
+}
 
 namespace RetroCS
 {
@@ -123,19 +129,32 @@ namespace RetroCS
             template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
             void add(string name = "")
             {
-                items.push_back(new M());
+                if (name == "") name = Alias::to_string(type_index(typeid(M)));
 
-                Alias alias(items.back(), (int)items.size() - 1, name);
+                M* obj = new M();
+                int index = (int)items.size();
 
-                assert(alias_names.find(alias.name) == alias_names.end() && "Duplicate alias name!");
+                Alias alias(obj, index, name);
 
-                item_by_alias[alias] = items.size() - 1;
-                alias_names.insert(alias.name);
-                item_by_name[alias.name] = items.size() - 1; 
+                if (!alias_names.contains(name) &&
+                    item_by_alias.find(alias) == item_by_alias.end() &&
+                    item_by_name.find(name) == item_by_name.end())
+                {
+                    items.push_back(obj);
+                    item_by_alias[alias] = index;
+                    alias_names.insert(alias.name);
+                    item_by_name[alias.name] = index;
 
-                get(items.size() - 1)->alias = alias;
-                get(items.size() - 1)->parent = dynamic_cast<BaseObject*>(this);
-                get(items.size() - 1)->init();
+                    obj->alias = alias;
+                    obj->parent = dynamic_cast<BaseObject*>(this);
+                    obj->init();
+
+                    OnAdd(alias.name);
+                }
+                else
+                {
+                    delete obj;
+                }
             }
 
             T* get(int id) const
@@ -169,19 +188,19 @@ namespace RetroCS
             template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
             M* get(int id) { return dynamic_cast<M*>(this->get(id)); }
 
-            template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
-            M* get(string name = "")
-            {
-                if (name == "") name = Alias::to_string(type_index(typeid(M)));
+template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
+M* get(string name = "")
+{
+    if (name == "") name = Alias::to_string(type_index(typeid(M)));
 
-                auto it = item_by_name.find(name);
-                if (it != item_by_name.end())
-                {
-                    int index = it->second;
-                    return items[index];
-                }
-                return nullptr;
-            }
+    auto it = item_by_name.find(name);
+    if (it != item_by_name.end())
+    {
+        int index = it->second;
+        return dynamic_cast<M*>(items[index]);  // <-- explicit cast here
+    }
+    return nullptr;
+}
 
             bool has(const string& name) const { return alias_names.find(name) != alias_names.end(); }
 
@@ -237,6 +256,17 @@ namespace RetroCS
                 item_by_alias.clear();
                 item_by_name.clear();
                 alias_names.clear();
+            }
+
+            virtual void OnAdd(string name) {}
+
+            vector<T*> valid_items() const
+            {
+                vector<T*> valid;
+                for (T* item : items)
+                    if (item)
+                        valid.push_back(item);
+                return valid;
             }
 
             auto begin() { return items.begin(); }

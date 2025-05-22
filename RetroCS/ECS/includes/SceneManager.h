@@ -15,7 +15,6 @@ namespace RetroCS
             template <typename M, typename = enable_if_t<is_base_of_v<Scene, M>>>
             void go_to()
             {
-                if(has_scene()) scene->exit();
 
                 scene = new M();
                 scene->set_as(0, Alias::to_string(type_index(typeid(M))));
@@ -25,6 +24,8 @@ namespace RetroCS
 
             void go_to(Scene* _scene)
             {
+                if(has_scene()) scene->exit();
+                
                 scene = _scene;
                 scene->set_as(0, Alias::to_string(type_index(typeid(Scene))));
                 scene->enter();

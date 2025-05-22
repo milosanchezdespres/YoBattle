@@ -10,6 +10,7 @@ namespace RetroCS
         {
             Entity() : Container<Component>() {}
 
+            virtual void init() {}
             virtual void render() {}
         };
     }
