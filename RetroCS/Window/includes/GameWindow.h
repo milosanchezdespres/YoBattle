@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../Tools/Tools.h"
+#include "../../Data/includes/Hub.h"
 #include "GameData.h"
 
 namespace RetroCS
@@ -78,7 +79,10 @@ namespace RetroCS
                 GameWindow() = default;
                 ~GameWindow()
                 {
+                    HUB::clear();
+
                     delete scene_manager;
+                    
                     delete data;
                     data = nullptr;
                 }
