@@ -74,6 +74,8 @@ namespace RetroCS
             string name() { return alias.name; }
             string type() { return alias.str_type; }
 
+            void set_as(int _id, string _name = "") { alias = Alias(this, _id, _name); }
+
             bool operator==(const BaseObject& other) const
             {
                 return alias.id == other.alias.id &&
