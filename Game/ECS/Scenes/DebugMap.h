@@ -12,9 +12,9 @@ namespace YoKard
 
             void OnEnter() override
             {
-                game()->load<texture>("player");
+                window().background_color = BLUE;
 
-                debug(game()->get<texture>("player")->data->width);
+                game()->load<texture>("player");
 
                 //...
             }

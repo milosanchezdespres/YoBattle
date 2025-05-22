@@ -10,6 +10,8 @@ namespace RetroCS
         class GameWindow
         {
             public:
+                Color background_color;
+
                 GameData* data = nullptr;
                 SceneManager* scene_manager;
 
@@ -25,6 +27,8 @@ namespace RetroCS
                 template <typename T, typename = enable_if_t<is_base_of_v<Scene, T>>>
                 void start(string _title, int _width = 0, int _height = 0)
                 {
+                    background_color = BLACK;
+
                     data = new GameData(_title, _width, _height);
 
                     if(_width == 0 || _height == 0)
@@ -57,7 +61,7 @@ namespace RetroCS
                         scene_manager->update();
 
                         BeginDrawing();
-                        ClearBackground(BLACK);
+                        ClearBackground(background_color);
 
                         scene_manager->render();
 
@@ -74,6 +78,8 @@ namespace RetroCS
                     data = nullptr;
                 }
         };
+
+        inline GameWindow& window() { return GameWindow::instance(); }
 
         inline GameData* game() { return GameWindow::instance().data; }
     }
