@@ -188,19 +188,19 @@ namespace RetroCS
             template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
             M* get(int id) { return dynamic_cast<M*>(this->get(id)); }
 
-template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
-M* get(string name = "")
-{
-    if (name == "") name = Alias::to_string(type_index(typeid(M)));
+            template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
+            M* get(string name = "")
+            {
+                if (name == "") name = Alias::to_string(type_index(typeid(M)));
 
-    auto it = item_by_name.find(name);
-    if (it != item_by_name.end())
-    {
-        int index = it->second;
-        return dynamic_cast<M*>(items[index]);  // <-- explicit cast here
-    }
-    return nullptr;
-}
+                auto it = item_by_name.find(name);
+                if (it != item_by_name.end())
+                {
+                    int index = it->second;
+                    return dynamic_cast<M*>(items[index]);  // <-- explicit cast here
+                }
+                return nullptr;
+            }
 
             bool has(const string& name) const { return alias_names.find(name) != alias_names.end(); }
 
