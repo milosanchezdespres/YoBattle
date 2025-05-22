@@ -76,6 +76,11 @@ namespace RetroCS
 
             void set_as(int _id, string _name = "") { alias = Alias(this, _id, _name); }
 
+            BaseObject* owner() { return parent; }
+
+            template <typename T>
+            T* owner() { return dynamic_cast<T*>(parent); }
+
             bool operator==(const BaseObject& other) const
             {
                 return alias.id == other.alias.id &&
