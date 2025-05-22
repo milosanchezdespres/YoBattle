@@ -2,6 +2,7 @@
 
 #include "Tools/Tools.h"
 #include "ECS/ECS.h"
+#include "Window/Window.h"
 
 //...
 
