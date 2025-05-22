@@ -2,7 +2,7 @@
 
 #include "../../../RetroCS/RetroCS.h"
 
-#include "../Entities/Entity2D.h"
+#include "../Entities/Player.h"
 
 namespace YoKard
 {
@@ -18,15 +18,9 @@ namespace YoKard
 
                 game()->load<texture>("player");
 
-                add<Entity2D>("debug");
+                add<Player>();
 
-                get<Entity2D>("debug")->get<Image>()->texture = "player";
-
-                get<Entity2D>("debug")->get<Image>()->scale = 5;
-                get<Entity2D>("debug")->get<Image>()->rotation = 45;
-
-                get<Entity2D>("debug")->get<Image>()->x = 100;
-                get<Entity2D>("debug")->get<Image>()->y = 100;
+                //HUB::set<Player*>(get<Player>());
             }
 
             void OnExit() override

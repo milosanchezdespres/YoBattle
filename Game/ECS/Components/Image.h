@@ -12,7 +12,13 @@ namespace YoKard
 
             string texture;
 
-            Image() : Component() {}
+            Image() : Component()
+            {
+                x = 0;
+                y = 0;
+                rotation = 0;
+                scale = 1;
+            }
         };
     }
 }

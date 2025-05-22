@@ -15,59 +15,81 @@ namespace YoKard
 
             void init() override
             {
-                add<Image>();
-                add<Sprite>();
+                add_tile("", "");
 
                 //...
             }
 
+            virtual void add_tile(string image_alias, string sprite_alias)
+            {
+                add<Image>(image_alias);
+                add<Sprite>(sprite_alias);
+            }
+
+            virtual void add_tile(string texture_name, int tile_index, string image_alias, string sprite_alias, int tile_size, int scale, int rotation)
+            {
+                add_tile(image_alias, sprite_alias);
+
+                get<Image>(image_alias)->texture = texture_name;
+                get<Image>(image_alias)->scale = scale;
+                get<Image>(image_alias)->rotation = rotation;
+
+                get<Sprite>(sprite_alias)->tile->index = tile_index;
+                get<Sprite>(sprite_alias)->tile->size = tile_size;
+            }
+
             void render() override
             {
-                float x = (int) get<Image>()->x;
-                float y = (int) get<Image>()->y;
+                if(has("sprite")) { __render_sprite("image", "sprite"); }
+                else { __render_image("image"); }
+            }
 
-                float texture_width = game()->get<texture>(get<Image>()->texture)->data->width;
-                float texture_height = game()->get<texture>(get<Image>()->texture)->data->height;
+            virtual void __render_image(string image_alias)
+            {
+                float x = (int) get<Image>(image_alias)->x;
+                float y = (int) get<Image>(image_alias)->y;
 
-                float scaled_width = texture_width * get<Image>()->scale;
-                float scaled_height = texture_height * get<Image>()->scale;
+                float texture_width = game()->get<texture>(get<Image>(image_alias)->texture)->data->width;
+                float texture_height = game()->get<texture>(get<Image>(image_alias)->texture)->data->height;
 
-                if(has("sprite"))
-                {
-                    x *= get<Image>()->scale;
-                    y *= get<Image>()->scale;
+                float scaled_width = texture_width * get<Image>(image_alias)->scale;
+                float scaled_height = texture_height * get<Image>(image_alias)->scale;
 
-                    int tiles_per_row = texture_width / get<Sprite>()->tile->size;
+                DrawTexturePro(
+                    *game()->get<texture>(get<Image>(image_alias)->texture)->data,
+                    {0 , 0, texture_width, texture_height},
+                    {x, y, scaled_width, scaled_height},
+                    {0, 0},
+                    get<Image>(image_alias)->rotation,
+                    WHITE
+                );
+            }
 
-                    float source_width = get<Sprite>()->tile->size;
-                    float source_height = get<Sprite>()->tile->size;
+            virtual void __render_sprite(string image_alias, string sprite_alias)
+            {
+                float texture_width = game()->get<texture>(get<Image>(image_alias)->texture)->data->width;
+                int tiles_per_row = texture_width / get<Sprite>(sprite_alias)->tile->size;
 
-                    float source_x = (get<Sprite>()->tile->index % tiles_per_row) * source_width;
-                    float source_y = (get<Sprite>()->tile->index / tiles_per_row) * source_height;
+                float x = (int) get<Image>(image_alias)->x;
+                float y = (int) get<Image>(image_alias)->y;
 
-                    float destination_width = get<Image>()->scale * source_width;
-                    float destination_height = get<Image>()->scale * source_height;
+                float source_width = get<Sprite>(sprite_alias)->tile->size;
+                float source_height = get<Sprite>(sprite_alias)->tile->size;
 
-                    DrawTexturePro(
-                        *game()->get<texture>(get<Image>()->texture)->data, 
-                        {source_x, source_y, source_width, source_height}, 
-                        {x, y, destination_width, destination_height}, 
-                        {0, 0}, 
-                        get<Image>()->rotation, 
-                        WHITE
-                    );
-                }
-                else
-                {
-                    DrawTexturePro(
-                        *game()->get<texture>(get<Image>()->texture)->data,
-                        {0 , 0, texture_width, texture_height},
-                        {x, y, scaled_width, scaled_height},
-                        {0, 0},
-                        get<Image>()->rotation,
-                        WHITE
-                    );
-                }
+                float source_x = (get<Sprite>(sprite_alias)->tile->index % tiles_per_row) * source_width;
+                float source_y = (get<Sprite>(sprite_alias)->tile->index / tiles_per_row) * source_height;
+
+                float destination_width = get<Image>(image_alias)->scale * source_width;
+                float destination_height = get<Image>(image_alias)->scale * source_height;
+
+                DrawTexturePro(
+                    *game()->get<texture>(get<Image>(image_alias)->texture)->data, 
+                    {source_x, source_y, source_width, source_height}, 
+                    {x, y, destination_width, destination_height}, 
+                    {0, 0}, 
+                    get<Image>(image_alias)->rotation, 
+                    WHITE
+                );
             }
         };
     }
