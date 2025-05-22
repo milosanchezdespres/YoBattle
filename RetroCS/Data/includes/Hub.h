@@ -12,8 +12,12 @@ namespace RetroCS
         template <typename T>
         inline void init(string alias, T value)
         {
-            ___values.push_back(value);
-            ___values_per_alias[alias] = ___values.size() - 1;
+            auto it = ___values_per_alias.find(alias);
+            if (it == ___values_per_alias.end())
+            {
+                ___values.push_back(value);
+                ___values_per_alias[alias] = ___values.size() - 1;
+            }
         }
 
         inline void set(string alias, any value) { ___values[___values_per_alias[alias]] = value; }

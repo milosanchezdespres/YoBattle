@@ -19,8 +19,6 @@ namespace YoKard
                 game()->load<texture>("player");
 
                 add<Player>();
-
-                //HUB::set<Player*>(get<Player>());
             }
 
             void OnExit() override
