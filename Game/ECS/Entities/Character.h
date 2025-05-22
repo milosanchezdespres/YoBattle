@@ -2,19 +2,19 @@
 
 #include "../../../RetroCS/RetroCS.h"
 
-#include "../Entities/Entity2D.h"
+#include "../Entities/AnimEntity2D.h"
 
 namespace YoKard
 {
     namespace ECS
     {
-        struct Character : public Entity2D
+        struct Character : public AnimEntity2D
         {
-            Character() : Entity2D() {}
+            Character() : AnimEntity2D() {}
 
             void init() override
             {
-                Entity2D::init();
+                AnimEntity2D::init();
 
                 //...
             }
