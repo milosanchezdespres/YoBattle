@@ -18,6 +18,8 @@ namespace RetroCS
                 GameWindow(const GameWindow&) = delete;
                 GameWindow& operator=(const GameWindow&) = delete;
 
+                float __stored_delta;
+
                 static GameWindow& instance()
                 {
                     static GameWindow __instance;
@@ -28,6 +30,7 @@ namespace RetroCS
                 void start(string _title, int _width = 0, int _height = 0)
                 {
                     background_color = BLACK;
+                    __stored_delta = 0;
 
                     data = new GameData(_title, _width, _height);
 
@@ -58,6 +61,8 @@ namespace RetroCS
                         if (IsKeyPressed(KEY_ESCAPE)) { delete this; }
                         if (IsKeyPressed(KEY_F11)) { ToggleFullscreen(); }
 
+                        __stored_delta = GetFrameTime();
+
                         scene_manager->update();
 
                         BeginDrawing();
@@ -83,6 +88,6 @@ namespace RetroCS
 
         inline GameData* game() { return GameWindow::instance().data; }
 
-        inline float delta() { return GetFrameTime(); }
+        inline float delta() { return GameWindow::instance().__stored_delta; }
     }
 }

@@ -24,6 +24,9 @@ namespace YoKard
                 //...
 
                 add<Player>();
+                get<Player>()->get<Image>()->scale = 10;
+                get<Player>()->get<Image>()->x = 450;
+                get<Player>()->get<Image>()->y = 150;
             }
 
             void OnExit() override { }
