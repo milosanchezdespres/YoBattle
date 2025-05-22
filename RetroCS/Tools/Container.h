@@ -73,6 +73,16 @@ namespace RetroCS
             string str_id() { return to_string(alias.id); }
             string name() { return alias.name; }
             string type() { return alias.str_type; }
+
+            bool operator==(const BaseObject& other) const
+            {
+                return alias.id == other.alias.id &&
+                    alias.name == other.alias.name &&
+                    alias.type == other.alias.type &&
+                    alias.str_type == other.alias.str_type;
+            }
+
+            bool operator!=(const BaseObject& other) const { return !(*this == other); }
         };
     }
 }

@@ -25,5 +25,8 @@ int main()
     debug(test->get("dddd")->type());
     debug(test->get<Test>("dddd")->answer);
 
+    debug(test->get(1) == test->get(1));
+    debug(test->get(0) == test->get(1));
+
     return 0;
 }
