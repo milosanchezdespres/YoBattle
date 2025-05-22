@@ -19,7 +19,11 @@
         "-lX11"
       ],
       "group": "build",
-      "problemMatcher": []
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
     },
     {
       "label": "Copy Game assets and data",
@@ -27,16 +31,28 @@
       "command": "bash",
       "args": [
         "-c",
-        "if find Game/assets -type f ! -name '*.h' | read; then mkdir -p build/Game; rsync -av --exclude='*.h' Game/assets/ build/Game/assets/; fi; if find Game/data -type f ! -name '*.h' | read; then mkdir -p build/Game; rsync -av --exclude='*.h' Game/data/ build/Game/data/; fi"
+        "if find Game/assets -type f ! -name '*.h' | read; then mkdir -p build/Game; rsync -av --exclude='*.h' Game/assets/ build/Game/assets/; fi; if find Game/data -type f ! -name '*.h' | read; then mkdir -p build/Game; rsync -av --exclude='*.h' Game/data/ build/Game/data/; fi > /dev/null 2>&1"
       ],
-      "problemMatcher": []
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "never",
+        "echo": false,
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": false
+      }
     },
     {
       "label": "Run YoBattle",
       "type": "shell",
       "command": "${workspaceFolder}/build/YoBattle",
       "dependsOn": ["Build YoBattle", "Copy Game assets and data"],
-      "problemMatcher": []
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
     }
   ]
 }
