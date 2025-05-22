@@ -148,8 +148,7 @@ namespace RetroCS
 
             T* get(string name = "") const
             {
-                if (name == "")
-                    name = Alias::to_string(type_index(typeid(T)));
+                if (name == "") name = Alias::to_string(type_index(typeid(T)));
 
                 auto it = item_by_name.find(name);
                 if (it != item_by_name.end())
@@ -166,8 +165,7 @@ namespace RetroCS
             template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
             M* get(string name = "")
             {
-                if (name == "")
-                    name = Alias::to_string(type_index(typeid(M)));  // same here
+                if (name == "") name = Alias::to_string(type_index(typeid(M)));
 
                 auto it = item_by_name.find(name);
                 if (it != item_by_name.end())
@@ -179,6 +177,57 @@ namespace RetroCS
             }
 
             bool has(const string& name) const { return alias_names.find(name) != alias_names.end(); }
+
+            void remove(int id)
+            {
+                Alias dummy;
+                dummy.id = id;
+
+                auto it = item_by_alias.find(dummy);
+                if (it == item_by_alias.end()) return;
+
+                int index = it->second;
+                T* obj = items[index];
+                if (!obj) return;
+
+                alias_names.erase(obj->alias.name);
+                item_by_name.erase(obj->alias.name);
+                item_by_alias.erase(obj->alias);
+
+                delete obj;
+                items[index] = nullptr;
+            }
+
+            void remove(string name = "")
+            {
+                auto it = item_by_name.find(name);
+                if (it == item_by_name.end()) return;
+
+                int index = it->second;
+                T* obj = items[index];
+                if (!obj) return;
+
+                alias_names.erase(obj->alias.name);
+                item_by_name.erase(obj->alias.name);
+                item_by_alias.erase(obj->alias);
+
+                delete obj;
+                items[index] = nullptr;
+            }
+
+            template <typename M, typename = enable_if_t<is_base_of_v<T, M>>>
+            void remove(string name = "")
+            {
+                if (name == "") name = Alias::to_string(type_index(typeid(M)));
+                remove(name);
+            }
+
+            auto begin() { return items.begin(); }
+            auto end()   { return items.end(); }
+            auto begin() const { return items.begin(); }
+            auto end()   const { return items.end(); }
+
+            size_t size() const { return items.size(); }
         };
     }
 }
