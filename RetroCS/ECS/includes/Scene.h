@@ -53,11 +53,11 @@ namespace RetroCS
             }
 
             void enter() { OnEnter(); }
-            void update()
+            void update(GameData* data)
             {
                 for(auto* system : systems) { if (system) system->update(); }
 
-                camera().update(GetFrameTime());
+                camera().update(GetFrameTime(), data);
             }
 
             void render()

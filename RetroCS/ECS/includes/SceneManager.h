@@ -31,7 +31,7 @@ namespace RetroCS
                 scene->enter();
             }
 
-            void update() { scene->update(); }
+            void update(GameData* data) { scene->update(data); }
 
             void render() { scene->render(); }
 

@@ -62,19 +62,73 @@ namespace RetroCS
                     data = nullptr;
                 }
             }
-
-            ~texture() override
-            {
-                if (data != nullptr)
-                {
-                    UnloadTexture(*data);
-                    delete data;
-                    data = nullptr;
-                }
-            }
         };
 
-        //...
+        struct input
+        {
+            string name;
+
+            KeyboardKey key;
+            GamepadButton gamepad;
+
+            bool was_down;
+            bool currently_down;
+        };
+
+        struct button : public Resource<input>
+        {
+            button() : Resource<input>() {}
+
+            void load(string _name, string _folders = "") override
+            {
+                data = new input();
+
+                data->name = _name;
+
+                auto parts = split(_folders, ';');
+                if (parts.size() != 2)
+                {
+                    data->key = KEY_NULL;
+                    data->gamepad = GAMEPAD_BUTTON_UNKNOWN;
+                    return;
+                }
+
+                if (raylib_key_map.count(parts[0])) data->key = raylib_key_map[parts[0]];
+                else data->key = KEY_NULL;
+
+                if (raylib_gamepad_map.count(parts[1])) data->gamepad = raylib_gamepad_map[parts[1]];
+                else data->gamepad = GAMEPAD_BUTTON_UNKNOWN;
+            }
+
+            bool is_down()
+            {
+                if (data->gamepad != GAMEPAD_BUTTON_UNKNOWN && IsGamepadAvailable(0))
+                {
+                    if (IsGamepadButtonDown(0, data->gamepad))
+                        return true;
+                }
+
+                return IsKeyDown(data->key);
+            }
+
+            bool is_pressed()
+            {
+                if (data->gamepad != GAMEPAD_BUTTON_UNKNOWN && IsGamepadAvailable(0)) { data->currently_down = IsGamepadButtonDown(0, data->gamepad); }
+
+                if (!data->currently_down) { data->currently_down = IsKeyDown(data->key); }
+
+                bool just_pressed = data->currently_down && !data->was_down;
+                data->was_down = data->currently_down;
+
+                return just_pressed;
+            }
+
+            void unload() override
+            {
+                delete data;
+                data = nullptr;
+            }
+        };
 
         struct GameData
         {

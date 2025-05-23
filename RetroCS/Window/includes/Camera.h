@@ -3,6 +3,7 @@
 #include "raylib.h"
 
 #include "../../Tools/Tools.h"
+#include "../../Window/includes/GameData.h"
 
 namespace RetroCS
 {
@@ -51,9 +52,9 @@ namespace RetroCS
                 y = 0;
             }
 
-            void update(float delta)
+            void update(float delta, GameData* data)
             {
-                if(_mode == 0) __free_mode(delta);
+                if(_mode == 0) __free_mode(delta, data);
                 else if(_mode == 1) __follow_mode(delta);
             }
 
@@ -136,7 +137,7 @@ namespace RetroCS
                     viewport->y = __lerp(viewport->y, targetViewportY, lerp_speed * delta);
                 }
 
-                void __free_mode(float delta)
+                void __free_mode(float delta, GameData* data)
                 {
                     viewport->width  = viewport->screen_width  / zoom;
                     viewport->height = viewport->screen_height / zoom;
@@ -144,12 +145,10 @@ namespace RetroCS
                     viewport->x = x - viewport->width / 2;
                     viewport->y = y - viewport->height / 2;
 
-                    //debug.......................................................
-                    if (IsKeyDown(KEY_W)) y -= move_speed * delta;
-                    if (IsKeyDown(KEY_S)) y += move_speed * delta;
-                    if (IsKeyDown(KEY_A)) x -= move_speed * delta;
-                    if (IsKeyDown(KEY_D)) x += move_speed * delta;
-                    //debug.......................................................
+                    if (data->get<button>("up")->is_down()) y -= move_speed * delta;
+                    if (data->get<button>("down")->is_down()) y += move_speed * delta;
+                    if (data->get<button>("left")->is_down()) x -= move_speed * delta;
+                    if (data->get<button>("right")->is_down()) x += move_speed * delta;
                 }
         };
 
