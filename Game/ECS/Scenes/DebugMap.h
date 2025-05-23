@@ -38,7 +38,7 @@ namespace YoKard
                 get<Player>()->get<Image>()->y = 50;
 
                 camera().set_zoom(8);
-                //camera().follow(get<Player>()->get<Image>()->x, get<Player>()->get<Image>()->y);
+                camera().follow(get<Player>()->get<Image>()->x, get<Player>()->get<Image>()->y);
             }
 
             void OnExit() override { }
