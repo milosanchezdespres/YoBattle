@@ -38,7 +38,7 @@ namespace YoKard
                 //camera().follow(get<Player>()->get<Image>()->x, get<Player>()->get<Image>()->y);
 ///*
                 int playersPerRow = 24;
-                int totalPlayers = 10000;
+                int totalPlayers = 10000;//THIS WORKS AT 30FPS
                 int spacingX = 25;
                 int spacingY = 25; // Adjust vertical spacing as needed
                 int startY = 0;
