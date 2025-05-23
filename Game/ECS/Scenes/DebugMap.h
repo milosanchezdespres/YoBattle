@@ -3,7 +3,9 @@
 #include "../../../RetroCS/RetroCS.h"
 
 #include "../Entities/Player.h"
+
 #include "../Systems/AnimationSystem.h"
+#include "../Systems/StateMachine.h"
 
 namespace YoKard
 {
@@ -28,6 +30,7 @@ namespace YoKard
                 //...
 
                 attach<AnimationSystem>();
+                attach<StateMachine>();
                 //...
 
                 add<Player>();

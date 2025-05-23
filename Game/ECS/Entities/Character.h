@@ -3,6 +3,7 @@
 #include "../../../RetroCS/RetroCS.h"
 
 #include "../Entities/AnimEntity2D.h"
+#include "../Components/StateHolder.h"
 
 namespace YoKard
 {
@@ -15,6 +16,8 @@ namespace YoKard
             void OnInit() override
             {
                 AnimEntity2D::OnInit();
+
+                add<StateHolder>();
 
                 //...
             }

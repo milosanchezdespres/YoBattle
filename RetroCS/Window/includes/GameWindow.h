@@ -62,10 +62,10 @@ namespace RetroCS
 
                     std::init_reverse_keys();
 
-                    data->load<button>("up", "KEY_W; GAMEPAD_BUTTON_LEFT_FACE_UP");
-                    data->load<button>("left", "KEY_A; GAMEPAD_BUTTON_LEFT_FACE_LEFT");
-                    data->load<button>("right", "KEY_D; GAMEPAD_BUTTON_LEFT_FACE_RIGHT");
-                    data->load<button>("down", "KEY_S; GAMEPAD_BUTTON_LEFT_FACE_DOWN");
+                    data->load<button>("up", "KEY_W;GAMEPAD_BUTTON_LEFT_FACE_UP");
+                    data->load<button>("left", "KEY_A;GAMEPAD_BUTTON_LEFT_FACE_LEFT");
+                    data->load<button>("right", "KEY_D;GAMEPAD_BUTTON_LEFT_FACE_RIGHT");
+                    data->load<button>("down", "KEY_S;GAMEPAD_BUTTON_LEFT_FACE_DOWN");
 
                     Camera::instance().init(_width, _height);
                 }
