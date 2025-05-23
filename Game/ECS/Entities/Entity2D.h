@@ -52,17 +52,20 @@ namespace YoKard
                 float texture_width = game()->get<texture>(get<Image>(image_alias)->texture)->data->width;
                 float texture_height = game()->get<texture>(get<Image>(image_alias)->texture)->data->height;
 
-                float scaled_width = texture_width * get<Image>(image_alias)->scale;
-                float scaled_height = texture_height * get<Image>(image_alias)->scale;
+                float scaled_width = texture_width * camera().zoom  * get<Image>(image_alias)->scale;
+                float scaled_height = texture_height * camera().zoom  * get<Image>(image_alias)->scale;
 
-                DrawTexturePro(
-                    *game()->get<texture>(get<Image>(image_alias)->texture)->data,
-                    {0 , 0, texture_width, texture_height},
-                    {x, y, scaled_width, scaled_height},
-                    {0, 0},
-                    get<Image>(image_alias)->rotation,
-                    WHITE
-                );
+                if(camera().is_within_bounds(x, y, scaled_width, scaled_height))
+                {
+                    DrawTexturePro(
+                        *game()->get<texture>(get<Image>(image_alias)->texture)->data,
+                        {0 , 0, texture_width, texture_height},
+                        {x, y, scaled_width, scaled_height},
+                        {0, 0},
+                        get<Image>(image_alias)->rotation,
+                        WHITE
+                    );
+                }
             }
 
             virtual void __render_sprite(string image_alias, string sprite_alias)
@@ -76,20 +79,27 @@ namespace YoKard
                 float destination_width = get<Image>(image_alias)->scale * camera().zoom * source_width;
                 float destination_height = get<Image>(image_alias)->scale * camera().zoom * source_height;
 
-                float x = (int) camera().world_to_Screen(get<Image>(image_alias)->x, get<Image>(image_alias)->y).x - destination_width / 2;
-                float y = (int) camera().world_to_Screen(get<Image>(image_alias)->x, get<Image>(image_alias)->y).y - destination_height / 2;
+                float x = (int) camera().world_to_screen(get<Image>(image_alias)->x, get<Image>(image_alias)->y).x - destination_width / 2;
+                float y = (int) camera().world_to_screen(get<Image>(image_alias)->x, get<Image>(image_alias)->y).y - destination_height / 2;
 
                 float source_x = (get<Sprite>(sprite_alias)->tile->index % tiles_per_row) * source_width;
                 float source_y = (get<Sprite>(sprite_alias)->tile->index / tiles_per_row) * source_height;
 
-                DrawTexturePro(
-                    *game()->get<texture>(get<Image>(image_alias)->texture)->data, 
-                    {source_x, source_y, source_width, source_height}, 
-                    {x, y, destination_width, destination_height}, 
-                    { destination_width / 2, destination_height / 2 }, 
-                    get<Image>(image_alias)->rotation, 
-                    WHITE
-                );
+                get<Image>(image_alias)->in_bound = camera().is_within_bounds(x, y, destination_width, destination_height);
+
+                if(camera().is_within_bounds(x, y, destination_width, destination_height))
+                {
+                    DrawTexturePro(
+                        *game()->get<texture>(get<Image>(image_alias)->texture)->data, 
+                        {source_x, source_y, source_width, source_height}, 
+                        {x, y, destination_width, destination_height}, 
+                        { destination_width / 2, destination_height / 2 }, 
+                        get<Image>(image_alias)->rotation, 
+                        WHITE
+                    );
+
+                    draw_count++;
+                }
             }
         };
     }

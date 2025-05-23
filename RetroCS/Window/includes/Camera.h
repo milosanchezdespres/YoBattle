@@ -73,13 +73,32 @@ namespace RetroCS
 
             void set_zoom(float new_value) { zoom = new_value; }
 
-            Vector2 world_to_Screen(float world_x, float world_y)
+            Vector2 world_to_screen(float world_x, float world_y)
             {
                 float screen_x = (world_x - viewport->x) * zoom;
                 float screen_y = (world_y - viewport->y) * zoom;
 
                 return { screen_x, screen_y };
             }
+
+            Vector2 screen_to_world(float screen_x, float screen_y)
+            {
+                float world_x = screen_x / zoom + viewport->x;
+                float world_y = screen_y / zoom + viewport->y;
+
+                return { world_x, world_y };
+            }
+
+            bool is_within_bounds(float screen_x, float screen_y, float obj_width, float obj_height)
+            {
+                const int sw = viewport->screen_width;
+                const int sh = viewport->screen_height;
+
+                return (screen_x + obj_width > 0) && (screen_x < sw) &&
+                    (screen_y + obj_height > 0) && (screen_y < sh);
+            }
+            
+            bool is_out_of_bounds(float obj_x, float obj_y, float obj_width, float obj_height) { return !is_within_bounds(obj_x, obj_y, obj_width, obj_height); }
 
             private:
                 Viewport* viewport;
@@ -105,7 +124,7 @@ namespace RetroCS
 
                 float __lerp(float start, float end, float t) { return start + t * (end - start); }
 
-                void __follow_mode(float delta)
+                void __follow_mode(float delta)//TARGET_SIZE ?
                 {
                     viewport->width  = viewport->screen_width  / zoom;
                     viewport->height = viewport->screen_height / zoom;
@@ -132,7 +151,6 @@ namespace RetroCS
                     if (IsKeyDown(KEY_D)) x += move_speed * delta;
                     //debug.......................................................
                 }
-
         };
 
         inline Camera& camera() { return Camera::instance(); }

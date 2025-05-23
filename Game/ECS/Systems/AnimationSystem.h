@@ -14,7 +14,7 @@ namespace YoKard
         {
             void OnUpdate(Animator* component) override
             {
-                if(component->is_playing())
+                if(component->is_playing() && component->in_bound())
                 {
                     component->current()->timer += delta();
 

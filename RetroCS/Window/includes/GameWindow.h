@@ -9,6 +9,9 @@ namespace RetroCS
 {
     namespace Window
     {
+        inline bool display_draw_count = false;
+        inline int draw_count = 0;
+
         class GameWindow
         {
             public:
@@ -38,13 +41,15 @@ namespace RetroCS
 
                     if(_width == 0 || _height == 0)
                     {
-                        data->width = GetMonitorWidth(0);
-                        data->height = GetMonitorHeight(0);
+                        _width = GetMonitorWidth(0);
+                        _height = GetMonitorHeight(0);
 
-                        InitWindow(data->width, data->height, _title.c_str());
+                        InitWindow(_width, _height, _title.c_str());
                         SetWindowState(FLAG_FULLSCREEN_MODE);
                     }
                     else { InitWindow(_width, _height, _title.c_str()); }
+
+                    data = new GameData(_title, _width, _height); 
 
                     SetTargetFPS(60);
                     HideCursor();
@@ -55,7 +60,7 @@ namespace RetroCS
                     scene_manager = new SceneManager();
                     scene_manager->go_to(new T());
 
-                    Camera::instance().init(data->width, data->height);
+                    Camera::instance().init(_width, _height);
                 }
 
                 void update()
@@ -73,6 +78,13 @@ namespace RetroCS
                         ClearBackground(background_color);
 
                         scene_manager->render();
+
+                        if(display_draw_count)
+                        {
+                            DrawText(TextFormat("Sprites Drawn: %d", draw_count), 10, 10, 20, RED);
+
+                            draw_count = 0;
+                        }
 
                         EndDrawing();
                     }

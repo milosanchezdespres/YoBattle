@@ -105,6 +105,8 @@ namespace YoKard
 
             void set_frame() { current()->set(animated_image, animated_sprite); }
 
+            bool in_bound() { return animated_image != nullptr && animated_image->in_bound; }
+
             Animation* animation(string name) { return animations[name]; }
 
             Animation* current() { return animation(current_animation); }
