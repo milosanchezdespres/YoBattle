@@ -81,8 +81,8 @@ namespace RetroCS
 
             BaseObject* owner() { return parent; }
 
-            template <typename T>
-            T* owner() { return dynamic_cast<T*>(parent); }
+            template <typename M, typename = enable_if_t<is_base_of_v<BaseObject, M>>>
+            M* owner() { return dynamic_cast<M*>(parent); }
 
             bool operator==(const BaseObject& other) const
             {
