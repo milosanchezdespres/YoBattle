@@ -98,7 +98,7 @@ namespace YoKard
                         WHITE
                     );
 
-                    draw_count++;
+                    if(display_draw_count) draw_count++;
                 }
             }
         };
