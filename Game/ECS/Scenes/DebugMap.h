@@ -29,21 +29,23 @@ namespace YoKard
                 //...
 
                 //add<Player>();
-                //get<Player>()->get<Image>()->scale = 10;
-                //get<Player>()->get<Image>()->x = 450;
+                //get<Player>()->get<Image>()->x = 0;
                 //get<Player>()->get<Image>()->y = 0;
 
-                int playersPerRow = 12;
-                int totalPlayers = 4500;
-                int spacingX = 164;
-                int spacingY = 200; // Adjust vertical spacing as needed
+                camera().set_zoom(8);
+                //camera().follow(get<Player>()->get<Image>()->x, get<Player>()->get<Image>()->y);
+///*
+                int playersPerRow = 24;
+                int totalPlayers = 5000;
+                int spacingX = 25;
+                int spacingY = 25; // Adjust vertical spacing as needed
                 int startY = 0;
 
                 for (int i = 0; i < totalPlayers; i++)
                 {
                     add<Player>("player" + to_string(i));
                     auto image = get<Player>("player" + to_string(i))->get<Image>();
-                    image->scale = 10;
+                    //image->scale = 5;
 
                     // Calculate x and y for grid layout
                     int col = i % playersPerRow;  // column number (0 to 7)
@@ -52,6 +54,7 @@ namespace YoKard
                     image->x = col * spacingX;
                     image->y = startY + row * spacingY;
                 }
+//*/
             }
 
             void OnExit() override { }

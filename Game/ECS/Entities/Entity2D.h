@@ -70,23 +70,23 @@ namespace YoKard
                 float texture_width = game()->get<texture>(get<Image>(image_alias)->texture)->data->width;
                 int tiles_per_row = texture_width / get<Sprite>(sprite_alias)->tile->size;
 
-                float x = (int) get<Image>(image_alias)->x;
-                float y = (int) get<Image>(image_alias)->y;
-
                 float source_width = get<Sprite>(sprite_alias)->tile->size;
                 float source_height = get<Sprite>(sprite_alias)->tile->size;
 
+                float destination_width = get<Image>(image_alias)->scale * camera().zoom * source_width;
+                float destination_height = get<Image>(image_alias)->scale * camera().zoom * source_height;
+
+                float x = (int) camera().world_to_Screen(get<Image>(image_alias)->x, get<Image>(image_alias)->y).x - destination_width / 2;
+                float y = (int) camera().world_to_Screen(get<Image>(image_alias)->x, get<Image>(image_alias)->y).y - destination_height / 2;
+
                 float source_x = (get<Sprite>(sprite_alias)->tile->index % tiles_per_row) * source_width;
                 float source_y = (get<Sprite>(sprite_alias)->tile->index / tiles_per_row) * source_height;
-
-                float destination_width = get<Image>(image_alias)->scale * source_width;
-                float destination_height = get<Image>(image_alias)->scale * source_height;
 
                 DrawTexturePro(
                     *game()->get<texture>(get<Image>(image_alias)->texture)->data, 
                     {source_x, source_y, source_width, source_height}, 
                     {x, y, destination_width, destination_height}, 
-                    {0, 0}, 
+                    { destination_width / 2, destination_height / 2 }, 
                     get<Image>(image_alias)->rotation, 
                     WHITE
                 );

@@ -3,6 +3,7 @@
 #include "../../Tools/Tools.h"
 #include "../../Data/includes/Hub.h"
 #include "GameData.h"
+#include "Camera.h"
 
 namespace RetroCS
 {
@@ -53,6 +54,8 @@ namespace RetroCS
 
                     scene_manager = new SceneManager();
                     scene_manager->go_to(new T());
+
+                    Camera::instance().init(data->width, data->height);
                 }
 
                 void update()

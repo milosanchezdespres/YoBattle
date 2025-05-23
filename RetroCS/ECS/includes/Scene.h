@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../../Window/includes/Camera.h"
+using namespace RetroCS::Window;
+
 #include "Entity.h"
 #include "System.h"
 
@@ -50,7 +53,12 @@ namespace RetroCS
             }
 
             void enter() { OnEnter(); }
-            void update() { for(auto* system : systems) { if (system) system->update(); } }
+            void update()
+            {
+                for(auto* system : systems) { if (system) system->update(); }
+
+                camera().update(GetFrameTime());
+            }
 
             void render()
             {
