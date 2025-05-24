@@ -23,7 +23,7 @@ namespace yokard
                 const int spriteSize = 16;
                 const int verticalStep = 4;
 
-                for (int i = 0; i < 100000; i++)
+                for (int i = 0; i < 50000; i++)
                 {
                     string name = "test" + to_string(i);
 
