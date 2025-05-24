@@ -17,16 +17,17 @@ namespace retrocs
         inline void init(string title, int width = 0, int height = 0)
         {
             data = new GameData<T>();
-            
             screen = new GameLogic();
-            screen->init(data->entry_point);
-
             window = new GameWindow(data, title, width, height);
+            
+            screen->init(data->entry_point);
 
             //...
         }
 
         inline void update() { window->update(data, screen); }
+
+        inline Scene* scene() { return screen->scene; }
 
         //...
     }

@@ -39,6 +39,14 @@ namespace retrocs
 
                 data->width = width;
                 data->height = height;
+
+                data->load<button>("up", "KEY_W;GAMEPAD_BUTTON_LEFT_FACE_UP");
+                data->load<button>("left", "KEY_A;GAMEPAD_BUTTON_LEFT_FACE_LEFT");
+                data->load<button>("right", "KEY_D;GAMEPAD_BUTTON_LEFT_FACE_RIGHT");
+                data->load<button>("down", "KEY_S;GAMEPAD_BUTTON_LEFT_FACE_DOWN");
+
+                //data->load<button>("confirm", "KEY_E;GAMEPAD_BUTTON_LEFT_FACE_DOWN");
+                //data->load<button>("cancel", "KEY_R;GAMEPAD_BUTTON_LEFT_FACE_DOWN");
             }
 
             void update(BaseGameData* data, GameLogic* logic)
@@ -54,6 +62,8 @@ namespace retrocs
 
                     logic->draw(data->background_color);
                 }
+
+                if(logic->scene != nullptr) logic->scene->exit();
             }
 
             ~GameWindow() {}

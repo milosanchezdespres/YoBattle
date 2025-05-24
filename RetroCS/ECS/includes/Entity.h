@@ -6,11 +6,9 @@ namespace retrocs
 {
     namespace ecs
     {
-        struct Entity : box<Component>
+        struct Entity : public box<Component>
         {
             Entity() : box<Component>() { }
-
-            ~Entity() { }
         };
     }
 }

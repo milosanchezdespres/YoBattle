@@ -20,7 +20,7 @@ namespace retrocs
             }
         };
 
-        struct drawable : object
+        struct drawable : public object
         {
             raw_screen_data* ___screen_data;
 
@@ -39,8 +39,6 @@ namespace retrocs
             }
 
             virtual void _on_raw_conversion() {}
-
-            ~drawable() { }
         };
     }
 }

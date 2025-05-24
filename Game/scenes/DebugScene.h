@@ -2,17 +2,24 @@
 
 #include "../../RetroCS/RetroCS.h"
 
+#include "../entities/Entity2D.h"
+
 namespace yokard
 {
     namespace ecs
     {
-        struct DebugScene : Scene
+        struct DebugScene : public Scene
         {
             DebugScene() : Scene() { }
 
             void _on_init() override
             {
                 hub::data->background_color = BLUE;
+
+                hub::data->load<texture>("player");
+
+                add<Entity2D>("test");
+                get("test")->get<Sprite>()->texture = "player";
 
                 //...
             }

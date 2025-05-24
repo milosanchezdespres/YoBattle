@@ -21,7 +21,7 @@ namespace retrocs
             template <typename U, typename = enable_if_t<is_base_of_v<T, U>>>
             void add(string _alias = "")
             {
-                T* new_item = new T();
+                U* new_item = new U();
                 new_item->init(items.size(), _alias, this);
 
                 push(new_item);
@@ -29,14 +29,13 @@ namespace retrocs
 
             void push(T* new_item)
             {
-                if(items_by_alias.find(new_item->alias) == items_by_alias.end())
+                if (items_by_alias.find(new_item->alias) == items_by_alias.end())
                 {
-                    T* copy = new T(*new_item);
-                    delete new_item;
+                    items.push_back(new_item);
+                    items_by_alias[new_item->alias] = items.size() - 1;
+                    alias_by_index[items.size() - 1] = new_item->alias;
 
-                    items.push_back(copy);
-                    items_by_alias[copy->alias];
-                    alias_by_index[items.size() - 1] = copy->alias;
+                    on_add(new_item);
                 }
             }
 
@@ -58,6 +57,15 @@ namespace retrocs
                 auto it = items_by_alias.find(alias);
                 if (it == items_by_alias.end()) return nullptr;
                 return get<U>(it->second);
+            }
+
+            template <typename U, typename = enable_if_t<is_base_of_v<T, U>>>
+            U* get()
+            {
+                const string alias = type_to_string<U>();
+                auto it = items_by_alias.find(alias);
+                if (it == items_by_alias.end()) return nullptr;
+                return dynamic_cast<U*>(items[it->second]);
             }
 
             void remove(int id)

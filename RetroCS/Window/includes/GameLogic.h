@@ -9,10 +9,10 @@ namespace retrocs
     {
         bool ___window__logic_initialized;
 
-        Scene* scene;
-
         struct GameLogic
         {
+            Scene* scene;
+
             GameLogic()
             {
                 if (___window__logic_initialized) { throw std::runtime_error("GameData already initialized"); }

@@ -6,11 +6,9 @@ namespace retrocs
 {
     namespace ecs
     {
-        struct Component : drawable
+        struct Component : public drawable
         {
             Component() : drawable() { }
-
-            ~Component() { }
         };
     }
 }

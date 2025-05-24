@@ -38,3 +38,15 @@ namespace retrocs
         inline string type_to_string() { return type_to_string(type_index(typeid(T))); } 
     }
 }
+
+namespace std
+{
+    std::vector<std::string> split(const std::string& str, char delim)
+    {
+        std::stringstream ss(str);
+        std::string item;
+        std::vector<std::string> tokens;
+        while (std::getline(ss, item, delim)) { tokens.push_back(item); }
+        return tokens;
+    }
+}

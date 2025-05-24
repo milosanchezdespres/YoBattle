@@ -6,7 +6,7 @@ namespace retrocs
 {
     namespace ecs
     {
-        struct Scene : box<Entity>
+        struct Scene : public box<Entity>
         {
             Scene() : box<Entity>() {}
 
