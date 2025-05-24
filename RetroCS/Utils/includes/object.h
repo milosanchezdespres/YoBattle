@@ -28,7 +28,7 @@ namespace retrocs
 
                     __parent = _parent;
 
-                    OnInit();
+                    _on_init();
 
                     __initialized = true;
                 }
@@ -48,11 +48,11 @@ namespace retrocs
 
                 __initialized = false;
 
-                OnDestroy();
+                _on_destroy();
             }
 
-            virtual void OnInit() {}
-            virtual void OnDestroy() {}
+            virtual void _on_init() {}
+            virtual void _on_destroy() {}
         };
     }
 }

@@ -1,20 +1,18 @@
 #include "RetroCS/RetroCS.h"
 
 struct Test : public object { Test() : object() {} };
-struct Test2 : public Test { Test2() : Test() {} };
+struct TestBox : public box<Test> { TestBox() : box<Test>() {} };
 
 int main()
 {
     hub::init();
 
-    Test2* test2 = new Test2();
-    test2->init();
+    TestBox* test_box = new TestBox();
+    test_box->init(0);
 
-    Test* test = new Test();
-    test->init(0, "", test2);
+    debug(type_to_string(hub::game));
 
-    debug(test->owner()->alias);
-    debug(test->owner<Test2>()->alias);
+    //...
 
     return 0;
 }
