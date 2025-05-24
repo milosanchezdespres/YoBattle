@@ -6,9 +6,9 @@ namespace retrocs
 {
     namespace utils
     {
-        inline void debug(float obj) { cout << "< " + to_string(obj) << endl << endl; }
-        inline void debug(int obj) { cout << "< " + to_string(obj) << endl << endl; }
-        inline void debug(string obj) { cout << "< " + obj << endl << endl; }
+        inline void print(string obj) { cout << "< " + obj << endl << endl; }
+        inline void print(float obj) { cout << "< " + to_string(obj) << endl << endl; }
+        inline void print(int obj) { cout << "< " + to_string(obj) << endl << endl; }
 
         inline string type_to_string(type_index type)
         {
@@ -33,5 +33,8 @@ namespace retrocs
         }
 
         inline string type_to_string(const auto& obj) { return type_to_string(std::type_index(typeid(obj))); } 
+
+        template <typename T>
+        inline string type_to_string() { return type_to_string(type_index(typeid(T))); } 
     }
 }

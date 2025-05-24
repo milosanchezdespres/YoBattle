@@ -1,11 +1,13 @@
 #pragma once
 
 #include "raylib.h"
+#include "rlgl.h"
 
 #include <cassert>
 #include <cstring>
 #include <cxxabi.h>
 #include <cctype>
+#include <stdexcept>
 
 #include <string>
 #include <iostream>
