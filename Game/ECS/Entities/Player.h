@@ -23,11 +23,22 @@ namespace YoKard
                 add_frame("test", 3, 0.5f);
                 add_frame("test", 6, 0.5f);
                 //...
+
+                add_animation("test2");
+                add_frame("test2", 8, 0.5f);
+                add_frame("test2", 9, 0.5f);
+                add_frame("test2", 10, 0.5f);
+                add_frame("test2", 1, 0.5f);
+                add_frame("test2", 4, 0.5f);
+                //...
             }
 
             void InitializeEntryPoint() override;
         };
 
+        struct PlayerWalk;
+        //...
+        
         struct PlayerIdle : public State<Player>
         {
             PlayerIdle() : State<Player>() {}
@@ -39,6 +50,32 @@ namespace YoKard
                 //...
 
                 owner()->play("test");
+            }
+
+            void OnUpdate() override
+            {               
+                //...
+
+                holder->go_to<PlayerWalk>();
+            }
+
+            void OnExit() override
+            {
+                //...
+            }
+        };
+
+        struct PlayerWalk : public State<Player>
+        {
+            PlayerWalk() : State<Player>() {}
+
+            string OnName() override { return "walk"; }
+
+            void OnEnter() override
+            {
+                //...
+
+                owner()->play("test2");
             }
 
             void OnUpdate() override
