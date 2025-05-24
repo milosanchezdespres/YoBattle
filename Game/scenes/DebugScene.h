@@ -17,9 +17,30 @@ namespace yokard
                 hub::data->background_color = BLUE;
 
                 hub::data->load<texture>("player");
+                //...
 
-                add<Entity2D>("test");
-                get("test")->get<Sprite>()->texture = "player";
+                const int spritesPerRow = 192;
+                const int spriteSize = 16;
+                const int verticalStep = 4;
+
+                for (int i = 0; i < 100000; i++)
+                {
+                    string name = "test" + to_string(i);
+
+                    add<Entity2D>(name);
+
+                    auto sprite = get(name)->get<Sprite>();
+                    sprite->texture = "player";
+
+                    int col = i % spritesPerRow;
+                    int row = i / spritesPerRow;
+
+                    sprite->x = col * spriteSize;
+                    sprite->y = row * verticalStep;
+
+                    hub::screen->upload(sprite);
+                }
+
 
                 //...
             }

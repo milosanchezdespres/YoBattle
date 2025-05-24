@@ -2,6 +2,7 @@
 
 #include "raylib.h"
 #include "rlgl.h"
+#include <GL/gl.h>
 
 #include <cassert>
 #include <cstring>

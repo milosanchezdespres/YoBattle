@@ -23,6 +23,8 @@ namespace retrocs
                     width = GetMonitorWidth(0);
                     height = GetMonitorHeight(0);
 
+                    //SetConfigFlags(FLAG_VSYNC_HINT);
+
                     InitWindow(width, height, title.c_str());
                     SetWindowState(FLAG_FULLSCREEN_MODE);
                 }
@@ -31,7 +33,7 @@ namespace retrocs
                     InitWindow(width, height, title.c_str());
                 }
 
-                SetTargetFPS(60);
+                //SetTargetFPS(60);
                 HideCursor();
 
                 width = GetMonitorWidth(0);
@@ -60,7 +62,7 @@ namespace retrocs
 
                     logic->update();
 
-                    logic->draw(data->background_color);
+                    logic->draw(data);
                 }
 
                 if(logic->scene != nullptr) logic->scene->exit();

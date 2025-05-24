@@ -46,13 +46,13 @@ namespace retrocs
             {
                 auto it = resources_by_names.find(_name);
                 if (it == resources_by_names.end()) {
-                    std::cout << "Resource not found: " << _name << std::endl;
+                    std::cout << "Resource not found: <" << _name << ">" << std::endl;
                     return nullptr;
                 }
 
                 int index = it->second;
                 if (index < 0 || index >= resources.size()) {
-                    std::cout << "Invalid resource index: " << index << std::endl;
+                    std::cout << "Invalid resource index: <" << index << ">" << std::endl;
                     return nullptr;
                 }
 

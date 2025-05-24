@@ -8,6 +8,7 @@ namespace retrocs
     {
         struct raw_screen_data
         {
+            char texture[512]; 
             float x, y;
             float w, h;
 
