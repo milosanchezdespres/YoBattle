@@ -2,6 +2,8 @@
 
 #include "../../Utils/Utils.h"
 
+#include "SimpleCamera.h"
+
 namespace retrocs
 {
     namespace window
@@ -51,7 +53,7 @@ namespace retrocs
                 //data->load<button>("cancel", "KEY_R;GAMEPAD_BUTTON_LEFT_FACE_DOWN");
             }
 
-            void update(BaseGameData* data, GameLogic* logic)
+            void update(SimpleCamera* camera, BaseGameData* data, GameLogic* logic)
             {
                 while (!WindowShouldClose())
                 {
@@ -61,8 +63,9 @@ namespace retrocs
                     data->delta = GetFrameTime();
 
                     logic->update();
+                    camera->update(data);
 
-                    logic->draw(data);
+                    logic->draw(camera, data);
                 }
 
                 if(logic->scene != nullptr) logic->scene->exit();

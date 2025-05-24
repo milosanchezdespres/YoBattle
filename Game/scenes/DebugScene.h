@@ -19,8 +19,10 @@ namespace yokard
                 hub::data->load<texture>("player");
                 //...
 
+                hub::camera->zoom = 4;
+
                 const int spritesPerRow = 192;
-                const int spriteSize = 16;
+                const int spriteSize = 192;
                 const int verticalStep = 4;
 
                 for (int i = 0; i < 50000; i++)
@@ -38,7 +40,7 @@ namespace yokard
                     sprite->x = col * spriteSize;
                     sprite->y = row * verticalStep;
 
-                    hub::screen->upload(sprite);
+                    hub::screen->upload(hub::camera, sprite);
                 }
 
 

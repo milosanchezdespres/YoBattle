@@ -2,6 +2,7 @@
 
 #include "../../Utils/Utils.h"
 #include "../../ECS/ECS.h"
+#include "../../Window/includes/SimpleCamera.h"
 
 namespace retrocs
 {
@@ -25,7 +26,7 @@ namespace retrocs
                 scene = nullptr;
             }
 
-            void upload(Component* component)
+            void upload(SimpleCamera* camera, Component* component)
             {
                 raw_screen_data* raw_data = component->raw();
                 const std::string& key = raw_data->texture;
@@ -100,7 +101,7 @@ namespace retrocs
                 //scenes systems...
             }
 
-            void draw(BaseGameData* data)
+            void draw(SimpleCamera* camera, BaseGameData* data)
             {
                 ::BeginDrawing();
                 ::ClearBackground(data->background_color);
@@ -129,17 +130,20 @@ namespace retrocs
                                 float w = data->w;
                                 float h = data->h;
 
-                                ::rlTexCoord2f(0.0f, 0.0f);
-                                ::rlVertex3f(x, y, 0);
+                                if(camera->apply(x, y, w, h))
+                                {
+                                    ::rlTexCoord2f(0.0f, 0.0f);
+                                    ::rlVertex3f(x, y, 0);
 
-                                ::rlTexCoord2f(0.0f, 1.0f);
-                                ::rlVertex3f(x, y + h, 0);
+                                    ::rlTexCoord2f(0.0f, 1.0f);
+                                    ::rlVertex3f(x, y + h, 0);
 
-                                ::rlTexCoord2f(1.0f, 1.0f);
-                                ::rlVertex3f(x + w, y + h, 0);
+                                    ::rlTexCoord2f(1.0f, 1.0f);
+                                    ::rlVertex3f(x + w, y + h, 0);
 
-                                ::rlTexCoord2f(1.0f, 0.0f);
-                                ::rlVertex3f(x + w, y, 0);
+                                    ::rlTexCoord2f(1.0f, 0.0f);
+                                    ::rlVertex3f(x + w, y, 0);
+                                }
                             }
 
                             ::rlEnd();
