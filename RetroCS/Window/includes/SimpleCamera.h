@@ -43,7 +43,7 @@ namespace retrocs
                 mode = 0;
                 
                 lerp_speed = 5.0f;
-                move_speed = 4;
+                move_speed = 1.5f;
 
                 zoom = 1;
                 x = 0;
@@ -89,16 +89,51 @@ namespace retrocs
                 target_y = nullptr;
             }
 
-            bool apply(float& screen_x, float& screen_y, float& obj_width, float& obj_height)
+            bool apply(int texture_width, int texture_height, float& screen_x, float& screen_y, float& obj_width, float& obj_height, 
+                int tile_index, Vector4& rect)
             {
-                obj_width *= zoom;
-                obj_height *= zoom;
+                if(tile_index == -1)
+                {
+                    obj_width *= zoom;
+                    obj_height *= zoom;
 
-                float X = screen_x;
-                float Y = screen_y;
+                    float X = screen_x;
+                    float Y = screen_y;
 
-                screen_x = (X - viewport->x) * zoom - obj_width / 2.0f;
-                screen_y = (Y - viewport->y) * zoom - obj_height / 2.0f;
+                    screen_x = (X - viewport->x) * zoom - obj_width / 2.0f;
+                    screen_y = (Y - viewport->y) * zoom - obj_height / 2.0f;
+                }
+                else
+                {
+                    int tile_size = obj_width;
+                    int tiles_per_row = texture_width / tile_size;
+
+                    float source_width = tile_size;
+                    float source_height = tile_size;
+
+                    float destination_width = zoom * source_width;
+                    float destination_height = zoom * source_height;
+
+                    float orig_screen_x = screen_x;
+                    float orig_screen_y = screen_y;
+
+                    // Get screen position WITHOUT zoom, then apply zoom *only* on size and offset
+                    screen_x = (int)(world_to_screen(orig_screen_x, orig_screen_y).x) - destination_width / 2;
+                    screen_y = (int)(world_to_screen(orig_screen_x, orig_screen_y).y) - destination_height / 2;
+
+                    float source_x = (tile_index % tiles_per_row) * source_width;
+                    float source_y = (tile_index / tiles_per_row) * source_height;
+
+                    obj_width = destination_width;
+                    obj_height = destination_height;
+
+                    rect = {
+                        source_x / texture_width,
+                        source_y / texture_height,
+                        (source_x + source_width) / texture_width,
+                        (source_y + source_height) / texture_height
+                    };
+                }
 
                 return is_within_bounds(screen_x, screen_y, obj_width, obj_height);
             }

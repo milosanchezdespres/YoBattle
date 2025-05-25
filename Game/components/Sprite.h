@@ -37,6 +37,8 @@ namespace yokard
                 ___screen_data->w = tile_size;
                 ___screen_data->h = tile_size;
 
+                ___screen_data->tile_index = tile_index;
+
                 if(tile_index == -1)
                 {
                     ___screen_data->w = hub::data->get<::texture>(texture)->data->width;

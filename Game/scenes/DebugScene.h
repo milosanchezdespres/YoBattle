@@ -22,14 +22,16 @@ namespace yokard
                 hub::camera->zoom = 4;
 
                 const int spritesPerRow = 192;
-                const int spriteSize = 192;
-                const int verticalStep = 4;
+                const int spriteSize = 16;
+                const int verticalStep = 16;
 
-                for (int i = 0; i < 50000; i++)
+                for (int i = 0; i < 250000; i++)
                 {
                     string name = "test" + to_string(i);
 
                     add<Entity2D>(name);
+                    get(name)->get<Sprite>()->tile_size = 16;
+                    get(name)->get<Sprite>()->tile_index = 0;
 
                     auto sprite = get(name)->get<Sprite>();
                     sprite->texture = "player";

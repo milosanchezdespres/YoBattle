@@ -12,9 +12,10 @@ namespace retrocs
 
         struct GameLogic
         {
+            Vector4 dest_rect;
             unordered_map<string, vector<drawable*>> batches;
             unordered_map<string, unordered_set<drawable*>> batchesSet;
-            std::unordered_map<drawable*, std::string> reverseLookup;
+            unordered_map<drawable*, std::string> reverseLookup;
 
             Scene* scene;
 
@@ -22,6 +23,8 @@ namespace retrocs
             {
                 if (___window__logic_initialized) { throw std::runtime_error("GameData already initialized"); }
                 else { ___window__logic_initialized = true; }
+
+                dest_rect = {0, 0, 0, 0};
 
                 scene = nullptr;
             }
@@ -123,26 +126,36 @@ namespace retrocs
 
                             for (drawable* comp : vec)
                             {
-                                raw_screen_data* data = comp->raw();
+                                raw_screen_data* raw_data = comp->raw();
 
-                                float x = data->x;
-                                float y = data->y;
-                                float w = data->w;
-                                float h = data->h;
+                                float x = raw_data->x;
+                                float y = raw_data->y;
+                                float w = raw_data->w;
+                                float h = raw_data->h;
 
-                                if(camera->apply(x, y, w, h))
+                                if(camera->apply(texture->width, texture->height, x, y, w, h, raw_data->tile_index, dest_rect))
                                 {
-                                    ::rlTexCoord2f(0.0f, 0.0f);
-                                    ::rlVertex3f(x, y, 0);
+                                    if(raw_data->tile_index > -1)
+                                    {
+                                        ::rlTexCoord2f(dest_rect.x, dest_rect.y);  ::rlVertex3f(x, y, 0);
+                                        ::rlTexCoord2f(dest_rect.x, dest_rect.w);  ::rlVertex3f(x, y + h, 0);
+                                        ::rlTexCoord2f(dest_rect.z, dest_rect.w);  ::rlVertex3f(x + w, y + h, 0);
+                                        ::rlTexCoord2f(dest_rect.z, dest_rect.y);  ::rlVertex3f(x + w, y, 0);
+                                    }
+                                    else
+                                    {
+                                        ::rlTexCoord2f(0.0f, 0.0f);
+                                        ::rlVertex3f(x, y, 0);
 
-                                    ::rlTexCoord2f(0.0f, 1.0f);
-                                    ::rlVertex3f(x, y + h, 0);
+                                        ::rlTexCoord2f(0.0f, 1.0f);
+                                        ::rlVertex3f(x, y + h, 0);
 
-                                    ::rlTexCoord2f(1.0f, 1.0f);
-                                    ::rlVertex3f(x + w, y + h, 0);
+                                        ::rlTexCoord2f(1.0f, 1.0f);
+                                        ::rlVertex3f(x + w, y + h, 0);
 
-                                    ::rlTexCoord2f(1.0f, 0.0f);
-                                    ::rlVertex3f(x + w, y, 0);
+                                        ::rlTexCoord2f(1.0f, 0.0f);
+                                        ::rlVertex3f(x + w, y, 0);
+                                    }
                                 }
                             }
 

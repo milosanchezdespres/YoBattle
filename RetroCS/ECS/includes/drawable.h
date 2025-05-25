@@ -12,12 +12,15 @@ namespace retrocs
             float x, y;
             float w, h;
 
+            int tile_index;
+
             raw_screen_data()
             {
                 x = 0;
                 y = 0;
                 w = 0;
                 h = 0;
+                tile_index = -1;
             }
         };
 
@@ -33,6 +36,7 @@ namespace retrocs
                 ___screen_data->y = 0;
                 ___screen_data->w = 0;
                 ___screen_data->h = 0;
+                ___screen_data->tile_index = 0;
 
                 _on_raw_conversion();
 

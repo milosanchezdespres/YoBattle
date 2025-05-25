@@ -35,7 +35,6 @@ namespace retrocs
                     InitWindow(width, height, title.c_str());
                 }
 
-                SetTargetFPS(60);
                 HideCursor();
 
                 width = GetMonitorWidth(0);
