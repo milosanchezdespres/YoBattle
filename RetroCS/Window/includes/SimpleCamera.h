@@ -30,8 +30,8 @@ namespace retrocs
             float zoom;
             float x, y;
 
-            float move_speed;
-            float lerp_speed;
+            float speed;
+            float lerp;
 
             float* target_x;
             float* target_y;
@@ -42,8 +42,8 @@ namespace retrocs
             {
                 mode = 0;
                 
-                lerp_speed = 5.0f;
-                move_speed = 1.5f;
+                lerp = 5.0f;
+                speed = 1.5f;
 
                 zoom = 1;
                 x = 0;
@@ -175,8 +175,8 @@ namespace retrocs
                 float targetViewportX = *target_x - viewport->width / 2;
                 float targetViewportY = *target_y - viewport->height / 2;
 
-                viewport->x = __lerp(viewport->x, targetViewportX, lerp_speed * delta);
-                viewport->y = __lerp(viewport->y, targetViewportY, lerp_speed * delta);
+                viewport->x = __lerp(viewport->x, targetViewportX, lerp * delta);
+                viewport->y = __lerp(viewport->y, targetViewportY, lerp * delta);
             }
 
             void __free_mode(BaseGameData* data)
@@ -187,10 +187,10 @@ namespace retrocs
                 viewport->x = x - viewport->width / 2;
                 viewport->y = y - viewport->height / 2;
 
-                if (data->get<retrocs::window::button>("up")->is_down()) y -= (move_speed * 100) * data->delta;
-                if (data->get<retrocs::window::button>("down")->is_down()) y += (move_speed * 100) * data->delta;
-                if (data->get<retrocs::window::button>("left")->is_down()) x -= (move_speed * 100) * data->delta;
-                if (data->get<retrocs::window::button>("right")->is_down()) x += (move_speed * 100) * data->delta;
+                if (data->get<retrocs::window::button>("up")->is_down()) y -= (speed * 100) * data->delta;
+                if (data->get<retrocs::window::button>("down")->is_down()) y += (speed * 100) * data->delta;
+                if (data->get<retrocs::window::button>("left")->is_down()) x -= (speed * 100) * data->delta;
+                if (data->get<retrocs::window::button>("right")->is_down()) x += (speed * 100) * data->delta;
             }
         };
     }

@@ -20,6 +20,7 @@ namespace yokard
                 //...
 
                 hub::camera->zoom = 4;
+                hub::camera->speed = 2.5f;
 
                 const int spritesPerRow = 192;
                 const int spriteSize = 16;
