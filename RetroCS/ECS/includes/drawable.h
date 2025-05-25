@@ -14,6 +14,8 @@ namespace retrocs
 
             int tile_index;
 
+            bool in_bound;
+
             raw_screen_data()
             {
                 x = 0;
@@ -21,7 +23,11 @@ namespace retrocs
                 w = 0;
                 h = 0;
                 tile_index = -1;
+
+                in_bound = false;
             }
+
+            bool emit_in_bound_signal() { return in_bound; }
         };
 
         struct drawable : public object

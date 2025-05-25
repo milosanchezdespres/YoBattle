@@ -16,6 +16,8 @@ namespace retrocs
             unordered_map<string, vector<drawable*>> batches;
             unordered_map<string, unordered_set<drawable*>> batchesSet;
             unordered_map<drawable*, std::string> reverseLookup;
+            
+            vector<Entity*> visible_entities;
 
             Scene* scene;
 
@@ -102,6 +104,10 @@ namespace retrocs
                 //...
                 //entity states....
                 //scenes systems...
+
+                visible_entities.clear();
+                for (Entity* entity : *scene)  { if (entity->is_in_bound()) visible_entities.push_back(entity); }
+                for(auto* entity : visible_entities) { if(entity->is_in_bound()) entity->states->update(); }
             }
 
             void draw(SimpleCamera* camera, BaseGameData* data)
@@ -133,7 +139,10 @@ namespace retrocs
                                 float w = raw_data->w;
                                 float h = raw_data->h;
 
-                                if(camera->apply(texture->width, texture->height, x, y, w, h, raw_data->tile_index, dest_rect))
+                                comp->___screen_data->in_bound = camera->apply(texture->width, texture->height, x, y, w, h, raw_data->tile_index, dest_rect);
+                                bool in_bound = comp->___screen_data->in_bound;
+
+                                if(in_bound)
                                 {
                                     if(raw_data->tile_index > -1)
                                     {

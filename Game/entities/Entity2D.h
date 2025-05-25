@@ -15,6 +15,7 @@ namespace yokard
             void _on_init() override
             {
                 add<Sprite>();
+                main_drawable_name = "sprite";
 
                 //...
             }
