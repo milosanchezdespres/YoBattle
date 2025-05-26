@@ -9,7 +9,7 @@ int main()
     int id3 = screen_space.spawn_at(28, 22);
 
     screen_space.remove(id2);
-    screen_space.update(id3, 42, 50);
+    id2 = screen_space.spawn_at(8, 3);
 
     debug(id);
     debug(screen_space.tile(id));
@@ -25,6 +25,14 @@ int main()
     debug(screen_space.tile(id3));
     debug(screen_space.entity_id_at(28, 22));
     debug(".................................................");
+
+    screen_space.update(id3, 42, 50);
+
+    debug(id3);
+    debug(screen_space.tile(id3));
+    debug(screen_space.entity_id_at(42, 50));
+    debug(".................................................");
+    debug(screen_space.entity_id_at(28, 22));
 
     return 0;
 }

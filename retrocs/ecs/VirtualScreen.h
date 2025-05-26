@@ -20,13 +20,34 @@ namespace retrocs
                 //...
             }
 
-            void update(int id, int newi, int newj)
+            bool update(int id, const cell& _new_cell)
             {
-                if(has(id) && is_valid(id))
+                auto it = screen_space.find(hash_id(_new_cell));
+                bool item_found = it != screen_space.end();
+
+                int occupied_id = -1;
+                if(item_found) occupied_id = it->second;
+                if(!is_valid(occupied_id)) occupied_id = -1;
+
+                if(occupied_id == -1 && has(id) && is_valid(id))
                 {
-                    //...
+                    screen_space[hash_id(tile(id))] = -1;
+
+                    if(!item_found) coordinates.push_back(_new_cell);
+
+                    coordinates[id] = _new_cell;
+                    screen_space[hash_id(_new_cell)] = id;
+
+                    if(!item_found) validity.push_back(true);
+                    else validity[id] = true;
+
+                    return true;
                 }
+
+                return false;
             }
+
+            bool update(int id, const int& newi, const int& newj) { return update(id, {newi, newj}); }
 
             int entity_id_at(const cell& _cell)
             {
@@ -47,12 +68,26 @@ namespace retrocs
                 auto it = screen_space.find(hash_id(_cell));
                 bool item_found = it != screen_space.end();
 
-                if(!item_found)
+                int id = -1;
+                if(item_found) id = it->second;
+
+                bool found_unvalid_slot = item_found && !is_valid(id);
+                bool can_spawn = !item_found || found_unvalid_slot;
+
+                if(can_spawn)
                 {
-                    coordinates.push_back(_cell);
-                    screen_space[hash_id(_cell)] = coordinates.size() - 1;
-                    validity.push_back(true);
-                    return coordinates.size() - 1;
+                    if(!item_found)
+                    {
+                        coordinates.push_back(_cell);
+                        id = coordinates.size() - 1;
+                    }
+
+                    screen_space[hash_id(_cell)] = id;
+                    
+                    if(!item_found) validity.push_back(true);
+                    else validity[id] = true;
+
+                    return id;
                 }
 
                 return -1;
