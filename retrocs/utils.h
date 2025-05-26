@@ -11,6 +11,7 @@
 namespace std
 {
     struct cell { int i, j; };// cell() : i(0), j(0) {} cell(int _i, int _j) : i(_i), j(_j) {} 
+    const cell INVALID_CELL = { -999999, -999999 };
 
     inline string debug(string value) { cout << "  << " + value  + " >>  " << endl << endl; return value; }
     inline string debug(float value) { return debug(to_string(value)); }

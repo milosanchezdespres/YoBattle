@@ -32,14 +32,9 @@ namespace retrocs
                 if(occupied_id == -1 && has(id) && is_valid(id))
                 {
                     screen_space[hash_id(tile(id))] = -1;
-
-                    if(!item_found) coordinates.push_back(_new_cell);
-
                     coordinates[id] = _new_cell;
                     screen_space[hash_id(_new_cell)] = id;
-
-                    if(!item_found) validity.push_back(true);
-                    else validity[id] = true;
+                    validity[id] = true;
 
                     return true;
                 }
@@ -60,7 +55,7 @@ namespace retrocs
             cell tile(int id)
             {
                 if(has(id) && is_valid(id)) return coordinates[id];
-                return {-999999, -999999};
+                return INVALID_CELL;
             }
 
             int spawn_at(const cell& _cell)
@@ -110,7 +105,7 @@ namespace retrocs
                 {
                     int id = it->second;
                     
-                    validity[id] = !is_valid(id);
+                    validity[id] = false;
                 }
             }
 
@@ -132,7 +127,7 @@ namespace retrocs
 
             bool is_occupied(const int& i, const int& j) { return is_occupied({i, j}); }
 
-            bool is_valid(int id) { return validity[id]; }
+            bool is_valid(int id) { return has(id) && validity[id]; }
 
             bool has(int id) { return id >= 0 && id < coordinates.size(); }
 
