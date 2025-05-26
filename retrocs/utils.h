@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <deque>
 #include <unordered_map>
 #include <cstdint>
 #include <type_traits>

@@ -11,6 +11,7 @@ namespace retrocs
             unordered_map<size_t, int> screen_space;
             vector<cell> coordinates;
             vector<bool> validity;
+            deque<int> free_ids;
 
             VirtualScreen()
             {
@@ -75,19 +76,31 @@ namespace retrocs
                 bool found_unvalid_slot = item_found && !is_valid(id);
                 bool can_spawn = !item_found || found_unvalid_slot;
 
-                if(can_spawn)
+                if (can_spawn)
                 {
-                    if(!item_found)
+                    if (!item_found)
                     {
-                        coordinates.push_back(_cell);
-                        id = coordinates.size() - 1;
+                        if (!free_ids.empty()) 
+                        {
+                            id = free_ids.front();
+                            free_ids.pop_front();
+                            coordinates[id] = _cell;
+                            validity[id] = true;
+                        } 
+                        else 
+                        {
+                            coordinates.push_back(_cell);
+                            validity.push_back(true);
+                            id = coordinates.size() - 1;
+                        }
+                    }
+                    else
+                    {
+                        coordinates[id] = _cell;
+                        validity[id] = true;
                     }
 
                     screen_space[hash_id(_cell)] = id;
-                    
-                    if(!item_found) validity.push_back(true);
-                    else validity[id] = true;
-
                     return id;
                 }
 
@@ -112,6 +125,8 @@ namespace retrocs
                     int id = it->second;
                     
                     validity[id] = false;
+
+                    free_ids.push_back(id);
                 }
             }
 
@@ -126,7 +141,7 @@ namespace retrocs
                 {
                     int id = it->second;
 
-                    return is_valid(it->second);
+                    return is_valid(id);
                 }
                 else return false;
             }
