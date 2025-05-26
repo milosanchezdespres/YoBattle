@@ -10,12 +10,24 @@
 #include <cstdint>
 #include <type_traits>
 #include <utility>
+#include <algorithm> 
 
 namespace std
 {
+    struct pos { float x, y; };
     struct cell { int i, j; };// cell() : i(0), j(0) {} cell(int _i, int _j) : i(_i), j(_j) {} 
     const cell INVALID_CELL = { -999999, -999999 };
     const int ALLOWED_ENTITY_MAX = 1'000'000;
+
+    const int SCREEN_WIDTH = 480;
+    const int SCREEN_HEIGHT = 320;
+    const int TILE_SIZE = 16;
+
+    inline const pos TO_POS(cell _cell) { return pos({(float) _cell.i * TILE_SIZE, (float) _cell.j * TILE_SIZE}); }
+    inline const pos TO_POS(int i, int j) { return TO_POS(cell({i, j})); }
+
+    inline const cell TO_CELL(pos _pos) { return cell({(int)(_pos.x / TILE_SIZE), (int)(_pos.y / TILE_SIZE)}); }
+    inline const cell TO_CELL(float x, float y) { return TO_CELL(pos({x, y})); }
 
     inline string debug(string value) { cout << "  << " + value  + " >>  " << endl << endl; return value; }
     inline string debug(float value) { return debug(to_string(value)); }

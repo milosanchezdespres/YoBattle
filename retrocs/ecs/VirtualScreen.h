@@ -10,6 +10,9 @@ namespace retrocs
         {
             unordered_map<size_t, int> screen_space;
             vector<cell> coordinates;
+
+            vector<int> in_bounds_ids;
+
             vector<bool> validity;
             deque<int> free_ids;
 
@@ -42,6 +45,15 @@ namespace retrocs
                     coordinates[id] = _new_cell;
                     screen_space[hash_id(_new_cell)] = id;
                     validity[id] = true;
+
+                    
+                    auto it_inbounds = find(in_bounds_ids.begin(), in_bounds_ids.end(), id);
+
+                    bool new_cell_in_bounds = in_bounds(TO_POS(_new_cell));/*LATER : OBJ SIZE*/ 
+                    bool already_in_bounds_array = it_inbounds != in_bounds_ids.end();
+
+                    if(new_cell_in_bounds) { if(!already_in_bounds_array)  in_bounds_ids.push_back(id); }
+                    else { if(already_in_bounds_array) in_bounds_ids.erase(it_inbounds); }
 
                     return true;
                 }
@@ -101,6 +113,9 @@ namespace retrocs
                     }
 
                     screen_space[hash_id(_cell)] = id;
+                    
+                    if(in_bounds(TO_POS(_cell)))/*LATER : OBJ SIZE*/ { in_bounds_ids.push_back(id); }
+
                     return id;
                 }
 
@@ -152,6 +167,15 @@ namespace retrocs
 
             bool has(int id) { return id >= 0 && id < coordinates.size(); }
 
+            bool in_bounds(pos _pos, int obj_width = 1, int obj_height = 1)
+            {
+                return _pos.x >= 0 && _pos.y >= 0 &&
+                    _pos.x + obj_width <= SCREEN_WIDTH &&
+                    _pos.y + obj_height <= SCREEN_HEIGHT;
+            }
+
+            bool in_bounds(float x, float y, int obj_width = 1, int obj_height = 1)
+            { return in_bounds(pos({x, y}), obj_width, obj_height); }
         };
     }
 }
