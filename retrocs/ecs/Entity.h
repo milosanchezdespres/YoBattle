@@ -13,6 +13,13 @@ namespace retrocs
 
             Entity(int _id) : View<Entity>(_id) { transform_view = Transform(); transform_view.id = id; }
 
+            void update()
+            {
+                //.....
+                ///STATE MACHINE///
+                //...
+            }
+
             void place(VirtualScreen& screen_space, float x, float y)
             {
                 transform_view.x() = x;

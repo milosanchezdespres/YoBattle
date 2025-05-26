@@ -2,7 +2,7 @@
 
 int main()
 {
-    Scene scene;
+    BaseScene scene;
     VirtualScreen& screen = scene.screen_space;
 
     Entity entity1 = scene.spawn<Entity>({7, 2});
