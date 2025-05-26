@@ -32,6 +32,13 @@ namespace retrocs
                 if(occupied_id == -1 && has(id) && is_valid(id))
                 {
                     screen_space[hash_id(tile(id))] = -1;
+
+                    if (id >= coordinates.size())
+                    {
+                        coordinates.resize(id + 1);
+                        validity.resize(id + 1);
+                    }
+
                     coordinates[id] = _new_cell;
                     screen_space[hash_id(_new_cell)] = id;
                     validity[id] = true;
