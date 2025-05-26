@@ -27,16 +27,26 @@ namespace retrocs
                 else return Entity(-1);
             }
 
-            void remove_at(const cell& _cell)
+            void remove_at(const int& i, const int& j)
             {
+                screen_space.remove_at({i, j});
+
+                //remove custom component data....
+
                 //...
             }
 
-            void remove_at(const int& i, const int& j) { remove_at({i, j}); }
+            void remove_at(const cell& _cell) { remove_at(_cell.i, _cell.j); }
 
             void remove(int id)
             {
-                //...
+                if (!screen_space.is_valid(id))
+                    return;
+
+                cell _cell = screen_space.tile(id);
+                screen_space.remove_at(_cell);
+
+                //remove custom component data....
             }
 
             template<typename T>
@@ -57,6 +67,9 @@ namespace retrocs
 
             template<typename T>
             T get_at(const int& i, const int& j) { return get_at<T>({i, j}); }
+
+            CellIterator begin() const { return CellIterator(screen_space.coordinates, screen_space.validity, 0); }
+            CellIterator end() const { return CellIterator(screen_space.coordinates, screen_space.validity, screen_space.coordinates.size()); }
         };
     }
 }
