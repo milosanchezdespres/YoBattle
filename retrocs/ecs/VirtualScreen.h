@@ -2,9 +2,6 @@
 
 #include "../utils.h"
 
-#include "Component.h"
-#include "Entity.h"
-
 namespace retrocs
 {
     namespace ecs

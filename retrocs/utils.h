@@ -7,6 +7,8 @@
 #include <vector>
 #include <unordered_map>
 #include <cstdint>
+#include <type_traits>
+#include <utility>
 
 namespace std
 {

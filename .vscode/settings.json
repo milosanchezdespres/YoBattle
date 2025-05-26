@@ -61,6 +61,7 @@
         "fstream": "cpp",
         "filesystem": "cpp",
         "unordered_set": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "transform": "cpp"
     }
 }
