@@ -14,6 +14,8 @@ namespace retrocs
 
             BaseScene() { screen_space = VirtualScreen(); }
 
+            const vector<int>& in_bounds() { return screen_space.in_bounds_ids; }
+
             template<typename T, typename... Args>
             const T spawn(const cell& _cell, Args&&... args)
             {

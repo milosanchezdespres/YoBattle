@@ -59,8 +59,7 @@ namespace retrocs
 
                     return true;
                 }
-
-                return false;
+                else { return false; }
             }
 
             bool update(int id, const int& newi, const int& newj) { return update(id, {newi, newj}); }
