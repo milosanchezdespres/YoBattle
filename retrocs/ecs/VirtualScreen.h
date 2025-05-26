@@ -13,11 +13,13 @@ namespace retrocs
         {
             unordered_map<size_t, int> screen_space;
             vector<cell> coordinates;
-            vector<int> validity;
+            vector<bool> validity;
 
             VirtualScreen()
             {
-                //...
+                screen_space.reserve(ALLOWED_ENTITY_MAX);
+                coordinates.reserve(ALLOWED_ENTITY_MAX);
+                validity.reserve(ALLOWED_ENTITY_MAX);
             }
 
             bool update(int id, const cell& _new_cell)
