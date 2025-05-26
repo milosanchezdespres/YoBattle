@@ -23,7 +23,7 @@ namespace retrocs
                 if(_id != -1 && coordinates != nullptr)
                 {
                     id = _id;
-                    coordinates = &screen_space.coordinates;
+                    populate_data(screen_space);
                     return true;
                 }
 
